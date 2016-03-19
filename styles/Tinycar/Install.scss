@@ -1,0 +1,11 @@
+div#install-failure {
+
+	margin: 100px auto 100px auto;
+	padding: 25px 30px 30px 30px;
+	max-width: 400px;
+	min-height: 50px;
+	background-color: $main-failure-background;
+	color: $main-failure-color;
+	line-height: 1.7em;
+	
+}

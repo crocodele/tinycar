@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+	
+	<app>
+		<name>Dashboard</name>
+		<provider>Tinycar</provider>
+		<description>Default home application</description>
+		<color>#515882</color>
+	</app>
+	
+	<view>
+		<heading>$app.name</heading>
+		<component type="IconListView">
+			<data service="applications" />
+		</component>
+	</view>
+	
+</manifest>

@@ -1,0 +1,141 @@
+
+/** Main text **/
+
+$main-font-source: '//fonts.googleapis.com/css?family=Roboto:300,400';
+$main-font-family: "Roboto", "Arial", sans-serif;
+$main-font-color: #000000;
+
+
+/** Field styles **/
+
+$field-label-color: #535353;
+$field-instructions-color: #333333;
+$field-border-color: #dcdddf;
+$field-placeholder-color: #666666;
+
+
+/** Main UI colors **/
+
+$main-hover-background: #eeeeee;
+$main-active-background: #dddede;
+$main-color-background: #f6f7f7;
+$main-color-uigray: #dcdddf;
+$main-color-details: #666666;
+$main-color-info: #999999;
+
+
+/** State colors **/
+
+$main-failure-background: #dc8d35;
+$main-failure-color: #ffffff;
+$main-success-background: #90af32;
+$main-success-color: #ffffff;
+
+/** Dimensions **/
+
+$view-tablet-width: 800px;
+
+
+/** Mixins **/
+
+@mixin appearance($value) {
+	
+ 	appearance: $value;
+	-moz-appearance: $value;
+	-webkit-appearance:$value;
+
+}
+
+@mixin border-radius($value) {
+
+	border-radius: $value;
+	-moz-border-radius: $value;
+	-ms-border-radius: $value;
+	-webkit-border-radius: $value;
+     
+}
+
+@mixin box-shadow($value) {
+
+	box-shadow: $value;
+	-moz-box-shadow: $value;
+	-ms-box-shadow: $value;
+	-webkit-box-shadow: $value;
+     
+}
+
+@mixin transform($value) {
+
+	transform: $value;
+	-moz-transform: $value;
+	-ms-transform: $value;
+	-webkit-transform: $value;
+     
+}
+
+@mixin transition($value) {
+
+	transition: $value;
+	-moz-transition: $value;
+	-ms-transition: $value;
+	-webkit-transition: $value;
+     
+}
+
+@mixin transition-attr($value) {
+
+	transition: $value;
+	-moz-transition: -moz-$value;
+	-ms-transition: -ms-$value;
+	-webkit-transition: -webkit-$value;
+     
+}
+
+@mixin unselectable() {
+
+	user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+     
+}
+
+
+/** Import custom font **/
+
+@import url($main-font-source);
+
+
+/** Get custom styles **/
+
+@import "Tinycar/App.scss";
+@import "Tinycar/Icon.scss";
+@import "Tinycar/Install.scss";
+@import "Tinycar/Main/Component.scss";
+@import "Tinycar/Main/Field.scss";
+@import "Tinycar/Main/Mask.scss";
+@import "Tinycar/Main/Sidebar.scss";
+@import "Tinycar/Main/Toast.scss";
+@import "Tinycar/Ui/Button.scss";
+@import "Tinycar/Ui/Dialog.scss";
+@import "Tinycar/Ui/View.scss";
+@import "Tinycar/Ui/Component/Group.scss";
+@import "Tinycar/Ui/Component/CheckBox.scss";
+@import "Tinycar/Ui/Component/DataGrid.scss";
+@import "Tinycar/Ui/Component/DateTime.scss";
+@import "Tinycar/Ui/Component/Password.scss";
+@import "Tinycar/Ui/Component/RadioList.scss";
+@import "Tinycar/Ui/Component/Reference.scss";
+@import "Tinycar/Ui/Component/RichText.scss";
+@import "Tinycar/Ui/Component/SelectList.scss";
+@import "Tinycar/Ui/Component/TagsList.scss";
+@import "Tinycar/Ui/Component/Text.scss";
+@import "Tinycar/Ui/Component/TextContent.scss";
+@import "Tinycar/Ui/Component/TextInput.scss";
+@import "Tinycar/Ui/Component/TileGrid.scss";
+@import "Tinycar/Ui/Component/Toggle.scss";
+@import "Tinycar/Ui/Main/Help.scss";
+@import "Tinycar/Ui/Main/Icon.scss";
+@import "Tinycar/Ui/Sidebar/Action.scss";
+@import "Tinycar/View/Tabs.scss";
+

@@ -1,0 +1,36 @@
+div.tinycar-ui-component-selectlist {
+	
+	> div.type-content {
+	
+		> div.list {
+		
+			position: relative;
+			display: block;
+			float: left;
+			background-color: #ffffff;
+			
+			> span.icon {
+			
+				position: absolute;
+				right: 6px;
+				top: 4px;
+				z-index: 1;
+				
+			}
+			
+			> select {
+			
+				position: relative;
+				padding-right: 37px;
+				background-color: transparent;
+				z-index: 2;
+				@include border-radius(3px);
+				@include appearance(none);
+				
+			}
+			
+		}
+	
+	}
+	
+}

@@ -1,0 +1,243 @@
+div.tinycar-ui-component-datetime {
+	
+	> div.type-content {
+	
+		> div.field {
+		
+			position: relative;
+			max-width: 155px;
+			
+			> button {
+				display: none;
+			}
+			
+			> input {
+			
+				position: relative;
+				padding-right: 40px;
+				z-index: 10;
+				
+			}
+			
+	        > a.tinycar-ui-button {
+	
+				position: absolute;
+				right: 0px;
+				top: 0px;
+				bottom: 0px;
+				margin: 1px;
+				padding: 4px 5px 0px 4px;
+				border-left: 1px solid $field-border-color;
+				z-index: 11;
+				
+			}
+			
+			> span.tinycar-ui-main-help {
+				margin: 3px 0px 0px 6px;
+			}
+			
+			&.has-datetime {
+				max-width: 185px;
+			}
+			
+		}
+		
+		> div.type-instructions {
+			padding: 0px 0px 0px 35px;
+		}
+		
+	}
+	
+}
+
+div.ui-datepicker {
+
+	margin: 1px 0px 0px 0px;
+	padding: 5px 5px 10px 5px;
+	background-color: #ffffff;
+	border: 1px solid darken($main-color-uigray, 20%);
+	color: $main-font-color;
+	overflow: hidden;
+	@include border-radius(3px);
+	@include unselectable();
+	
+	> div.ui-datepicker-header {
+	
+		position: relative;
+		padding: 12px 0px 20px 0px;
+		font-size: 0.85em;
+		text-align: center;
+		
+		> a.ui-datepicker-next,
+		> a.ui-datepicker-prev {
+		
+			position: absolute;
+			display: block;
+			width: 25px;
+			height: 25px;
+			background-image: url(../images/iconmap.svg);
+			background-repeat: no-repeat;
+			background-position: 25px 25px;
+			background-size: auto 25px;
+			cursor: pointer;
+			opacity: 0.5;
+			
+			> span {
+				display: none;
+			}
+			
+			&:hover {
+				opacity: 1.0;
+			}
+			
+			&:active {
+				opacity: 0.5;
+			}
+			
+		}
+		
+		> a.ui-datepicker-next {
+	
+			right: 3px;
+			top: 5px;
+			background-position: -475px 0px;
+			
+		}
+		
+		> a.ui-datepicker-prev {
+		
+			left: 3px;
+			top: 5px;
+			background-position: -450px 0px;
+			
+		}
+	
+		> div.ui-datepicker-title {
+		
+			text-transform: uppercase;
+			cursor: default;
+			
+		}
+		
+	}
+	
+	> table.ui-datepicker-calendar {
+	
+		margin: 0px;
+		padding: 0px;
+		border: none;
+		border-collapse: collapse;
+		
+		> thead {
+		
+			> tr {
+			
+				> th {
+
+					padding: 0px 0px 5px 0px;
+					color: $main-color-info;
+					font-weight: normal;
+					text-align: center;
+					font-size: 0.85em;
+					cursor: default;
+					
+				}
+				
+			}
+		}
+		
+		> tbody {
+		
+			> tr {
+			
+				> td {
+				
+					margin: 0px;
+					padding: 2px;
+					text-align: center;
+					cursor: pointer;
+									
+					> a {
+					
+						display: block;
+						padding: 5px 0px 0px 0px;
+						min-width: 26px;
+						min-height: 26px;
+						border: 1px solid transparent;
+						color: $main-font-color;
+						font-size: 0.85em;
+						cursor: pointer;
+						outline: none;
+						box-sizing: border-box;
+						text-decoration: none;
+						@include border-radius(13px);
+						
+					}
+					
+					&.ui-datepicker-week-col {
+						
+						width: 22px;
+						color: $main-color-info;
+						font-size: 0.8em;
+						cursor: default;
+					
+					}
+					
+					&.ui-datepicker-today > a {
+						background-color: $main-color-uigray;
+					}
+					
+					&.ui-datepicker-current-day > a {
+						background-color: $main-color-uigray;
+					}
+					
+				}
+			
+			}
+		
+		}
+	}
+	
+}
+
+div.tinycar-ui-component-group {
+
+	> div.type-content {
+	
+		overflow: hidden;
+	
+		> div.tinycar-ui-component-datetime {
+		
+			float: left;
+			padding: 0px 15px 0px 0px;
+			
+			&:first-child {
+			
+				> div.type-content {
+				
+					overflow: hidden;
+				
+					> div.field {
+						float: left;
+					}
+					
+					> span.line {
+			
+						display: block;
+						float: left;
+						border-top: 1px solid $field-label-color;
+						margin: 18px 0px 0px 15px;
+						width: 10px;
+						height: 1px;
+						vertical-align: middle;
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+}

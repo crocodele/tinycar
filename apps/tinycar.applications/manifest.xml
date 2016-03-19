@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+	
+	<app>
+		<name>Applications</name>
+		<provider>Tinycar</provider>
+		<description>Manage system applications</description>
+		<color>#687582</color>
+	</app>
+	
+	<locale>
+		<text name="database_use">Database use</text>
+		<text name="devmode">Development mode</text>
+		<text name="devmode_instructions">
+			When enabled, your changes to the manifest 
+			file will be processed on every request.
+		</text>
+		<text name="enabled">Enabled</text>
+		<text name="enabled_instructions">
+			When enabled, application is available 
+			for use.
+		</text>
+		<text name="list_refreshed">List of applications refreshed</text>
+		<text name="provider">Provider</text>
+		<text name="refresh_list">Refresh list</text>
+	</locale>
+	
+	<view>
+		<heading>$app.name</heading>
+		
+		<actions>
+			<action type="refresh" label="$locale.refresh_list" service="refresh">
+				<toast>$locale.list_refreshed</toast>
+				<link view="default" />
+			</action>
+		</actions>
+		
+		<component type="TileGrid">
+			<data service="storage.rows" />
+			<link view="edit" id="$model.id" />
+		</component>
+	</view>
+	
+	<view name="edit" data="$url.id">
+	
+		<heading>$data.name</heading>
+		
+		<actions>
+			<action type="save" />
+		</actions>
+		
+		<component type="Text">
+			<label>$locale.status</label>
+			<data name="status_label" />
+		</component>
+		
+		<component type="Text">
+			<label>$locale.name</label>
+			<data name="name" />
+		</component>
+		
+		<component type="Text">
+			<label>$locale.provider</label>
+			<data name="provider" />
+		</component>
+		
+		<component type="Text">
+			<label>$locale.description</label>
+			<placeholder>$locale.none</placeholder>
+			<data name="description" />
+		</component>
+		
+		<component type="Text">
+			<label>$locale.database_use</label>
+			<data default="$data.has_storage" format="yesno" />
+		</component>
+		
+		<component type="Toggle">
+			<label>$locale.enabled</label>
+			<enabled>!$data.is_system</enabled>
+			<data name="enabled" />
+			<instructions>$locale.enabled_instructions</instructions>
+		</component>
+		
+		<component type="Toggle">
+			<label>$locale.devmode</label>
+			<data name="devmode" />
+			<instructions>$locale.devmode_instructions</instructions>
+		</component>
+		
+	</view>
+	
+</manifest>

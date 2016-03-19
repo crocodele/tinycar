@@ -1,0 +1,53 @@
+div.tinycar-ui-component-reference {
+	
+	> div.type-content {
+	
+		> div.list {
+
+			overflow: hidden;
+		
+			> div.item {
+			
+				position: relative;
+				float: left;
+				clear: both;
+				margin: 4px 0px 4px 0px;
+				padding: 0px 30px 0px 0px;
+				cursor: default;
+				font-size: 0.95em;
+				line-height: 1.7em;
+				
+				> a.close {
+				
+					position: absolute;
+					right: 0px;
+					top: 0px;
+					display: block;
+					width: 20px;
+					height: 20px;
+					border: 1px solid $main-color-uigray;
+					cursor: pointer;
+					@include border-radius(2px);
+					@include unselectable();
+					
+					&:focus,
+					&:hover {
+						background-color: #ffffff;
+					}
+					
+					&:active {
+						background-color: darken($main-color-background, 5%);
+					}
+					
+				}
+				
+				&:last-child {
+					margin-bottom: 15px;
+				}
+				
+			}
+			
+		}
+	}
+	
+}

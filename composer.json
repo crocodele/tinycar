@@ -1,0 +1,25 @@
+{
+    "name": "antlau/tinycar",
+	"description": "Platform for running small admin user interfaces",
+	"type": "project",
+	"homepage": "https://github.com/antlau/tinycar.git",
+    "license": "MIT",
+    
+    "autoload": {
+        "psr-4": {"Tinycar\\": "library/"}
+    },
+    
+    "authors": [
+        {
+            "name": "Antti Launiainen",
+            "email": "antti.launiainen@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    
+    "support" : {
+    	"source" : "https://github.com/antlau/tinycar.git",
+    	"docs" : "http://github.com/antlau/tinycar/wiki",
+    	"issues" : "http://github.com/antlau/tinycar/issues"
+    }
+}

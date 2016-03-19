@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<locale>
+
+	<!-- Calendar properties -->
+	<calendar name="timezone">Europe/Helsinki</calendar>
+	<calendar name="first_weekday">1</calendar>
+	<calendar name="show_weeks">false</calendar>
+	<calendar name="format_date">Y-m-d</calendar>
+	<calendar name="format_datetime">Y-m-d H:i</calendar>
+	
+	<!-- Action translations -->
+	<text name="action_apps">Applications</text>
+	<text name="action_back">Back</text>
+	<text name="action_cancel">Cancel</text>
+	<text name="action_home">Home</text>
+	<text name="action_list">List</text>
+	<text name="action_logout">Logout</text>
+	<text name="action_ok">OK</text>
+	<text name="action_remove">Remove</text>
+	<text name="action_save">Save</text>
+	
+	<!-- Application states -->
+	<text name="app_status_devmode">Devmode</text>
+	<text name="app_status_disabled">Disabled</text>
+	<text name="app_status_installed">Installed</text>
+	
+	<!-- Calendar translations -->
+	<text name="calendar_day_0">Sunday</text>
+	<text name="calendar_day_1">Monday</text>
+	<text name="calendar_day_2">Tuesday</text>
+	<text name="calendar_day_3">Wednesday</text>
+	<text name="calendar_day_4">Thursday</text>
+	<text name="calendar_day_5">Friday</text>
+	<text name="calendar_day_6">Saturday</text>
+	<text name="calendar_month_1">January</text>
+	<text name="calendar_month_2">February</text>
+	<text name="calendar_month_3">March</text>
+	<text name="calendar_month_4">April</text>
+	<text name="calendar_month_5">May</text>
+	<text name="calendar_month_6">June</text>
+	<text name="calendar_month_7">July</text>
+	<text name="calendar_month_8">August</text>
+	<text name="calendar_month_9">September</text>
+	<text name="calendar_month_10">Ocotober</text>
+	<text name="calendar_month_11">November</text>
+	<text name="calendar_month_12">December</text>
+	<text name="calendar_next_month">Next month</text>
+	<text name="calendar_prev_month">Previous month</text>
+	
+	<!-- General -->
+	<text name="content">Content</text>
+	<text name="datagrid_reset_search">Reset search</text>
+	<text name="datagrid_type_search">Search datagrid...</text>
+	<text name="dialog_confirm">Confirm</text>
+	<text name="description">Description</text>
+	<text name="heading">Heading</text>
+	<text name="modified">Modified</text>
+	<text name="name">Name</text>
+	<text name="no">No</text>
+	<text name="none">None</text>
+	<text name="properties">Properties</text>
+	<text name="status">Status</text>
+	<text name="type">Type</text>
+	<text name="yes">Yes</text>
+	
+	<!-- Info messages -->
+	<text name="info_required_field">This is a required field</text>
+	
+	<!-- Toast messages -->
+	<text name="toast_app_manifest_invalid">Manifest for application $id is invalid</text>
+	<text name="toast_app_view_invalid">This application does not have view called "$name"</text>
+	<text name="toast_install_php_version">The PHP version in this environment is older than is recommended.</text>
+	<text name="toast_install_sqlite_support">This environment seems to be missing the required PDO SQLite driver.</text>
+	<text name="toast_install_database_privileges">It seems that the database folder (storage/database) can't be modified.</text>
+	<text name="toast_install_logs_privileges">The logs folder (storage/logs) is excepted to be writable.</text>
+	<text name="toast_storage_setup_failed">Something went wrong when trying to setup the system database.</text>
+	<text name="toast_model_value_invalid">Value for model property $name is invalid</text>
+	<text name="toast_native_error">PHP Native error: $message. See error log for more details.</text>
+	<text name="toast_query_prepare_failed">SQL query preparation failed</text>
+	<text name="toast_param_intlist_empty">SQL query failed due to empty list of integers</text>
+	<text name="toast_removed_success">Item was removed successfully</text>
+	<text name="toast_saved_success">Item was saved successfully</text>
+	
+</locale>

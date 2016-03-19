@@ -1,0 +1,401 @@
+div.tinycar-ui-component-datagrid {
+	
+	> div.table {
+	
+		position: relative;
+		
+		> a.search {
+		
+			position: absolute;
+			right: 4px;
+			top: 4px;		
+			display: block;
+			padding: 6px;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+			opacity: 0.5;
+			@include unselectable();
+			@include transition(background-color 0.2s ease);
+				
+			&:hover {
+			
+				background-color: darken($main-color-background, 5%);
+				opacity: 1.0;
+					
+			}
+					
+			&:active,
+			&:focus {
+				
+				background-color: transparent;			
+				opacity: 0.2;
+
+			}
+			
+		}
+		
+		> div.columns {
+				
+			border-bottom: 2px solid $main-color-uigray;
+			overflow: hidden;
+				
+			> div.column {
+
+				float: left;
+				padding: 10px 0px 10px 10px;
+				overflow: hidden;
+				
+				> a {
+					
+					position: relative;
+					display: block;
+					padding: 7px 30px 10px 10px;
+					color: $main-font-color;
+					cursor: pointer;
+					@include unselectable();
+						
+					> span.icon {
+					
+						position: absolute;
+						right: 0px;
+						top: 0px;
+						display: none;
+							
+					}
+						
+					&:focus,
+					&:hover {
+						
+						color: #000000;
+						text-decoration: underline;
+							
+					}
+						
+					&:active {
+						text-decoration: none;
+					}
+					
+				}
+					
+				&.sort-asc > a > span.icon-sort-down {
+					display: block;
+				}
+					
+				&.sort-desc > a > span.icon-sort-up {
+					display: block;
+				}
+					
+				&:first-child {
+					padding-left: 0px;
+				}
+				
+				&:last-child {
+					border-right: none;
+				}
+				
+			}
+			
+		}
+		
+		> div.search {
+			
+			position: relative;
+			height: 41px;
+			overflow: hidden;
+			@include transition(max-height 1.5 ease);
+			
+			> div.content {
+			
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				padding: 5px;
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+				overflow: hidden;
+						
+				> input[type=text] {
+					
+					position: relative;
+					padding: 6px 10px 6px 10px;
+					border: none;
+					z-index: 1;
+						
+				}
+						
+				> a.reset {
+						
+					position: absolute;
+					right: 6px;
+					top: 6px;
+					padding: 0px 2px 0px 2px;
+					display: block;
+					width: 30px;
+					height: 30px;
+					cursor: pointer;
+					opacity: 0.5;
+					z-index: 2;
+					@include unselectable();
+					@include transition(opacity 0.5s ease);
+						
+					&:focus,
+					&:hover {
+						opacity: 1.0;
+					}
+						
+					&:active {
+						opacity: 0.2;
+					}
+							
+				}
+						
+			}
+
+		}
+		
+		> div.list {
+			
+			> a.item {
+			
+				display: block;
+				color: $main-font-color;
+				border-bottom: 1px solid $main-color-uigray;
+				cursor: pointer;
+				overflow: hidden;
+				text-decoration: none;
+				outline: none;
+				@include unselectable();
+					
+				> span.column {
+					
+					display: inline-block;
+					padding: 10px 10px 10px 10px;
+					
+					&:first-child {
+					
+						padding-left: 10px;
+						
+						> span.check {
+							display: none;
+						}
+					}
+					
+					&:last-child {
+						border-right: none;
+					}
+	
+				}
+				
+				&:nth-child(even) {
+					background-color: lighten($main-color-background, 1%);
+				}
+				
+				&.is-selected {
+				}
+					
+			}
+			
+		}
+		
+	}
+	
+	&.is-selectable {
+	
+		> div.table {
+		
+			> div.columns {
+					
+				> div.column:first-child {
+					padding-left: 30px;
+				}
+				
+			} 
+		
+			> div.list {
+				
+				> a.item {
+				
+					> span.column:first-child {
+
+						position: relative;					
+						padding-left: 40px;
+				
+						> span.check {
+	
+							position: absolute;
+							left: 8px;					
+							top: 8px;
+							display: inline-block;
+							width: 16px;
+							height: 16px;
+							border: 1px solid darken($field-border-color, 10%);
+							background-color: #ffffff;
+							overflow: hidden;
+							@include border-radius(2px);
+							
+							> span.icon {
+							
+								position: absolute;
+								left: -2px;
+								top: -2px;
+								
+							}
+							
+						}
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+	
+	}
+	
+	
+	&.search-visible {
+		
+		> div.table {
+		
+			> div.columns > div.column {
+				border-bottom-color: transparent;
+			}
+		
+			> div.search {
+				display: block;
+			}
+		
+		}
+			
+	}
+		
+	&.search-hidden {
+		
+		> div.table {
+			
+			> div.search {
+				display: none;
+			}
+			
+		}
+			
+	}
+	
+}
+
+@media (max-width: $view-tablet-width)
+{
+	div.tinycar-ui-component-datagrid {
+		
+		> div.table {
+	
+			> div.columns {
+				
+				> div.column {
+					width: auto !important;
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+}
+
+@media (min-width: $view-tablet-width)
+{
+	div.tinycar-ui-component-datagrid {
+		
+		> div.table {
+	
+			display: table;
+			width: 100%;
+			
+			> div.columns {
+				
+				display: table-header-group;
+				border: none;
+				
+				> div.column {
+				
+					display: table-cell;
+					float: none;
+					border-right: 1px solid $main-color-uigray;
+					border-bottom: 2px solid $main-color-uigray;
+					
+					> a {
+						float: left;
+					}
+					
+				}
+					
+			}
+			
+			> div.search {
+				display: table-row;
+			}
+			
+			> div.list {
+			
+				display: table-row-group;
+				
+				> a.item {
+				
+					display: table-row;
+					border: none;
+					
+					> span.column {
+					
+						display: table-cell;
+						padding: 10px 30px 10px 20px;
+						border-right: 1px solid $main-color-uigray;
+						border-bottom: 1px solid $main-color-uigray;
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+		&.search-visible > div.table > div.search {
+			display: table-row;
+		}
+		
+	}
+	
+}
+
+form.tinycar-ui-view {
+	
+	div.tinycar-ui-component-datagrid {
+		
+		> div.table {
+		
+			> div.list {
+				
+				> a.item {
+				
+					&:focus,
+					&:hover {
+						background-color: lighten($main-color-background, 30%);
+					}
+					
+					&:active {
+						background-color: darken($main-color-background, 3%);				
+					}
+						
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+}

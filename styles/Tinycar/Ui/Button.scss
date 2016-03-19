@@ -1,0 +1,89 @@
+a.tinycar-ui-button {
+	
+	display: inline-block;
+	cursor: pointer;
+	overflow: hidden;
+	@include unselectable();
+	
+	&.dark-icon {
+	
+		background-color: #ffffff;
+		box-sizing: border-box;
+		@include transition(background-color 0.2s ease);
+	
+		> span.icon {
+				
+			opacity: 0.5;
+			@include transition(opacity 0.1s ease);
+			
+		}
+		
+		&:hover,
+		&:focus {
+				
+			background-color: lighten($field-border-color, 12%);
+					
+			> span.icon {
+				opacity: 0.8;
+			}
+			
+		}
+					
+		&:active {
+				
+			background-color: #ffffff;
+			
+			> span.icon {
+				opacity: 0.5;
+			}
+				
+		}
+		
+	}
+	
+	&.secondary-button,
+	&.theme-button {
+	
+		padding: 7px 25px 7px 25px;
+		min-width: 50px;
+		line-height: 1.7em;
+		text-align: center;
+				
+	}
+	
+	&.secondary-button {
+	
+		color: $main-font-color;
+	
+		&:focus,
+		&:hover {
+			color: $main-font-color;
+		}
+	
+		&:active {
+			color: #000000;
+		}
+	
+	}
+	
+	&.theme-button {
+	
+		color: #ffffff;
+		@include border-radius(1px);
+		@include transition(background-color 0.2s ease);
+		text-decoration: none;
+	
+		&:hover {
+			color: #ffffff;
+		}
+	
+	}
+	
+	&.theme-icon {
+	
+		padding: 4px 5px 4px 5px;
+		@include border-radius(2px);
+		
+	}
+	
+}

@@ -1,0 +1,15 @@
+div.tinycar-ui-component-textcontent {
+	
+	> div.text {
+	
+		padding-right: 30px;
+		line-height: 1.6em;
+		color: $field-instructions-color;
+		
+		> span.var {
+			text-decoration: underline;
+		}
+		
+	}
+	
+}

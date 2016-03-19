@@ -1,0 +1,101 @@
+div#tinycar-ui-dialog {
+	
+	position: fixed;
+	visibility: hidden;
+	left: 0px;
+	top: 0px;
+	padding: 5px;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	z-index: 30;
+	
+	> a.close {
+	
+		position: absolute;
+		right: 5px;
+		top: 5px;
+		width: 50px;
+		height: 50px;
+		cursor: pointer;
+		z-index: 2;
+		@include unselectable();
+		@include transition(background-color 0.3s ease);
+		
+	}
+	
+	> div.content {
+	
+		position: relative;
+		padding: 50px 0px 80px 0px;
+		box-sizing: border-box;
+		height: 100%;
+		z-index: 1;
+		background-color: #ffffff;
+		@include box-shadow(0px 0px 4px rgba(0, 0, 0, 0.5));
+		
+		> div.heading {
+		
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			padding: 20px 0px 0px 30px;
+			box-sizing: border-box;
+			font-size: 1.3em;
+			font-weight: 300;
+			
+		}
+		
+		> div.components {
+
+			position: relative;
+			padding: 20px 30px 20px 30px;
+			box-sizing: border-box;
+			min-height: 50px;
+			max-height: 100%;
+			overflow: auto;
+			
+			> div.tinycar-main-component {
+				display: block;
+			}
+			
+		}
+		
+		> div.actions {
+
+			position: absolute;
+			left: 0px;
+			bottom: 0px;
+			padding: 20px 30px 20px 0px;
+			width: 100%;
+			box-sizing: border-box;
+			overflow: hidden;
+			
+			> a.tinycar-ui-button {
+
+				margin: 0px 0px 0px 10px;
+				float: right;
+				
+			}
+
+		}
+		
+	}
+	
+	&.is-visible {
+		visibility: visible;
+	}
+	
+}
+
+@media (min-width: $view-tablet-width)
+{
+	div#tinycar-ui-dialog {
+		
+		left: 50%;
+		margin: 0px 0px 0px (0 - $view-tablet-width / 2 + 50);
+		max-width: ($view-tablet-width - 100);
+		
+	}
+}

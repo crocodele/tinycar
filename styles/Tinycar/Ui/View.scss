@@ -1,0 +1,173 @@
+form.tinycar-ui-view {
+	
+	margin: 0px;
+	padding: 0px 20px 60px 20px;
+
+	> button.view-submit {
+	
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		visibility: hidden;
+		
+	}
+
+	> div.heading {
+	
+		padding: 30px 0px 30px 0px;
+	
+		> strong {
+		
+			display: block;
+			padding: 10px 1px 10px 1px;
+			font-size: 1.7em;
+			font-weight: 300;
+			
+		}
+		
+	}
+	
+	> div.components {
+	}
+	
+}
+
+body.is-prepared {
+	
+	form.tinycar-ui-view {
+	
+		opacity: 0;
+		@include transform(translate(-10px, 0px));
+		
+	}
+	
+}
+
+body.is-rendered {
+	
+	form.tinycar-ui-view {
+	
+		opacity: 1.0;
+		@include transform(translate(0px, 0px));
+		@include transition(all 0.2s ease);
+		
+	}
+	
+}
+
+body.is-unloading {
+	
+	form.tinycar-ui-view {
+	
+		opacity: 0.5;
+		@include transition(opacity 0.5s ease);
+		
+	}
+	
+}
+
+body.layout-main {
+	
+	form.tinycar-ui-view {
+		
+		> div.components {
+			
+			> div.tinycar-main-field {
+				border-bottom: 1px solid $main-color-uigray;
+			}
+			
+		}
+	}
+	
+}
+
+body.layout-modal {
+	
+	form.tinycar-ui-view {
+	
+		margin: 0px auto 0px auto;
+		padding: 50px 30px 50px 30px;
+		background-color: #ffffff;
+		
+		> div.heading {
+		
+			padding-top: 0px;
+			text-align: center;
+			
+		}
+		
+		> div.actions {
+		
+			padding: 20px 5px 0px 5px;
+			text-align: center;
+			
+		}
+		
+	}
+	
+}
+
+@media (min-width: $view-tablet-width)
+{
+	
+	body.layout-modal {
+		
+		form.tinycar-ui-view {
+		
+			max-width: 300px;
+			margin-top: 100px;
+			margin-bottom: 100px;
+		}
+		
+	}
+		
+	body.layout-main {
+	
+		form.tinycar-ui-view {
+			padding: 0px 30px 120px 30px;
+		}
+		
+		form.tinycar-ui-view.layout-fieldlist {
+		
+			> div.components {
+			
+				display: table;
+				width: 100%;
+				
+				> div.tinycar-main-field {
+				
+					border: none;
+				
+					> div.type-label,
+					> div.type-label-empty {
+					
+						display: table-cell;
+						padding: 35px 30px 30px 0px;
+						border-bottom: 1px solid $main-color-uigray;
+						vertical-align: top;
+						
+					}
+					
+					> div.type-content {
+					
+						display: table-cell;
+						padding: 25px 0px 30px 0px;
+						width: 100%;
+						border-bottom: 1px solid $main-color-uigray;
+						vertical-align: top;
+						
+					}
+					
+					&.is-visible {
+						display: table-row;
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+
+}

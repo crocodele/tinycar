@@ -1,0 +1,58 @@
+{
+    "compilerOptions": {
+        
+        "target": "es5",
+        "module": "amd",
+        "sourceMap" : true,
+        "outFile" : "common.min.js"
+        
+    },
+    
+    "files": [
+        "typescript/Typed/jquery/jquery.d.ts",
+        "typescript/Typed/jqueryui/jqueryui.d.ts",
+        "typescript/Typed/requirejs/require.d.ts",
+        "typescript/Typed/trumbowyg.d.ts",
+        "typescript/Tinycar/System.ts",
+        "typescript/Tinycar/Api.ts",
+        "typescript/Tinycar/Config.ts",
+        "typescript/Tinycar/Format.ts",
+        "typescript/Tinycar/Locale.ts",
+        "typescript/Tinycar/Session.ts",
+        "typescript/Tinycar/Url.ts",
+        "typescript/Tinycar/User.ts",
+        "typescript/Tinycar/Model/DataItem.ts",
+        "typescript/Tinycar/Main/Component.ts",
+        "typescript/Tinycar/Main/Field.ts",
+        "typescript/Tinycar/Main/Mask.ts",
+        "typescript/Tinycar/Main/Page.ts",
+        "typescript/Tinycar/Main/Sidebar.ts",
+        "typescript/Tinycar/Main/Toast.ts",
+        "typescript/Tinycar/Main/View.ts",
+        "typescript/Tinycar/Ui/Application.ts",
+        "typescript/Tinycar/Ui/Button.ts",
+        "typescript/Tinycar/Ui/Dialog.ts",
+        "typescript/Tinycar/Ui/View.ts",
+        "typescript/Tinycar/Ui/Component/CheckBox.ts",
+        "typescript/Tinycar/Ui/Component/DataGrid.ts",
+        "typescript/Tinycar/Ui/Component/DateTime.ts",
+        "typescript/Tinycar/Ui/Component/Group.ts",
+        "typescript/Tinycar/Ui/Component/IconListView.ts",
+        "typescript/Tinycar/Ui/Component/Password.ts",
+        "typescript/Tinycar/Ui/Component/RadioList.ts",
+        "typescript/Tinycar/Ui/Component/Reference.ts",
+        "typescript/Tinycar/Ui/Component/RichText.ts",
+        "typescript/Tinycar/Ui/Component/SelectList.ts",
+        "typescript/Tinycar/Ui/Component/TagsList.ts",
+        "typescript/Tinycar/Ui/Component/TileGrid.ts",
+        "typescript/Tinycar/Ui/Component/Text.ts",
+        "typescript/Tinycar/Ui/Component/TextContent.ts",
+        "typescript/Tinycar/Ui/Component/TextInput.ts",
+        "typescript/Tinycar/Ui/Component/Toggle.ts",
+        "typescript/Tinycar/Ui/Main/Help.ts",
+        "typescript/Tinycar/Ui/Main/Icon.ts",
+		"typescript/Tinycar/Ui/Sidebar/Action.ts",
+		"typescript/Tinycar/View/Tabs.ts"
+    ]
+    
+}

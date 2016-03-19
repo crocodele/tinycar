@@ -1,0 +1,20 @@
+div#tinycar-main-mask {
+	
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	display: none;
+	width: 100%;
+	height: 100%;
+	background-image: url(../images/main-mask-pattern.png);
+	z-index: 20;
+	
+	&.is-visible {
+		display: block;
+	}
+	
+	&.is-hidden {
+		display: none;
+	}
+	
+}

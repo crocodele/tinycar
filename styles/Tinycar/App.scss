@@ -1,0 +1,115 @@
+
+a {
+	
+	text-decoration: none;
+	
+	&:hover {
+		text-decoration: underline;
+	}
+	
+	&:active {
+		text-decoration: none;
+	}
+	
+}
+
+body, html {
+	
+	margin: 0px;
+	padding: 0px;
+	
+}
+
+body {
+
+	background-color: $main-color-background;
+	color: $main-font-color;
+	font-family: $main-font-family;
+	font-size: 0.9em;
+	font-weight: 300;
+	line-height: 1.0em;
+		
+}
+
+strong {
+	font-weight: 400;
+}
+
+input,
+select,
+textarea {
+
+	margin: 0px;
+	color: #000000; 
+	font-family: $main-font-family;
+	font-weight: 300;
+	font-size: 1.0em;
+
+}
+
+select {
+
+	padding: 7px 0px 7px 12px;
+	background-color: #ffffff;
+	border: 1px solid darken($field-border-color, 10%);
+	outline: none;
+	
+}
+
+input[type=text],
+input[type=password],
+textarea {
+	
+	padding: 9px 12px 9px 12px;
+	width: 100%;
+	border: 1px solid $field-border-color;
+	border-top-color: darken($field-border-color, 10%);
+	border-right-color: darken($field-border-color, 10%);
+	background-color: #ffffff;
+	box-sizing: border-box;
+	
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+	outline: none;
+}
+
+textarea {
+	
+	line-height: 1.6em;
+	resize: vertical;
+}
+
+::-webkit-input-placeholder {
+	
+	color: $field-placeholder-color;
+	font-size: 0.95em;
+	
+}
+
+::-moz-placeholder {
+	
+	color: $field-placeholder-color;
+	font-size: 0.95em;
+	
+}
+
+:-ms-input-placeholder {
+	
+	color: $field-placeholder-color;
+	font-size: 0.95em;
+	
+}
+
+:-moz-placeholder {
+	
+	color: $field-placeholder-color;
+	font-size: 0.95em;
+	
+}
+
+body.layout-main {
+	padding-left: 64px;	
+}

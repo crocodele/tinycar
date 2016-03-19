@@ -1,0 +1,152 @@
+div.tinycar-ui-component-radiolist {
+
+	> div.type-content {
+	
+		padding-bottom: 25px;
+		
+		> div.item {
+		
+			position: relative;
+			padding: 0px 20px 0px 0px;
+			overflow: hidden;
+			
+			> input {
+			
+				position: absolute;
+				left: 6px;
+				top: 6px;
+				display: block;
+				margin: 0px;
+				padding: 0px;
+				
+			}
+			
+			> label {
+	
+				position: relative;
+				display: inline-block;
+				padding: 5px 5px 5px 30px;
+				cursor: pointer;
+				vertical-align: top;
+				@include unselectable();
+				
+			}
+			
+			> span.tinycar-ui-main-help {
+				margin: 4px 0px 0px 6px;
+			}
+			
+			> div.instructions {
+			
+				clear: both;
+				padding: 2px 0px 10px 30px;
+				color: $field-instructions-color;
+				font-size: 0.9em;
+				line-height: 1.4em;
+				
+			}
+			
+			&:last-child > div.instructions {
+				padding-bottom: 0px;
+			}
+			
+		}
+		
+	}
+	
+	&.layout-horizontal {
+		
+		> div.type-content {
+		
+			> div.item {
+			
+				float: left;
+				
+				> div.instructions {
+					display: none;
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+}
+
+div.tinycar-ui-component-radiolist:not(old) {
+	
+	> div.type-content {
+	
+		> div.item {
+		
+			padding: 5px 20px 5px 2px;
+			
+			> input {
+				visibility: hidden;
+			}
+			
+			> label {
+				
+				> span.mark {
+				
+					position: absolute;
+					left: 1px;
+					top: 2px;
+					display: block;
+					width: 18px;
+					height: 18px;
+					border: 1px solid darken($field-border-color, 20%);
+					background-color: #ffffff;
+					@include border-radius(10px);
+					
+					> span.point {
+	
+						position: absolute;
+						left: 4px;
+						top: 4px;				
+						display: block;
+						width: 10px;
+						height: 10px;
+						@include border-radius(5px);
+						@include transform(scale(0));
+						@include transition-attr(transform 0.1s ease);
+											
+					}
+					
+				}
+				
+				&:hover {
+				
+					> span.label {
+					}
+					
+				}
+				
+			}
+			
+			> input:checked + label > span.mark > span.point {
+			
+				background-color: #ffffff;
+				@include transform(scale(1.0));
+				
+			}
+			
+		}
+		
+	}
+	
+}
+
+@media (min-width: $view-tablet-width)
+{
+	
+	div.tinycar-ui-component-radiolist {
+	
+		> div.type-content > div.item > div.instructions {
+			padding-right: 30px;
+		}
+		
+	}
+
+}
