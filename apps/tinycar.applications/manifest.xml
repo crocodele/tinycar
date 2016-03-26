@@ -26,6 +26,7 @@
 	</locale>
 	
 	<view>
+	
 		<heading>$app.name</heading>
 		
 		<actions>
@@ -43,6 +44,7 @@
 	
 	<view name="edit" data="$url.id">
 	
+        <layout>fieldlist</layout>
 		<heading>$data.name</heading>
 		
 		<actions>
