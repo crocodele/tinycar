@@ -464,6 +464,12 @@ module Tinycar.Ui.Component
 				this.settingsData.query = settings['query'];
 		}
 		
+		// @see Tinycar.Main.Component.refresh()   
+		refresh():void
+		{
+			this.loadList();
+		}
+		
 		// Reset current view list items to display all data
 		private resetViewList():void
 		{
