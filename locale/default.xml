@@ -17,6 +17,7 @@
 	<text name="action_logout">Logout</text>
 	<text name="action_ok">OK</text>
 	<text name="action_remove">Remove</text>
+	<text name="action_select">Select</text>
 	<text name="action_save">Save</text>
 	
 	<!-- Application states -->
@@ -49,15 +50,18 @@
 	
 	<!-- General -->
 	<text name="content">Content</text>
+    <text name="created">Created</text>
 	<text name="datagrid_reset_search">Reset search</text>
 	<text name="datagrid_type_search">Search datagrid...</text>
 	<text name="dialog_confirm">Confirm</text>
 	<text name="description">Description</text>
+    <text name="email">Email</text>
 	<text name="heading">Heading</text>
 	<text name="modified">Modified</text>
 	<text name="name">Name</text>
 	<text name="no">No</text>
 	<text name="none">None</text>
+    <text name="phone">Phone</text>
 	<text name="properties">Properties</text>
 	<text name="status">Status</text>
 	<text name="type">Type</text>
@@ -67,18 +71,19 @@
 	<text name="info_required_field">This is a required field</text>
 	
 	<!-- Toast messages -->
-	<text name="toast_app_manifest_invalid">Manifest for application $id is invalid</text>
-	<text name="toast_app_view_invalid">This application does not have view called "$name"</text>
+	<text name="toast_app_manifest_invalid">Manifest for application $id is invalid.</text>
+	<text name="toast_app_view_invalid">This application does not have view called "$name".</text>
+	<text name="toast_component_action_invalid">This component does not have an action called "$name".</text>
 	<text name="toast_install_php_version">The PHP version in this environment is older than is recommended.</text>
 	<text name="toast_install_sqlite_support">This environment seems to be missing the required PDO SQLite driver.</text>
 	<text name="toast_install_database_privileges">It seems that the database folder (storage/database) can't be modified.</text>
 	<text name="toast_install_logs_privileges">The logs folder (storage/logs) is excepted to be writable.</text>
 	<text name="toast_storage_setup_failed">Something went wrong when trying to setup the system database.</text>
-	<text name="toast_model_value_invalid">Value for model property $name is invalid</text>
+	<text name="toast_model_value_invalid">Value for model property $name is invalid.</text>
 	<text name="toast_native_error">PHP Native error: $message. See error log for more details.</text>
-	<text name="toast_query_prepare_failed">SQL query preparation failed</text>
-	<text name="toast_param_intlist_empty">SQL query failed due to empty list of integers</text>
-	<text name="toast_removed_success">Item was removed successfully</text>
-	<text name="toast_saved_success">Item was saved successfully</text>
+	<text name="toast_query_prepare_failed">SQL query preparation failed.</text>
+	<text name="toast_param_intlist_empty">SQL query failed due to empty list of integers.</text>
+	<text name="toast_removed_success">Item was removed successfully.</text>
+	<text name="toast_saved_success">Item was saved successfully.</text>
 	
 </locale>
