@@ -32,6 +32,9 @@ module Tinycar.Ui
 		{
 			// Reset reference
 			this.Dialog = null;
+			
+			// Refresh visible components
+			this.View.refreshComponents();
 		}
 		
 		// Get application id
@@ -111,11 +114,11 @@ module Tinycar.Ui
 			
 			// Default application id
 			let app = this.getId();
-			
+
 			// We have a custom application name
 			if (name.indexOf(':') > -1)
 			{
-				app  = app.split(':').shift();
+				app  = name.split(':').shift();
 				name = name.split(':').pop();
 			}
 			
