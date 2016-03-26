@@ -31,8 +31,11 @@ module Tinycar.Ui.Component
 				attr('size', 1).
 				appendTo(container);
 			
+			// Get options
+			let options = this.Model.get('options');
+			
 			// Create options
-			this.Model.get('options').forEach((item:Object) =>
+			options.forEach((item:Object) =>
 			{
 				$('<option>').
 					attr('value', item['name']).
@@ -45,9 +48,17 @@ module Tinycar.Ui.Component
 			{
 				this.setDataValue(this.fldList.val());
 			});
+
+			// No initial value, select first option
+			if (this.Model.get('data_value') === null)
+			{
+				if (options.length > 0)
+					this.Model.set('data_value', options[0]['name']);
+			}
 			
-			// Set initial value
-			this.fldList.val(this.Model.get('data_value'));
+			// Select initial custom value
+			if (this.Model.get('data_value') !== null)
+				this.fldList.val(this.Model.get('data_value'));
 		}
 		
 		// @see Tinycar.Main.Field.focus()
