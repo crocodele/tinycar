@@ -222,49 +222,22 @@ module Tinycar.Ui
 			Tinycar.Api.call({
 				service : 'dialog.action',
 				params  : {
+					url    : Tinycar.Url.getParams(),
 					app    : this.Model.get('app'),
 					dialog : this.Model.get('name'),
-					url    : Tinycar.Url.getParams(),
-					action : params.get('type')
+					action : params.get('type'),
+					data   : this.getComponentsData()
 				},
 				success  : (result:any) => 
 				{
-					// Show toast message
-					if (params.hasString('toast'))
-					{
-						// Set success message
-						Tinycar.System.Toast.setMessage({
-							type : 'success',
-							text : params.get('toast')
-						});
-					}
+					// Set returned value
+					params.set('value', result);
 					
-					// We must redirect after this message
-					if (params.isObject('link') && params.hasString('toast'))
-					{
-						// Store toast message
-						Tinycar.System.Toast.store();
+					// Show response
+					this.onResponse(params);
 						
-						// Move to URL specified by action
-						Tinycar.Url.updatePath(params.getObject('link'));
-						
-						// Close dialog
-						this.close();
-					}
-					
-					// Redirect to URL
-					else if (params.isObject('link'))
-					{
-						// Move to URL specified by action
-						Tinycar.Url.updatePath(params.getObject('link'));
-						
-						// Close dialog
-						this.close();
-					}
-					
-					// Just show toast message right away
-					else if (params.hasString('toast'))
-						Tinycar.System.Toast.show();
+					// Close dialog
+					this.close();
 				}
 			});
 		}

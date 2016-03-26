@@ -214,48 +214,15 @@ module Tinycar.Ui
 			Tinycar.Api.call({
 				service : 'application.action',
 				params  : {
+					url    : Tinycar.Url.getParams(),
 					app    : this.App.getId(),
 					view   : this.getName(),
-					url    : Tinycar.Url.getParams(),
 					action : params.get('type'),
 					data   : this.getComponentsData()
 				},
 				success  : () => 
 				{
-					// Show toast message
-					if (params.hasString('toast'))
-					{
-						// Set success message
-						Tinycar.System.Toast.setMessage({
-							type : 'success',
-							text : params.get('toast')
-						});
-					}
-					
-					// We must redirect after this message
-					if (params.isObject('link') && params.hasString('toast'))
-					{
-						// Store toast message
-						Tinycar.System.Toast.store();
-						
-						// Move to URL specified by action
-						Tinycar.Url.updatePath(params.getObject('link'), {
-							url : Tinycar.Url.getParams()
-						});
-					}
-					
-					// Redirect to URL
-					else if (params.isObject('link'))
-					{
-						// Move to URL specified by action
-						Tinycar.Url.updatePath(params.getObject('link'), {
-							url : Tinycar.Url.getParams()
-						});
-					}
-					
-					// Just show toast message right away
-					else if (params.hasString('toast'))
-						Tinycar.System.Toast.show();
+					this.onResponse(params);
 				}
 			});
 		}
@@ -281,27 +248,6 @@ module Tinycar.Ui
 			return true;
 		}
 		
-		// Get data from current components
-		getComponentsData():Object
-		{
-			var data = {};
-			
-			// Get original data for all components
-			this.Model.get('components').forEach((item:Object) =>
-			{
-				if (item.hasOwnProperty('data_value'))
-					data[item['id']] = item['data_value'];
-			});
-			
-			// Get data from rendered field components 
-			this.fieldList.forEach((instance:Tinycar.Main.Field) =>
-			{
-				data[instance.getId()] = instance.getDataValue();
-			});
-			
-			return data;
-		}
-		
 		// Check if this default view
 		private isDefaultView():boolean
 		{
@@ -314,6 +260,7 @@ module Tinycar.Ui
 			Tinycar.Api.call({
 				service : 'application.component',
 				params  : {
+					url        : Tinycar.Url.getParams(),
 					app        : this.App.Model.get('id'),
 					view       : this.getName(),
 					component  : id,

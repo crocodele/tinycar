@@ -1,15 +1,15 @@
-<?php 
+<?php
 
 	namespace Tinycar\System\Application\View;
-	
+
 	use Tinycar\Core\Xml\Data;
 	use Tinycar\System\Application\View;
-	
+
 	class Action
 	{
 		protected $data = array();
-		
-		
+
+
 		/**
 		 * Initiate class
 		 * @param array $data initial data
@@ -18,8 +18,8 @@
 		{
 			$this->data = $data;
 		}
-		
-		
+
+
 		/**
 		 * Load action data from view instance
 		 * @param object $view Tinycar\System\Application\View instance
@@ -38,35 +38,31 @@
 				'toast'   => $xdata->getString('toast'),
 				'dialog'  => $xdata->getString('@dialog'),
 			);
-			
+
 			// Resolve type
 			$type = $xdata->getString('@type');
 			$label = $xdata->getString('@label');
-			
+
 			// Custom type
 			if (is_string($type))
 				$data['type'] = $type;
-			
+
 			// Default label using type
 			if (!is_string($label))
 				$label = '$locale.action_'.$data['type'];
-			
+
 			// Default toast message
-			if (!is_string($data['toast']) && $type === 'remove')
+			if (!is_string($data['toast']) && $data['service'] === 'storage.remove')
 				$data['toast'] = '$locale.toast_removed_success';
-			
-			// Default service name
-			if (!is_string($data['service']) && $type === 'remove')
-				$data['service'] = 'storage.remove';
-			
+
 			// Resolve locales
 			$data['label'] = $view->getStringValue($label);
 			$data['toast'] = $view->getStringValue($data['toast']);
-			
+
 			return new self($data);
 		}
-		
-		
+
+
 		/**
 		 * Get as data structure
 		 * @return array data properties
@@ -83,8 +79,8 @@
 				'dialog'  => $this->get('dialog'),
 			);
 		}
-		
-		
+
+
 		/**
 		 * Get specified data property value
 		 * @param string $name target data property name
@@ -96,8 +92,8 @@
 				$this->data[$name] : null
 			);
 		}
-		
-		
+
+
 		/**
 		 * Get action label
 		 * @return string|null label or null on failure
@@ -106,8 +102,8 @@
 		{
 			return $this->get('label');
 		}
-		
-		
+
+
 		/**
 		 * Get action link parameters
 		 * @return array|null link parameters or null on failure
@@ -116,8 +112,8 @@
 		{
 			return $this->get('link');
 		}
-		
-		
+
+
 		/**
 		 * Get action service name
 		 * @return string|null service or null on failure
@@ -126,8 +122,8 @@
 		{
 			return $this->get('service');
 		}
-		
-		
+
+
 		/**
 		 * Get action type
 		 * @return string|null type or null on failure
@@ -137,4 +133,3 @@
 			return $this->get('type');
 		}
 	}
-	

@@ -71,6 +71,17 @@ module Tinycar.Main
 			return this.Model.get('tab_name');
 		}
 		
+		// Check if component is currently visible
+		isVisible():boolean
+		{
+			return this.htmlRoot.hasClass('is-visible');
+		}
+		
+		// Refresh component
+		refresh():void
+		{
+		}
+		
 		// Set component as visible or non-visible
 		setAsVisible(visible:boolean):void
 		{

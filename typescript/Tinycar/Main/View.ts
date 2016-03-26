@@ -32,6 +32,27 @@ module Tinycar.Main
 				this.fieldList.push(instance);
 		}
 		
+		// Get data from current components
+		getComponentsData():Object
+		{
+			var data = {};
+			
+			// Get original data for all components
+			this.Model.get('components').forEach((item:Object) =>
+			{
+				if (item.hasOwnProperty('data_value'))
+					data[item['id']] = item['data_value'];
+			});
+			
+			// Get data from rendered field components 
+			this.fieldList.forEach((instance:Tinycar.Main.Field) =>
+			{
+				data[instance.getId()] = instance.getDataValue();
+			});
+			
+			return data;
+		}
+		
 		// Get dialog name
 		getDialogName():string
 		{
@@ -50,9 +71,60 @@ module Tinycar.Main
 			return null;
 		}
 		
+		// Refresh currently visible components
+		refreshComponents():void
+		{
+			// Update each component 
+			this.componentList.forEach((instance:Tinycar.Main.Component) =>
+			{
+				if (instance.isVisible())
+					instance.refresh();
+			});
+		}
+		
 		// Call specified component 
 		onComponent(id:string, name:string, params:Object, callback:Function):void
 		{
+		}
+		
+		// Handle request response
+		onResponse(params:Tinycar.Model.DataItem):void
+		{
+			// Show toast message
+			if (params.hasString('toast'))
+			{
+				// Set success message
+				Tinycar.System.Toast.setMessage({
+					type : 'success',
+					text : params.get('toast'),
+					vars : {value:params.get('value')}
+				});
+			}
+			
+			// We must redirect after this message
+			if (params.isObject('link') && params.hasString('toast'))
+			{
+				// Store toast message
+				Tinycar.System.Toast.store();
+				
+				// Move to URL specified by action
+				Tinycar.Url.updatePath(params.getObject('link'), {
+					url : Tinycar.Url.getParams()
+				});
+			}
+			
+			// Redirect to URL
+			else if (params.isObject('link'))
+			{
+				// Move to URL specified by action
+				Tinycar.Url.updatePath(params.getObject('link'), {
+					url : Tinycar.Url.getParams()
+				});
+			}
+			
+			// Just show toast message right away
+			else if (params.hasString('toast'))
+				Tinycar.System.Toast.show();
 		}
 	}
 }

@@ -170,16 +170,9 @@ module Tinycar.Ui.Sidebar
 		{
 			return (
 				!this.isSaveAction() &&
-				!this.isRemoveAction() &&
 				!this.isServiceAction() && 
 				this.Model.isObject('link')
 			);
-		}
-		
-		// Check if this is an action for removing
-		isRemoveAction():boolean
-		{
-			return (this.Model.get('type') === 'remove');
 		}
 		
 		// Check if this is an action for saving
