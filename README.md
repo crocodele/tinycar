@@ -13,7 +13,8 @@ Tinycar is an application to run multiple administration user interfaces that ar
 - Option to add application-specific services and webhooks
 
 ### Requirements
-- PHP >= 5.1 (with SQLite support)
+- PHP >= 5.3
+- PHP extensions enabled: mbstring, PDO, pdo_sqlite
 
 ### Installation
 1. Grant writing privileges to folder tinycar/storage and all of it's subfolders
