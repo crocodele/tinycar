@@ -4,8 +4,8 @@
 	use Tinycar\Core\Exception;
 	use Tinycar\Core\Http\Params;
 	use Tinycar\System\Application;
-	
-	
+
+
 	/**
 	 * Verify that active user has access to these services
 	 * @param object $params Tinycar\Core\Http\Params instance
@@ -19,35 +19,39 @@
 			$system->hasAuthenticated() === true
 		);
 	});
-	
-	
+
+
 	/**
 	 * Execute specified action from an application view
      * @param object $params Tinycar\Core\Http\Params instance
      *               - string app       target application id
-     *               - string vie  ]    target view name
+	 *               - array  url       source URL parameters
+     *               - string view ]    target view name
      *               - string component target component id
      *               - string action    target action type
 	 * @return bool operation outcome
-	 * @throws Tinycar\Core\Exception 
+	 * @throws Tinycar\Core\Exception
 	 */
 	$api->setService('action', function(Params $params) use ($system)
 	{
 		// Get target application
 		$instance = $system->getApplicationById($params->get('app'));
-			
+
 		// Get target view
 		$view = $instance->getViewByName($params->get('view'));
-				
+
+		// Set URL parameters to application request
+		$instance->setUrlParams($params->getArray('url'));
+
 		// Get target action instance
 		$action = $instance->getActionByType(
 			$view, $params->get('action')
 		);
-		
+
 		// Invalid action
 		if (is_null($action))
 			throw new Exception('view_action_invalid');
-		
+
 		// Map component data to model
 		$data = $view->getAsModelData($params->getArray('data'));
 
@@ -56,12 +60,13 @@
 			'data' => $data,
 		));
 	});
-	
-	
+
+
 	/**
 	 * Call specified component action from an applications view
      * @param object $params Tinycar\Core\Http\Params instance
      *               - string app       target application id
+	 *               - array  url       source URL parameters
      *               - string view      target view name
      *               - string component target component id
      *               - string action    target action name
@@ -73,24 +78,27 @@
 	{
 		// Get target application
 		$instance = $system->getApplicationById($params->get('app'));
-			
+
 		// Get target view
 		$view = $instance->getViewByName($params->get('view'));
-				
+
+		// Set URL parameters to application request
+		$instance->setUrlParams($params->getArray('url'));
+
 		// Get target component instance
 		$component = $view->getComponentById($params->get('component'));
-		
+
 		// Invalid component id
 		if (is_null($component))
 			throw new Exception('view_component_invalid');
-	
+
 		// Try to get action response
 		return $component->callAction(
 			$params->get('action'), $params->getArray('data')
 		);
 	});
-	
-	
+
+
 	/**
 	 * Remove specified application view
 	 * @param object $params Tinycar\Core\Http\Params instance
@@ -104,44 +112,44 @@
 	{
 		// Get target application
 		$instance = $system->getApplicationById($params->get('app'));
-	
+
 		// Get target view
 		$view = $instance->getViewByName($params->get('view'));
-	
+
 		// Set URL parameters to application request
 		$instance->setUrlParams($params->getArray('url'));
-	
+
 		// Get view's target record instance
 		$record = $view->getDataRecord();
-	
+
 		// Let's try to remove the record
 		return $instance->callService('storage.remove', array(
 			'app'  => $params->get('app'),
 			'rows' => array($record->get('id')),
 		));
 	});
-	
-	
+
+
 	/**
 	 * Call specified application's service
      * @param object $params Tinycar\Core\Http\Params instance
      *               - string app  target application id
      *               - string service target service name
 	 * @return mixed application service result
-	 * @throws Tinycar\Core\Exception  
+	 * @throws Tinycar\Core\Exception
 	 */
 	$api->setService('service', function(Params $params) use ($system)
 	{
 		// Get target application
 		$instance = $system->getApplicationById($params->get('app'));
-			
+
 		// GEt service result
 		return $instance->callService(
 			$params->get('service'), $params->getAll()
 		);
 	});
-	
-	
+
+
 	/**
 	 * Install application and setup storage
 	 * @param object $params Tinycar\Core\Http\Params instance
@@ -152,15 +160,15 @@
 	{
 		// Get target application
 		$instance = $system->getApplicationById($params->get('app'));
-	
+
 		// Get storage instance
 		$storage = $instance->getStorage();
-	
+
 		// Try to setup storage
 		return $storage->setup();
 	});
-	
-	
+
+
 	/**
 	 * Save specified application view
      * @param object $params Tinycar\Core\Http\Params instance
@@ -175,16 +183,16 @@
 	{
 		// Get target application
 		$instance = $system->getApplicationById($params->get('app'));
-	
+
 		// Get target view
 		$view = $instance->getViewByName($params->get('view'));
-		
+
 		// Set URL parameters to application request
 		$instance->setUrlParams($params->getArray('url'));
-		
+
 		// Get view's target record instance
 		$record = $view->getDataRecord();
-		
+
 		// Map component data to model
 		$data = $view->getAsModelData($params->getArray('data'));
 
@@ -204,7 +212,7 @@
 			'data' => $data,
 		));
 	});
-	
+
 
 	/**
 	 * Get specified application's view
@@ -222,22 +230,22 @@
 	{
 		// Get target application
 		$instance = $system->getApplicationById($params->get('app'));
-		
+
 		// Set URL parameters to application request
 		$instance->setUrlParams($params->getArray('url'));
-			
+
 		// Get target view
 		$view = $instance->getViewByName($params->get('view'));
-			
+
 		$result = array();
-		
+
 		// Get application manifest instance
 		$manifest = $instance->getManifest();
-		
+
 		// Get applicatoion locale instance
 		$locale = $instance->getLocale();
-			
-		// Application properties 
+
+		// Application properties
 		$result['app'] = array(
 			'id'          => $instance->getId(),
 			'layout_name' => $manifest->getLayoutName(),
@@ -246,7 +254,7 @@
 			'colors'      => $manifest->getColorMap(),
 			'icon'        => $manifest->getIconData(),
 		);
-			
+
 		// Get view properties
 		$result['view'] = array(
 			'name'        => $view->getName(),
@@ -257,7 +265,7 @@
 			'components'  => array(),
 			'text'        => array(),
 		);
-		
+
 		// Translations
 		$result['text'] = $locale->getTextsByPattern(
 			"'^(datagrid|info|toast|calendar)_'m"
@@ -271,14 +279,14 @@
 				'label' => $tab->getLabel(),
 			);
 		}
-		
+
 		// Add actions
 		foreach ($instance->getActions($view) as $item)
 			$result['view']['actions'][] = $item->getAll();
-			
+
 		// Add components
 		foreach ($view->getComponents() as $item)
 			$result['view']['components'][] = $item->callAction('model');
-             
+
 		return $result;
 	});
