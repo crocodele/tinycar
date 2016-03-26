@@ -34,3 +34,18 @@ div.tinycar-ui-component-selectlist {
 	}
 	
 }
+
+div.tinycar-ui-component-group {
+
+    > div.type-content {
+    
+        > div.tinycar-ui-component-selectlist {
+        
+            float: left;
+            padding: 0px 15px 0px 0px;
+            
+        }
+        
+    }
+    
+}
