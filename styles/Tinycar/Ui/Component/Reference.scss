@@ -51,3 +51,26 @@ div.tinycar-ui-component-reference {
 	}
 	
 }
+
+@media (min-width: $view-tablet-width)
+{
+    body.layout-main {
+    
+        form.tinycar-ui-view.layout-fieldlist {
+        
+            > div.components {
+            
+                > div.tinycar-main-field.tinycar-ui-component-reference {
+                
+                    > div.type-content {
+                        padding-top: 30px;
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+}
