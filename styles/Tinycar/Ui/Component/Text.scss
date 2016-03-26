@@ -13,6 +13,21 @@ div.tinycar-ui-component-text {
 	
 }
 
+div.tinycar-ui-component-group {
+    
+    div.tinycar-ui-component-text {
+        
+        > div.type-content {
+        
+            padding-top: 5px;
+            padding-bottom: 5px;
+            
+        }
+        
+    }
+    
+}
+
 @media (min-width: $view-tablet-width)
 {
 	body.layout-main
@@ -25,8 +40,8 @@ div.tinycar-ui-component-text {
 				
 					> div.type-label {
 					
-						padding-top: 25px;
-						padding-bottom: 15px;
+						padding-top: 20px;
+						padding-bottom: 10px;
 						
 					}
 						

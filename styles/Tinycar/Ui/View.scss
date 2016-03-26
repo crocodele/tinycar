@@ -142,16 +142,19 @@ body.layout-modal {
 					> div.type-label-empty {
 					
 						display: table-cell;
-						padding: 35px 30px 30px 0px;
 						border-bottom: 1px solid $main-color-uigray;
 						vertical-align: top;
 						
 					}
 					
+                    > div.type-label {
+                        padding: 30px 30px 25px 0px;
+                    }
+					
 					> div.type-content {
 					
 						display: table-cell;
-						padding: 25px 0px 30px 0px;
+						padding: 25px 0px 25px 0px;
 						width: 100%;
 						border-bottom: 1px solid $main-color-uigray;
 						vertical-align: top;

@@ -34,3 +34,116 @@ div.tinycar-ui-component-group {
 	}
 
 }
+
+div.tinycar-ui-component-group.format-table {
+        
+    > div.type-content {
+
+        padding: 0px;
+        border: 1px solid $main-color-uigray;
+        border-bottom: none;
+        background-color: #ffffff;
+        
+        > div.row {
+        
+            > div.tinycar-main-component {
+            
+                position: relative;
+                padding: 10px 0px 10px 20px;
+                border-bottom: 1px solid $main-color-uigray;
+                
+                > div.type-label {
+                                
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    width: 35%;
+                    height: 100%;
+                    padding: 10px 10px 0px 10px;
+                    border-right: 1px solid $main-color-uigray;
+                    box-sizing: border-box;
+                    background-color: $main-color-background;
+                    
+                    > label {
+                        white-space: normal;
+                    }
+                                    
+                }
+                
+                > div.type-content {
+                    padding-left: 35%;
+                }
+                    
+            }
+            
+        }
+                        
+    }
+    
+}
+
+@media (min-width: $view-tablet-width)
+{
+
+    body.layout-main {
+    
+        form.tinycar-ui-view {
+        
+            > div.components {
+            
+                > div.tinycar-ui-component-group.format-table {
+                
+                    > div.type-label {
+                        display: none;
+                    }
+        
+                    > div.type-content {
+                    
+                        display: table;
+                        width: 100%;
+                        padding: 0px;
+                        box-sizing: border-box;
+                        border-collapse: collapse;
+                        
+                        > div.row {
+                            
+                            display: table-row;
+                            
+                            > div.tinycar-main-component {
+                            
+                                display: table-cell;
+                                border: 1px solid $main-color-uigray;
+                                
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+                    
+                    
+                > div.tinycar-ui-component-group.format-table.columns-2 {
+        
+                    > div.type-content {
+                    
+                        > div.row {
+                            
+                            > div.tinycar-main-component {
+                                width: 50%;
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+}
