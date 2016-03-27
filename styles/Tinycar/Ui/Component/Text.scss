@@ -5,7 +5,65 @@ div.tinycar-ui-component-text {
 	
 	> div.type-content {
 	
-		> div.placeholder {
+        > a.link {
+        
+            display: inline-block;
+            color: $main-font-color;
+            cursor: pointer;
+            outline: none;
+            @include unselectable();
+            
+            > span.label {
+            
+                display: inline-block;
+                padding: 5px 0px 5px 0px;
+                vertical-align: top;
+                
+            }
+            
+            > span.icon {
+            
+                display: inline-block;
+                margin: 3px 0px 0px 3px;
+                vertical-align: top;
+                opacity: 0.5;
+                
+            }
+            
+            &:focus,
+            &:hover {
+
+                > span.label {
+                    text-decoration: underline;
+                }
+            
+                > span.icon {
+                    opacity: 1.0;
+                }
+                
+            }
+            
+            &:active {
+            
+                color: #000000;
+                
+                > span.label {
+                    text-decoration: none;
+                }
+            
+                > span.icon {
+                    opacity: 1.0;
+                }
+                
+            }
+            
+        }
+	
+        > span.text {
+            display: inline-block;
+        }
+	
+		> span.placeholder {
 			color: $field-placeholder-color;
 		}
 		
@@ -13,43 +71,50 @@ div.tinycar-ui-component-text {
 	
 }
 
-div.tinycar-ui-component-group {
+div.tinycar-ui-component-group.format-table {
     
     div.tinycar-ui-component-text {
-        
-        > div.type-content {
-        
-            padding-top: 5px;
-            padding-bottom: 5px;
             
+        > div.type-content {
+            
+            > span.text {
+                padding: 5px 0px 5px 0px;
+            }
+                
         }
-        
+            
     }
-    
+            
 }
 
 @media (min-width: $view-tablet-width)
 {
-	body.layout-main
-	{
-		form.tinycar-ui-view.layout-fieldlist {
-	
-			> div.components {
-		
-				> div.tinycar-ui-component-text {
-				
-					> div.type-label {
-					
-						padding-top: 20px;
-						padding-bottom: 10px;
-						
-					}
-						
-				}
-				
-			}
-			
-		}
-	}
+    
+    form.tinycar-ui-view.layout-fieldlist {
+    
+        > div.components {
+    
+            div.tinycar-ui-component-text {
+            
+                > div.type-label {
+                        
+                    padding-top: 25px;
+                    padding-bottom: 15px;
+                            
+                }
+                
+                > div.type-content {
+                
+                    > span.text {
+                        padding: 5px 0px 5px 0px;
+                    }
+                    
+                }
+                
+            }
+            
+        }
+                
+    }
 
 }
