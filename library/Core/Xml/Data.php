@@ -78,7 +78,7 @@
 
 			// Get attribute values
 			foreach ($node->attributes as $attribute)
-				$result[$attribute->name] = $attribute->value;
+				$result[strval($attribute->name)] = $attribute->value;
 
 			return $result;
 		}
