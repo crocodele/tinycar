@@ -185,6 +185,7 @@
 	 * Get rows from specified application's storage
 	 * @param object $params Tinycar\Core\Http\Params instance
 	 *               - string app          target application id
+	 *               - array  [rows]       get only specified row id's
 	 *               - array  [filter]     map of property values to must match
 	 *               - array  [properties] list of property names to return
 	 *               - string [order]      property name to sort by
@@ -200,6 +201,10 @@
 
 		// Get query instance
 		$query = $instance->getRowQuery();
+
+		// Get only specified rows
+		if ($params->has('rows'))
+			$query->idlist($params->getArray('rows'));
 
 		// Set filters
 		if ($params->has('filter'))
