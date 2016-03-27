@@ -136,7 +136,7 @@
 		<component type="Reference" tab="properties">
 			<label>$locale.sequel_film</label>
 			<item>name</item>
-			<data name="$model.parent" limit="1" dialog="tinycar.demo:parent" />
+			<data name="$model.sequel_film" limit="1" dialog="tinycar.demo:parent" />
 			<instructions>$locale.lorem_instructions</instructions>
 		</component>
 		
