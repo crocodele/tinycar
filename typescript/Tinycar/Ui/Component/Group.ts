@@ -5,59 +5,93 @@ module Tinycar.Ui.Component
 		// Build content
 		buildContent()
 		{
-			// Build elements
 			super.buildContent();
-			this.buildComponents();
+			
+			// Build as a table
+			if (this.isTable())
+				this.buildTable();
+			
+			// Build as a list
+			else
+				this.buildList();
 		}
 		
-		// Build group components
-		private buildComponents():void
+		// Build a component
+		private buildComponent(item:Object):JQuery
 		{
-			// Default container
-			var container = this.htmlContent;
+			// Create new model instance
+			let model = new Tinycar.Model.DataItem(item);
+				
+			// Target component type
+			let type = model.get('type_name');
+				
+			// Inherit tab name from group
+			model.set('tab_name', this.Model.get('tab_name'));
+				
+			// Create new instance
+			let instance = new Tinycar.Ui.Component[type](
+				this.App, this.View, model
+			);
+				
+			// Build instance
+			let container = instance.build();
+				
+			// Add to list of components
+			this.View.addComponent(instance);
 			
+			return container;
+		}
+		
+		// Build components as a list
+		private buildList():void
+		{
+			this.Model.get('components').forEach((item:Object) =>
+			{
+				this.htmlContent.append(this.buildComponent(item));
+			});
+		}
+		
+		// Build as a table
+		private buildTable():void
+		{
 			// Number of columns to use
 			var columns = this.Model.getNumber('columns');
+			var components = this.Model.getList('components');
 			
 			// Create first row
-			if (columns > 0)
-			{
-				container = $('<div>').
-					attr('class', 'row').
-					appendTo(this.htmlContent);
-			}
+			var container = $('<div>').
+				attr('class', 'row').
+				appendTo(this.htmlContent);
 			
 			// Create components only for this tab
-			this.Model.get('components').forEach((item:Object, index:number) =>
+			components.forEach((item:Object, index:number) =>
 			{
-				// Create new model instance
-				let model = new Tinycar.Model.DataItem(item);
-				
-				// Target component type
-				let type = model.get('type_name');
-				
-				// Inherit tab name from group
-				model.set('tab_name', this.Model.get('tab_name'));
-				
-				// Create new instance
-				let instance = new Tinycar.Ui.Component[type](
-					this.App, this.View, model
-				);
-				
 				// Add new columns container
-				if (columns > 0 && index % columns === 0)
+				if (index % columns === 0)
 				{
 					container = $('<div>').
 						attr('class', 'row').
 						appendTo(this.htmlContent);
 				}
 				
-				// Build to components list
-				container.append(instance.build());
-				
-				// Add to list of components
-				this.View.addComponent(instance);
+				// Build component to container
+				container.append(this.buildComponent(item));
 			});
+			
+			// Add empty table cells to the end
+			for (let i = components.length; i % columns !== 0; ++i)
+			{
+				// Container
+				let item = $('<div>').
+					addClass('tinycar-main-component').
+					addClass('tinycar-main-field').
+					appendTo(container);
+				
+				// Label
+				$('<div>').
+					attr('class', 'type-label').
+					appendTo(item);
+			}
 		}
 		
 		// @see Tinycar.Main.Field.getRootStyles()
@@ -70,6 +104,16 @@ module Tinycar.Ui.Component
 			result.push('columns-' + this.Model.get('columns'));
 			
 			return result;
+		}
+		
+		
+		// Check if this group should be displayed as a table
+		private isTable():boolean
+		{
+			return (
+				this.Model.get('format') === 'table' &&
+				this.Model.getNumber('columns') > 1
+			);
 		}
 	}
 }

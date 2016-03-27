@@ -127,46 +127,46 @@ body.layout-modal {
 			padding: 0px 30px 120px 30px;
 		}
 		
-		form.tinycar-ui-view.layout-fieldlist {
+    }
 		
-			> div.components {
+	form.tinycar-ui-view.layout-fieldlist {
+		
+		> div.components {
 			
-				display: table;
-				width: 100%;
+			display: table;
+			width: 100%;
 				
-				> div.tinycar-main-field {
+			> div.tinycar-main-field {
 				
-					border: none;
+				border: none;
 				
-					> div.type-label,
-					> div.type-label-empty {
-					
-						display: table-cell;
-						border-bottom: 1px solid $main-color-uigray;
-						vertical-align: top;
-						
-					}
-					
-                    > div.type-label {
-                        padding: 30px 30px 25px 0px;
-                    }
-					
-					> div.type-content {
-					
-						display: table-cell;
-						padding: 25px 0px 25px 0px;
-						width: 100%;
-						border-bottom: 1px solid $main-color-uigray;
-						vertical-align: top;
-						
-					}
-					
-					&.is-visible {
-						display: table-row;
-					}
+				> div.type-label,
+				> div.type-label-empty {
+				
+					display: table-cell;
+					border-bottom: 1px solid $main-color-uigray;
+					vertical-align: top;
 					
 				}
 				
+                > div.type-label {
+                    padding: 30px 30px 25px 0px;
+                }
+				
+				> div.type-content {
+					
+					display: table-cell;
+					padding: 25px 0px 25px 0px;
+					width: 100%;
+					border-bottom: 1px solid $main-color-uigray;
+					vertical-align: top;
+						
+				}
+					
+				&.is-visible {
+					display: table-row;
+				}
+					
 			}
 			
 		}
