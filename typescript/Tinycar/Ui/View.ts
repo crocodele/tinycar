@@ -8,7 +8,6 @@ module Tinycar.Ui
 	export class View extends Tinycar.Main.View
 	{
 		private htmlComponents:JQuery;
-		private htmlHeading:JQuery;
 		private htmlRoot:JQuery;
 		private tabFields:ITabFields = {};
 	
@@ -135,15 +134,8 @@ module Tinycar.Ui
 		// Build heading
 		private buildHeading():void
 		{
-			// Create container
-			let container = $('<div>').
-				attr('class', 'heading').
-				appendTo(this.htmlRoot);
-			
-			// Add heading label
-			this.htmlHeading = $('<strong>').
-				text(this.Model.get('heading')).
-				appendTo(container);
+			let instance = new Tinycar.View.Heading(this.Model);
+			this.htmlRoot.append(instance.build());
 		}
 
 		// Build root container

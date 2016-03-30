@@ -180,9 +180,6 @@
 		{
 			$result = array();
 
-			// Fixed properties
-			$result['created_time'] = time();
-
 			// Pick data nodes
 			foreach ($this->xdata->getNodes('data/property') as $node)
 			{
@@ -228,8 +225,7 @@
 
 		/**
 		 * Get views target data record, if any
-		 * @return object|null Tinycar\System\Application\Storage\Record
-		 *                     instance or null on failure
+		 * @return object Tinycar\System\Application\Storage\Record instance
 		 */
 		public function getDataRecord()
 		{

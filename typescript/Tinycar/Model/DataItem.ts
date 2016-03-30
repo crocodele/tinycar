@@ -81,8 +81,18 @@ module Tinycar.Model
 			this.dataList = data;
 		}
 		
-		// Check if specified data value is a string and 
-		// is not empty
+		// Check if specified data value is a number 
+		// and is not empty
+		hasNumber(name:string):boolean
+		{
+			return (
+				this.isNumber(name) &&
+				(this.dataList[name]> 0)
+			);
+		}
+		
+		// Check if specified data value is a string 
+		// and is not empty
 		hasString(name:string):boolean
 		{
 			return (

@@ -72,6 +72,8 @@
 	<text name="properties">Properties</text>
 	<text name="status">Status</text>
 	<text name="type">Type</text>
+    <text name="view_created_time">Created $time</text>
+    <text name="view_modified_time">Modified $time</text>
 	<text name="yes">Yes</text>
 	
 	<!-- Info messages -->

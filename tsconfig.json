@@ -54,6 +54,7 @@
         "typescript/Tinycar/Ui/Main/Help.ts",
         "typescript/Tinycar/Ui/Main/Icon.ts",
 		"typescript/Tinycar/Ui/Sidebar/Action.ts",
+		"typescript/Tinycar/View/Heading.ts",
 		"typescript/Tinycar/View/Tabs.ts"
     ]
     

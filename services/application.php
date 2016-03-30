@@ -242,8 +242,11 @@
 		// Get application manifest instance
 		$manifest = $instance->getManifest();
 
-		// Get applicatoion locale instance
+		// Get application locale instance
 		$locale = $instance->getLocale();
+
+		// Get target data record
+		$record = $view->getDataRecord();
 
 		// Application properties
 		$result['app'] = array(
@@ -257,13 +260,15 @@
 
 		// Get view properties
 		$result['view'] = array(
-			'name'        => $view->getName(),
-			'layout_type' => $view->getLayoutType(),
-			'heading'     => $view->getHeading(),
-			'tabs'        => array(),
-			'actions'     => array(),
-			'components'  => array(),
-			'text'        => array(),
+			'name'          => $view->getName(),
+			'created_time'  => $record->get('created_time'),
+			'modified_time' => $record->get('modified_time'),
+			'layout_type'   => $view->getLayoutType(),
+			'heading'       => $view->getHeading(),
+			'tabs'          => array(),
+			'actions'       => array(),
+			'components'    => array(),
+			'text'          => array(),
 		);
 
 		// Translations
