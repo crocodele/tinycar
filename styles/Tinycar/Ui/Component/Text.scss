@@ -16,7 +16,6 @@ div.tinycar-ui-component-text {
             > span.label {
             
                 display: inline-block;
-                padding: 5px 0px 5px 0px;
                 vertical-align: top;
                 
             }
@@ -24,7 +23,7 @@ div.tinycar-ui-component-text {
             > span.icon {
             
                 display: inline-block;
-                margin: 3px 0px 0px 3px;
+                margin: -2px 0px 0px 2px;
                 vertical-align: top;
                 opacity: 0.5;
                 
@@ -71,7 +70,7 @@ div.tinycar-ui-component-text {
 	
 }
 
-div.tinycar-ui-component-group.format-table {
+div.tinycar-ui-component-group.layout-table {
     
     div.tinycar-ui-component-text {
             

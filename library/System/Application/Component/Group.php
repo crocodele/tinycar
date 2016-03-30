@@ -33,8 +33,8 @@
 			$result = parent::onModelAction($params);
 
 			// Properties
-			$result['format'] = $this->xdata->getString('@format');
-			$result['columns'] = $this->xdata->getInt('@columns');
+			$result['layout']  = $this->xdata->getString('layout');
+			$result['columns'] = $this->xdata->getInt('columns');
 
 			// Initiate components list
 			$result['components'] = array();

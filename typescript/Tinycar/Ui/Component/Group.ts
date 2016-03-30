@@ -99,8 +99,8 @@ module Tinycar.Ui.Component
 		{
 			let result = super.getRootStyles();
 			
-			// Group format style
-			result.push('format-' + this.Model.get('format'));
+			// Group style
+			result.push('layout-' + this.Model.get('layout'));
 			result.push('columns-' + this.Model.get('columns'));
 			
 			return result;
@@ -111,7 +111,7 @@ module Tinycar.Ui.Component
 		private isTable():boolean
 		{
 			return (
-				this.Model.get('format') === 'table' &&
+				this.Model.get('layout') === 'table' &&
 				this.Model.getNumber('columns') > 1
 			);
 		}
