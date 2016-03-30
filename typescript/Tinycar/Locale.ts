@@ -19,11 +19,22 @@ module Tinycar
 		}
 	
 		// Get specified text from current locale
-		export function getText(name:string):string
+		export function getText(name:string, vars?:Object):string
 		{
-			return (this.textList.hasOwnProperty(name) ?
+			// Get target string
+			let result = (this.textList.hasOwnProperty(name) ?
 				this.textList[name] : name
 			);
+			
+			// We have custom variables to place
+			if (typeof vars !== 'undefined')
+			{
+				// Replace variables
+				for (let key in vars)
+					result = result.split('$' + key).join(vars[key]);
+			}
+			
+			return result;
 		}
 		
 		// Load calendar configuration
@@ -39,5 +50,19 @@ module Tinycar
 			for (let name in params)
 				this.textList[name] = params[name];
 		}
+		
+		// Format specified unix timestamp into specified locale format
+	    export function toDate(time:number, type:string):string
+	    {
+	    	// Get date format
+	    	let format = this.getCalendar('format_' + type);
+	    	
+	    	// Format is invalid
+	    	if (typeof format !== 'string')
+	    		return null;
+
+	    	// Format with given rule
+	    	return Tinycar.Format.toDate(time, format);
+	    }
 	}
 }
