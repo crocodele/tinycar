@@ -9,6 +9,7 @@ module Tinycar.Ui
 	{
 		private handlerList:IHandlerList = {};
 		private htmlRoot:JQuery;
+		private isEnabled:boolean = true;
 		private Model:Tinycar.Model.DataItem;
 	
 		// Initiate class
@@ -62,7 +63,13 @@ module Tinycar.Ui
 		// Build label
 		private buildLabel():void
 		{
+			// Add label
 			this.htmlRoot.text(this.Model.get('label'));
+			
+			// Set button size
+			this.htmlRoot.addClass((this.Model.has('size') ? 
+				'button-' + this.Model.get('size') : 'button-default'
+			));
 		}
 		
 		// Build root container
@@ -89,10 +96,26 @@ module Tinycar.Ui
 				// Small delay for visual effect
 				window.setTimeout(() =>
 				{
-					this.callHandler('click');
+					if (this.isEnabled === true)
+						this.callHandler('click');
 					
 				}, 100);
 			});
+		}
+		
+		// Set button as enabled or disabled
+		setAsEnabled(status:boolean):void
+		{
+			if (status === true)
+			{
+				this.isEnabled = true;
+				this.htmlRoot.removeClass('is-disabled');
+			}
+			else
+			{
+				this.isEnabled = false;
+				this.htmlRoot.addClass('is-disabled');
+			}
 		}
 		
 		// Set custom event hander
