@@ -1,0 +1,66 @@
+div.tinycar-ui-component-commentslist {
+    
+    padding: 30px 0px 30px 0px;
+    
+    > div.heading {
+    
+        margin: 0px 0px 10px 0px;
+        font-size: 1.4em;
+        font-weight: 100;
+        
+        > span.amount {
+        
+            margin: 0px 0px 0px 6px;
+            color: $main-color-details;
+            font-size: 0.6em;
+            
+        }
+        
+    }
+	
+	> div.list {
+	
+        > div.item {
+        
+            padding: 20px 0px 0px 0px;
+            
+           > div.line {
+           
+                position: relative;
+                padding: 5px 0px 12px 30px;
+           
+                > span.icon {
+                
+                    position: absolute;
+                    left: 0px;
+                    top: 2px;
+                    
+                }
+               
+           }
+        
+            > div.message {
+            
+                padding: 18px 20px 18px 20px;
+                border: 1px solid $main-color-uigray;
+                background-color: #ffffff;
+                color: $content-font-color;
+                font-family: $content-font-family;
+                font-size: $content-font-size;
+                line-height: $content-font-lineheight;
+                
+            }
+            
+        }
+        
+    }
+    
+    > div.tinycar-ui-component-textinput {
+        padding-bottom: 15px;
+    }
+    
+    > a.tinycar-ui-button {
+        margin-left: 1px;
+    }
+    
+}

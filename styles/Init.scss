@@ -5,6 +5,13 @@ $main-font-source: '//fonts.googleapis.com/css?family=Roboto:300,400';
 $main-font-family: "Roboto", "Arial", sans-serif;
 $main-font-color: #000000;
 
+/** Content text **/
+
+$content-font-family: "Arial", serif;
+$content-font-color: #333333;
+$content-font-size: 1.0em;
+$content-font-lineheight: 1.5em;
+
 
 /** Field styles **/
 
@@ -122,6 +129,7 @@ $view-tablet-width: 800px;
 @import "Tinycar/Ui/Component/Group.scss";
 @import "Tinycar/Ui/Component/Button.scss";
 @import "Tinycar/Ui/Component/CheckBox.scss";
+@import "Tinycar/Ui/Component/CommentsList.scss";
 @import "Tinycar/Ui/Component/DataGrid.scss";
 @import "Tinycar/Ui/Component/DateTime.scss";
 @import "Tinycar/Ui/Component/Password.scss";

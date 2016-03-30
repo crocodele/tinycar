@@ -51,12 +51,19 @@
 	<!-- General -->
 	<text name="content">Content</text>
     <text name="created">Created</text>
-	<text name="datagrid_reset_search">Reset search</text>
-	<text name="datagrid_type_search">Search datagrid...</text>
+    <text name="commentslist_add_comment">Add comment</text>
+	<text name="commentslist_author_wrote_at">$author wrote at $time</text>
+    <text name="commentslist_comments">Comments</text>
+	<text name="commentslist_new_comment">New comment</text>
+    <text name="commentslist_write_comment">Write comment...</text>
+    <text name="datagrid_reset_search">Reset search</text>
+    <text name="datagrid_type_search">Search datagrid...</text>
 	<text name="dialog_confirm">Confirm</text>
 	<text name="description">Description</text>
     <text name="email">Email</text>
 	<text name="heading">Heading</text>
+    <text name="id">Id</text>
+    <text name="message">Message</text>
 	<text name="modified">Modified</text>
 	<text name="name">Name</text>
 	<text name="no">No</text>
@@ -71,6 +78,7 @@
 	<text name="info_required_field">This is a required field</text>
 	
 	<!-- Toast messages -->
+	<text name="toast_app_dialog_invalid">Dialog "$name" does not exist</text>
 	<text name="toast_app_manifest_invalid">Manifest for application $id is invalid.</text>
 	<text name="toast_app_view_invalid">This application does not have view called "$name".</text>
 	<text name="toast_component_action_invalid">This component does not have an action called "$name".</text>
@@ -85,5 +93,6 @@
 	<text name="toast_param_intlist_empty">SQL query failed due to empty list of integers.</text>
 	<text name="toast_removed_success">Item was removed successfully.</text>
 	<text name="toast_saved_success">Item was saved successfully.</text>
+	<text name="toast_service_name_invalid">Target service "$name" does not exist.</text>
 	
 </locale>
