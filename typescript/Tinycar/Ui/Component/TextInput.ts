@@ -3,6 +3,7 @@ module Tinycar.Ui.Component
 	export class TextInput extends Tinycar.Main.Field
 	{
 		private fldInput:JQuery;
+		private hasValue:boolean;
 	
 	
 		// Build content
@@ -72,8 +73,10 @@ module Tinycar.Ui.Component
 			// Change value is changed
 			this.fldInput.change((e:Event) =>
 			{
+				let value = this.fldInput.val();
+				
 				// Update current value
-				this.setDataValue(this.fldInput.val());
+				this.setDataValue(value);
 			});
 			
 			// When is typed
@@ -90,6 +93,36 @@ module Tinycar.Ui.Component
 					
 				}, 300);
 			});			
+		}
+		
+		// @see Tinycar.Main.Field.setDataValue()
+		setDataValue(value:string):void
+		{
+			// Update component value
+			super.setDataValue(value);
+			
+			// Update field value
+			this.fldInput.val(value);
+			
+			// New value existance state
+			let hasValue = this.Model.hasString('data_value');
+			
+			// State has changed, trigger event
+			if (this.hasValue !== hasValue)
+			{
+				this.hasValue = hasValue;
+				this.callHandler('value', this.hasValue);
+			}
+		}
+		
+		// @see Tinycar.Main.Field.start()
+		start():void
+		{
+			super.start();
+
+			// Trigger initial value state listener
+			this.hasValue = this.Model.hasString('data_value');
+			this.callHandler('value', this.hasValue);
 		}
 	}
 }

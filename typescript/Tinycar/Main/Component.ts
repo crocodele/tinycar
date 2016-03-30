@@ -1,7 +1,14 @@
 module Tinycar.Main
 {
+	interface IHandlerList
+	{
+		[key:string]:Function;
+	}
+	
 	export class Component
 	{
+		private handlerList:IHandlerList = {};
+		private isCmpVisible:boolean = false;
 		htmlRoot:JQuery;
 
 		App:Tinycar.Ui.Application;
@@ -51,6 +58,13 @@ module Tinycar.Main
 				addClass('tinycar-ui-component-' + name);
 		}
 		
+		// Call specified handler
+		callHandler(name:string, data?:any):void
+		{
+			if (this.handlerList.hasOwnProperty(name))
+				this.handlerList[name](data);
+		}
+		
 		// Get componetn id
 		getId():string
 		{
@@ -60,9 +74,7 @@ module Tinycar.Main
 		// Get root styles
 		getRootStyles():Array<string>
 		{
-			return [
-			    'tinycar-main-component'
-			];
+			return ['tinycar-main-component'];
 		}
 		
 		// Get component's tab name
@@ -74,7 +86,7 @@ module Tinycar.Main
 		// Check if component is currently visible
 		isVisible():boolean
 		{
-			return this.htmlRoot.hasClass('is-visible');
+			return this.isCmpVisible;
 		}
 		
 		// Refresh component
@@ -85,10 +97,28 @@ module Tinycar.Main
 		// Set component as visible or non-visible
 		setAsVisible(visible:boolean):void
 		{
+			// This is the first time, set 
 			if (visible === true)
+			{
+				this.isCmpVisible = true;
 				this.htmlRoot.addClass('is-visible');
+			}
 			else
+			{
+				this.isCmpVisible = false;
 				this.htmlRoot.removeClass('is-visible');
+			}
+		}
+		
+		// Set custom event hander
+		setHandler(name:string, callback:Function):void
+		{
+			this.handlerList[name] = callback;
+		}
+		
+		// Start component after added to DOM
+		start():void
+		{
 		}
 	}
 }

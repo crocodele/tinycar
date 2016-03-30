@@ -320,18 +320,40 @@ module Tinycar.Ui
 		// Show specified view tab contents
 		showTab(name:string):void
 		{
+			let built = false;
+			
 			// Set active tab
 			this.Tabs.setActiveTab(name);
 			
-			// Build components for this tab once
+			// Build components for this tab
 			if (!this.tabFields.hasOwnProperty(name))
-				this.buildComponentsForTab(name);
-			
-			// Update visibility for all created compents
-			this.componentList.forEach((item:Tinycar.Main.Component) => 
 			{
-				item.setAsVisible((item.getTabName() === name));
-			});
+				this.buildComponentsForTab(name);
+				
+				// @note: starting components should  probably be
+				//         global event after application's been built 
+			
+				// Update visibility for all created compents
+				this.componentList.forEach((item:Tinycar.Main.Component) => 
+				{
+					// Set component visible or hidden
+					item.setAsVisible((item.getTabName() === name));
+					
+					// Start component
+					if (item.isVisible())
+						item.start();
+						
+				});
+			}
+			// Just display components
+			else
+			{
+				// Update visibility for all created compents
+				this.componentList.forEach((item:Tinycar.Main.Component) => 
+				{
+					item.setAsVisible((item.getTabName() === name));
+				});
+			}
 		}
 		
 		// Update current page title
