@@ -59,7 +59,7 @@ module Tinycar.Ui.Component
 							
 					// Update value
 					this.setDataValue(
-						(this.getDataValue() === false)
+						!(this.getDataValue() === true)
 					);
 				}
 			});			
