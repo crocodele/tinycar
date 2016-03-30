@@ -48,7 +48,15 @@ a.tinycar-ui-button {
 		min-width: 50px;
 		line-height: 1.7em;
 		text-align: center;
-				
+		
+		&.button-small {
+		
+            padding: 3px 12px 4px 12px;
+            font-size: 0.95em;
+            min-width: 0px;
+            
+		}
+		
 	}
 	
 	&.secondary-button {
@@ -76,6 +84,9 @@ a.tinycar-ui-button {
 		&:hover {
 			color: #ffffff;
 		}
+		
+        &.is-disabled {
+        }
 	
 	}
 	
