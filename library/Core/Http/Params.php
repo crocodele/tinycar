@@ -1,12 +1,12 @@
 <?php
 
     namespace Tinycar\Core\Http;
-    
+
     class Params
     {
         private $data = array();
-        
-        
+
+
         /**
          * Initiate class
          * @parma array [$data] initial data
@@ -15,8 +15,8 @@
         {
             $this->data = $data;
         }
-        
-        
+
+
         /**
          * Get specified data property value
          * @param string $name target property name
@@ -28,8 +28,8 @@
                 $this->data[$name] : null
             );
         }
-        
-        
+
+
         /**
          * Get all data property values as an array
          * @return array all data
@@ -38,8 +38,8 @@
         {
         	return $this->data;
         }
-        
-        
+
+
         /**
          * Get specified data property as an array
          * @param string $name target property value
@@ -50,8 +50,8 @@
         	$value = $this->get($name);
         	return (is_array($value) ? $value : array());
         }
-        
-        
+
+
         /**
          * Get specified data property as a boolean
          * @param string $name target property value
@@ -62,8 +62,8 @@
         	$value = $this->get($name);
         	return ($value === 'true' || $value === true);
         }
-        
-        
+
+
         /**
          * @see Tinycar\Core\Http\Params::get()
          * @deprecated
@@ -74,8 +74,8 @@
         	//        when references have been changed
         	return $this->get($name);
         }
-                
-        
+
+
         /**
          * Get specified data property as an integer
          * @param string $name target property value
@@ -84,20 +84,20 @@
         public function getInt($name)
         {
         	$value = $this->get($name);
-        	
+
         	if (is_int($value))
         		return $value;
-        	
+
         	if (is_float($value))
         		return intval($value);
-        	
+
         	if (is_string($value) && is_numeric($value))
         		return intval($value);
-        		
+
        		return 0;
         }
-        
-        
+
+
         /**
          * Get specified data property value as a Params instance
          * @param string $name target property name
@@ -107,25 +107,37 @@
         {
         	return new self($this->getArray($name));
         }
-        
-        
+
+
         /**
          * Get specified data property value as a list
          * of Tinycar\App\Param instances
          * @param string $name target property name
-         * @return array list of Tinycar\Core\Http\Params instances 
+         * @return array list of Tinycar\Core\Http\Params instances
          */
         public function getParamsList($name)
         {
         	$result = array();
-        	
+
         	foreach ($this->getArray($name) as $item)
         		$result[] = new self($item);
-        	        	
+
         	return $result;
         }
-        
-        
+
+
+        /**
+         * Get specified data property as a string
+         * @param string $name target property value
+         * @return string|null string value or null on failure
+         */
+        public function getString($name)
+        {
+        	$value = $this->get($name);
+        	return (is_string($value) ? $value : null);
+        }
+
+
         /**
          * Check if specified data property exists
          * @param string $name target property name
@@ -135,8 +147,8 @@
         {
         	return array_key_exists($name, $this->data);
         }
-        
-        
+
+
         /**
          * Check if specified data proeprty exists and
          * is a non-empty string
@@ -151,8 +163,8 @@
         		strlen($this->data[$name]) > 0
         	);
         }
-        
-        
+
+
         /**
          * Set new data property value
          * @param string $name target property name
