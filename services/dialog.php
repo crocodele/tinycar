@@ -128,7 +128,11 @@
 
 		// Invalid dialog name
 		if (is_null($dialog))
-			throw new Exception('app_dialog_invalid');
+		{
+			throw new Exception('app_dialog_invalid', array(
+				'name' => $params->get('dialog'),
+			));
+		}
 
 		// Get dialog properties
 		$result = array(
