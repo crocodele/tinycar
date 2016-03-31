@@ -139,6 +139,25 @@
 
 
         /**
+         * Get specified keys and values from current data
+         * @param $names $filter array keys to pick
+         * @return array values picked from source
+         */
+        public function getValues(array $names)
+        {
+        	$result = array();
+
+        	foreach ($this->data as $k => $v)
+        	{
+        		if (in_array($k, $names))
+        			$result[$k] = $v;
+        	}
+
+        	return $result;
+        }
+
+
+        /**
          * Check if specified data property exists
          * @param string $name target property name
          * @return bool property exists
