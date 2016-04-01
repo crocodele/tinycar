@@ -9,24 +9,30 @@
     use Tinycar\App\Services;
     use Tinycar\Core\Http\Params;
     use Tinycar\Core\Xml\Data;
+    use Tinycar\System\Application\Component;
     use Tinycar\System\Application\Dialog;
     use Tinycar\System\Application\Manifest;
     use Tinycar\System\Application\Model;
     use Tinycar\System\Application\Model\Variable;
     use Tinycar\System\Application\View;
-    use Tinycar\System\Application\View\Action;
+    use Tinycar\System\Application\SideList;
     use Tinycar\System\Application\Storage;
+    use Tinycar\System\Application\Xml\Action;
+    use Tinycar\System\Application\Xml\Section;
 
 
     class Application
     {
     	private $data = array();
+    	private $component_index = array();
+    	private $component_list = array();
     	private $dialogs;
     	private $id;
     	private $locale;
     	private $manifest;
     	private $model;
     	private $properties;
+    	private $sidelist;
     	private $services;
     	private $storage;
     	private $system;
@@ -116,6 +122,36 @@
 
 
         /**
+         * Create a component instnace for this view
+         * @param object $section Tinycar\System\Application\Xml\Section instance
+         * @param object $xdata Tinycar\Core\Xml\Data instance
+         * @return object Tinycar\System\Application\Component instance
+         */
+        public function createComponent(Section $section, Data $xdata)
+        {
+        	// Current compnent index number
+        	$index = count($this->component_list);
+
+        	// Create new instance
+        	$result = Component::loadByType(
+        		$this->system, $this, $section, 'cmp-'.$index, $xdata
+        	);
+
+        	// Target id
+        	$id = $result->getId();
+
+        	// Add to list
+        	$this->component_list[] = $result;
+        	$this->component_index[$id] = $index;
+
+        	// Initiate component for use
+        	$result->init();
+
+        	return $result;
+        }
+
+
+        /**
          * Load all available instances from system
          * @param object Manager instance
          * @return array list of Tinycar\System\Application instances
@@ -151,7 +187,6 @@
 
             return $result;
 		}
-
 
 
 		/**
@@ -203,7 +238,7 @@
 		 * Get action instance by type
 		 * @param object $view Tinycar\System\Application\View instance
 		 * @param string $type target action type
-		 * @return object|null Tinycar\System\Application\View\Action instance
+		 * @return object|null Tinycar\System\Application\Xml\Action instance
 		 *                     or null on failure
 		 */
 		public function getActionByType(View $view, $type)
@@ -221,11 +256,29 @@
 		/**
 		 * Get actions data for application and specified view
 		 * @param object $view Tinycar\System\Application\View instance
-		 * @return array list of Tinycar\System\Application\View\Action instances
+		 * @return array list of Tinycar\System\Application\Xml\Action instances
 		 */
 		public function getActions(View $view)
 		{
 			$result = array();
+
+			// Default view actions
+			if ($this->hasSideList())
+			{
+				// Get sidelist
+				$sidelist = $this->getSideList();
+
+				// Add expand/collapse action
+				$result[] = new Action(array(
+					'target' => 'view',
+					'type'   => 'list',
+					'label'  => $this->getLocaleText('action_sidelist'),
+				));
+
+				// Add sidelist actions
+				foreach ($sidelist->getActions() as $item)
+					$result[] = $item;
+			}
 
 			// Add view actions
 			foreach ($view->getActions() as $item)
@@ -234,12 +287,17 @@
 			// Default view actions
 			if (!$this->isHomeApplication())
 			{
+				// Target application
+				$app = ($view->isDefault() || $this->hasSideList() ?
+					Config::get('UI_APP_HOME') : $this->getId()
+				);
+
 				$result[] = new Action(array(
 					'target' => 'system',
 					'type'   => 'back',
 					'label'  => $this->getLocaleText('action_back'),
 					'link'   => array(
-						'app'  => ($view->isDefault() ? Config::get('UI_APP_HOME') : $this->getId()),
+						'app'  => $app,
 						'view' => 'default',
 					),
 				));
@@ -318,6 +376,23 @@
 				return null;
 
 			return $this->properties[$name];
+		}
+
+
+		/**
+		 * Get component instance by id
+		 * @param string $id target component id
+		 * @return object|null Tinycar\System\Application\Component instance or null on failure
+		 */
+		public function getComponentById($id)
+		{
+			// No such component
+			if (!array_key_exists($id, $this->component_index))
+				return null;
+
+			// Get component instance
+			$index = $this->component_index[$id];
+			return $this->component_list[$index];
 		}
 
 
@@ -621,6 +696,32 @@
 
 
 		/**
+		 * Get sidelist instance
+		 * @return object Tinycar\System\Application\SideList instance
+		 */
+		public function getSideList()
+		{
+			// Already resolved
+			if (!is_null($this->sidelist))
+				return $this->sidelist;
+
+			// Get node
+			$node = $this->xdata->getNode('side');
+
+			// Use a dummy node when none exists
+			if (is_null($node))
+				$node = $this->xdata->getAsNode(array());
+
+			// Create new instance
+			$instance = new SideList($this->system, $this, $node);
+
+			// Remember
+			$this->sidelist = $instance;
+			return $this->sidelist;
+		}
+
+
+		/**
 		 * Get application's current status label
 		 * @return string status label
 		 */
@@ -823,6 +924,26 @@
 		{
 			$services = $this->getServices();
 			return $services->hasService($path);
+		}
+
+
+		/**
+		 * Check if application has a sidelist
+		 * @return bool application has sidelist
+		 */
+		public function hasSideList()
+		{
+			return !is_null($this->xdata->getNode('side'));
+		}
+
+
+		/**
+		 * Initialize application
+		 */
+		public function init()
+		{
+			// Initialize sidelist components
+			$this->getSideList()->getComponents();
 		}
 
 

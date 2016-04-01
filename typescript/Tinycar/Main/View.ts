@@ -109,7 +109,8 @@ module Tinycar.Main
 				
 				// Move to URL specified by action
 				Tinycar.Url.updatePath(params.getObject('link'), {
-					url : Tinycar.Url.getParams()
+					url   : Tinycar.Url.getParams(),
+					model : {id:params.get('value')}
 				});
 			}
 			
@@ -118,7 +119,8 @@ module Tinycar.Main
 			{
 				// Move to URL specified by action
 				Tinycar.Url.updatePath(params.getObject('link'), {
-					url : Tinycar.Url.getParams()
+					url   : Tinycar.Url.getParams(),
+					model : {id:params.get('value')}
 				});
 			}
 			

@@ -18,6 +18,13 @@ module Tinycar.Model
 				this.dataList[name] = data[name];
 		}
 		
+		// Clear specified data value
+		clear(name:string):void
+		{
+			if (this.dataList.hasOwnProperty(name))
+				delete this.dataList[name];
+		}
+		
 		// Get specified data value
 		get(name:string):any
 		{

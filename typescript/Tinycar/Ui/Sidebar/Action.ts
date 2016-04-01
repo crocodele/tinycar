@@ -78,10 +78,11 @@ module Tinycar.Ui.Sidebar
 			// When clicked
 			this.htmlRoot.click((e:JQueryMouseEventObject) =>
 			{
-				if (e.ctrlKey === false)
+				if (e.ctrlKey === false && e.shiftKey === false)
 				{
 					e.preventDefault();
 					this.execute();
+					this.htmlRoot.blur();
 				}
 			});
 		}
@@ -89,6 +90,13 @@ module Tinycar.Ui.Sidebar
 		// Execute action
 		execute():boolean
 		{
+			// Expand or collapse list
+			if (this.isListAction())
+			{
+				this.View.App.toggleSideList();
+				return true;
+			}
+			
 			// Open specified dialog
 			if (this.Model.hasString('dialog'))
 			{
@@ -99,7 +107,11 @@ module Tinycar.Ui.Sidebar
 			// Save current view
 			if (this.isSaveAction())
 			{
-				this.View.saveModel(this);
+				this.View.onSave(new Tinycar.Model.DataItem({
+					link  : this.Model.get('link'),
+					toast : this.Model.get('toast')
+				}));
+				
 				return true;
 			}
 			
@@ -119,34 +131,7 @@ module Tinycar.Ui.Sidebar
 			
 			return false;
 		}
-		
-		// Get link pth, evaluated with custom properties
-		getLinkUrl(custom:Object):string
-		{
-			// Target URL
-			let result = Tinycar.Url.getAsPath(
-				this.Model.getObject('link')
-			);
-			
-			let params = Tinycar.Url.getParams();
-			
-			// Replace dynamic URL variables
-			for (var name in params)
-				result = result.split('$url.' + name).join(params[name]);
-			
-			// Replace dynamic variable values
-			for (var name in custom)
-				result = result.split('$model.' + name).join(custom[name]);
-			
-			return result;
-		}
-		
-		// Get action toast message
-		getToastMessage():string
-		{
-			return this.Model.get('toast');
-		}
-		
+
 		// Get action type
 		getType():string
 		{
@@ -173,6 +158,12 @@ module Tinycar.Ui.Sidebar
 				!this.isServiceAction() && 
 				this.Model.isObject('link')
 			);
+		}
+		
+		// Check if this is a list action
+		isListAction():boolean
+		{
+			return (this.Model.get('type') === 'list');
 		}
 		
 		// Check if this is an action for saving

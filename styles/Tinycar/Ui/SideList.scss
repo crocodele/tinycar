@@ -1,0 +1,37 @@
+div.tinycar-ui-sidelist {
+
+    position: fixed;
+    left: 64px;
+    display: none;
+    padding: 0px 20px 0px 20px;
+    width: 80%;
+    height: 100%;
+    box-sizing: border-box;
+    border-right: 1px solid $main-color-uigray;
+    background-color: lighten($main-color-background, 2%);
+    overflow: auto;
+    z-index: 1;
+    
+}
+
+body.has-sidelist.sidelist-visible {
+    
+    div.tinycar-ui-sidelist {
+        display: block;
+    }
+        
+}
+
+@media (min-width: $view-tablet-width)
+{
+    body.has-sidelist.sidelist-visible {
+    
+        padding-left: 334px;
+    
+        div.tinycar-ui-sidelist {
+            width: 270px;
+        }
+        
+    }
+
+}

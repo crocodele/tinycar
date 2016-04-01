@@ -22,7 +22,7 @@ module Tinycar.Ui.Component
 		private buildDatePicker():void
         {
 			// Load external vendor
-			Tinycar.System.Page.loadVendor('jqueryui', () =>
+			Tinycar.Page.loadVendor('jqueryui', () =>
 			{
 				// Re-set instance to add loaded functionality
 				this.fldInput = $(this.fldInput);

@@ -27,7 +27,6 @@ module Tinycar
 		export var htmlRoot:JQuery;
 	
 		export var Mask:Tinycar.Main.Mask;
-		export var Page:Tinycar.Main.Page;
 		export var Side:Tinycar.Main.Sidebar;
 		export var Toast:Tinycar.Main.Toast;
 	
@@ -77,9 +76,8 @@ module Tinycar
 			// Build elements
 			this.buildRoot();
 			
-			// Initiate page
-			this.Page = new Tinycar.Main.Page();
-			this.htmlRoot.append(this.Page.build());
+			// Build page
+			Tinycar.Page.build();
 			
 			// Create sidebar
 			this.Side = new Tinycar.Main.Sidebar();

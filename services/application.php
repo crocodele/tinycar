@@ -221,9 +221,10 @@
      *               - string view  target view name
      *               - array  [url] source URL parameters
 	 * @return array properties
-	 *         - array app  application properties
-	 *         - array text application-specific translations
-	 *         - array view view properties
+	 *         - array app    application properties
+     *         - array [side] sidelist properties
+	 *         - array view   view properties
+	 *         - array text   application-specific translations
 	 * @throws Tinycar\Core\Exception
      */
 	$api->setService('view', function(Params $params) use ($system)
@@ -237,9 +238,7 @@
 		// Get target view
 		$view = $instance->getViewByName($params->get('view'));
 
-		$result = array();
-
-		// Get application manifest instance
+		// Get application manifest and sidelist
 		$manifest = $instance->getManifest();
 
 		// Get application locale instance
@@ -247,6 +246,8 @@
 
 		// Get target data record
 		$record = $view->getDataRecord();
+
+		$result = array();
 
 		// Application properties
 		$result['app'] = array(
@@ -258,6 +259,22 @@
 			'icon'        => $manifest->getIconData(),
 		);
 
+		// Get side properties
+		if ($instance->hasSideList())
+		{
+			// Get sidelist
+			$sidelist = $instance->getSideList();
+
+			$result['side'] = array(
+				'heading'    => $sidelist->getHeading(),
+				'components' => array(),
+			);
+
+			// Add components
+			foreach ($sidelist->getComponents() as $item)
+				$result['side']['components'][] = $item->callAction('model');
+		}
+
 		// Get view properties
 		$result['view'] = array(
 			'name'          => $view->getName(),
@@ -268,7 +285,6 @@
 			'tabs'          => array(),
 			'actions'       => array(),
 			'components'    => array(),
-			'text'          => array(),
 		);
 
 		// Translations

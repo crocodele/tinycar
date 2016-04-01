@@ -26,27 +26,32 @@ module Tinycar.View
 		// Build details
 		private buildDetails():void
 		{
-			// Create container
-			let container = $('<div>').
-				attr('class', 'details').
-				appendTo(this.htmlRoot);
+			let result = [];
 			
 			// We have creation time
 			if (this.Model.hasNumber('created_time'))
-			{
-				$('<span>').
-					text(this.getDateLabel('created_time')).
-					appendTo(container);
-			}
+				result.push(this.getDateLabel('created_time'));
 			
 			// We have modified time
 			if (this.Model.hasNumber('modified_time'))
+				result.push(this.getDateLabel('modified_time'));
+			
+			// Create details when needed
+			if (result.length > 0)
 			{
-				$('<span>').
-					text(this.getDateLabel('modified_time')).
-					appendTo(container);
+				// Create container
+				let container = $('<div>').
+					attr('class', 'details').
+					appendTo(this.htmlRoot);
+				
+				// Add lines
+				result.forEach((line:string) =>
+				{
+					$('<span>').
+						text(line).
+						appendTo(container);
+				});
 			}
-
 		}
 		
 		// Build heading

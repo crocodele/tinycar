@@ -1,4 +1,4 @@
-module Tinycar.Main
+module Tinycar
 {
 	interface IVendor
 	{
@@ -11,14 +11,14 @@ module Tinycar.Main
 		[key:string]:IVendor;
 	}
 	
-	export class Page
+	export module Page
 	{
-		private htmlRoot:JQuery;
-		private htmlStyles:JQuery;
-		private loadedVendors:Array<string> = ['app'];
+		export var htmlRoot:JQuery;
+		export var htmlStyles:JQuery;
+		export var loadedVendors:Array<string> = ['app'];
 	
 		// Custom styles
-		private customStyles:string = `
+		export var customStyles:string = `
 		
 			a:hover {
 				color: %base%;
@@ -117,30 +117,41 @@ module Tinycar.Main
 			
 		`;
 		
-		// Build
-		build():JQuery
+		// Add style name to page
+		export function addStyle(name:string):void
 		{
-			// Build styles container
-			this.buildStyles();
-			
+			this.htmlRoot.addClass(name);
+		}
+		
+		// Build
+		export function build():void
+		{
 			// Get references
 			this.htmlRoot = $('body:first');
 			
-			// Initiate page styles for main UI
-			this.htmlRoot.addClass('is-prepared');
+			// Build styles container
+			this.buildStyles();
 			
-			return this.htmlStyles;
+			// Prepage page
+			this.addStyle('is-prepared');
 		}
 		
 		// Build styles container
-		private buildStyles():void
+		export function buildStyles():void
 		{
 			this.htmlStyles = $('<style>').
-				attr('type', 'text/css');
+				attr('type', 'text/css').
+				appendTo(this.htmlRoot);
+		}
+		
+		// Clear style name from page
+		export function clearStyle(name:string):void
+		{
+			this.htmlRoot.removeClass(name);
 		}
 		
 		// Load specified vendor scripts and styles
-		loadVendor(name:string, callback:Function):boolean
+		export function loadVendor(name:string, callback:Function):boolean
 		{
 			// This vendor has already been loaded once
 			if (this.loadedVendors.indexOf(name) > -1)
@@ -175,7 +186,7 @@ module Tinycar.Main
 		}
 		
 		// Set layout stule
-		setLayoutName(name:string):void
+		export function setLayoutName(name:string):void
 		{
 			// Set root styles
 			this.htmlRoot.addClass('layout-' + name);
@@ -186,7 +197,7 @@ module Tinycar.Main
 		}
 		
 		// Set page status
-		setState(state:string):void
+		export function setState(state:string):void
 		{
 			// Change root styles
 			this.htmlRoot.addClass('is-' + state);
@@ -204,7 +215,7 @@ module Tinycar.Main
 		}
 		
 		// Set page theme color
-		setThemeColors(color:Object):void
+		export function setThemeColors(color:Object):void
 		{
 			let styles = this.customStyles;
 			
@@ -221,7 +232,7 @@ module Tinycar.Main
 		}
 		
 		// Set page title
-		setTitle(parts:Array<string>):void
+		export function setTitle(parts:Array<string>):void
 		{
 			// Update title
 			document.title = parts.join(' - ');

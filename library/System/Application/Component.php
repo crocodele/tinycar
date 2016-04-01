@@ -7,8 +7,8 @@
 	use Tinycar\Core\Http\Params;
 	use Tinycar\Core\Xml\Data;
 	use Tinycar\System\Application;
-	use Tinycar\System\Application\View;
 	use Tinycar\System\Application\Model\Property;
+	use Tinycar\System\Application\Xml\Section;
 
 	class Component
 	{
@@ -29,15 +29,15 @@
 		 * Initiate class
 		 * @param object $system Tinycar\App\Manager
 		 * @param object $app Tinycar\System\Application instance
-		 * @param object $view Tinycar\System\Application\View instance
+		 * @param object $section Tinycar\System\Application\Xml\Section instance
 		 * @param string $id target component id
 		 * @param object $xdata Tinycar\Core\Xml\Data instance
 		 */
-		public function __construct(Manager $system, Application $app, View $view, $id, Data $xdata)
+		public function __construct(Manager $system, Application $app, Section $section, $id, Data $xdata)
 		{
 			$this->system = $system;
 			$this->app = $app;
-			$this->view = $view;
+			$this->view = $section;
 			$this->id = $id;
 			$this->xdata = $xdata;
 		}
@@ -47,11 +47,11 @@
 		 * Load component by type
 		 * @param object $system Tinycar\App\Manager
 		 * @param object $app Tinycar\System\Application instance
-		 * @param object $view Tinycar\System\Application\View instance
+		 * @param object $section Tinycar\System\Application\Xml\Section instance
 		 * @param string $id target component id
 		 * @param object $xdata Tinycar\Core\Xml\Data instance
 		 */
-		public static function loadByType(Manager $system, Application $app, View $view, $id, Data $xdata)
+		public static function loadByType(Manager $system, Application $app, Section $section, $id, Data $xdata)
 		{
 			// Target type
 			$type = $xdata->getString('@type');
@@ -61,8 +61,8 @@
 
 			// Create new instance
 			$instance = (class_exists($class_name) ?
-				new $class_name($system, $app, $view, $id, $xdata) :
-				new self($system, $app, $view, $id, $xdata)
+				new $class_name($system, $app, $section, $id, $xdata) :
+				new self($system, $app, $section, $id, $xdata)
 			);
 
 			return $instance;
@@ -267,7 +267,7 @@
 
 
 		/**
-		 * @see Tinycar\System\Application\View::getStringValue();
+		 * @see Tinycar\System\Application\Xml\Section::getStringValue();
 		 */
 		public function getStringValue($source)
 		{

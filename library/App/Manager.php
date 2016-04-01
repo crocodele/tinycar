@@ -6,7 +6,7 @@
     use Tinycar\App\Locale;
     use Tinycar\App\Session;
     use Tinycar\System\Storage;
-    
+
     class Manager
     {
     	private $locale;
@@ -14,16 +14,16 @@
         private $services = array();
         private $session;
         private $storage;
-        
-        
+
+
          /**
           * Initiate class
           */
          public function __construct()
          {
          }
-         
-         
+
+
          /**
           * Add new parameters
           * @param array $parameters new parameters
@@ -34,8 +34,8 @@
                  $this->parameters, $parameters
              );
          }
-         
-         
+
+
          /**
           * Add raw request data
           * @param string $data raw data to parse
@@ -47,14 +47,14 @@
          	{
          		// Try to decode from JSON
          		$data = json_decode($data, true);
-         
+
          		// Add data as parameters
          		if (is_array($data))
          			$this->addParameters($data);
          	}
          }
-         
-         
+
+
          /**
           * Call specified service
           * @param string $path target service path
@@ -68,18 +68,18 @@
          	// Invalid path syntax
          	if (!preg_match("'^([a-z\.]{1,})\.([a-z\.]{1,})$'m", $path, $m))
          		throw new Exception('service_syntax_invalid');
-         		 
+
          	// Try to get target services
          	$services = $this->getServices($m[1]);
-         	
+
          	// Verify access to the service with custom service
          	if ($authenticate && $services->hasService('access'))
          	{
          		// Access denied
        			if ($services->callService('access', $params) === false)
-         			throw new Exception('service_access_denied'); 
+         			throw new Exception('service_access_denied');
          	}
-         	
+
          	// No such service
          	if (!$services->hasService($m[2]))
          	{
@@ -87,12 +87,12 @@
          			'name' => $m[2],
          		));
          	}
-         	
+
          	// Get service result
          	return $services->callService($m[2], $params);
          }
-         
-         
+
+
          /**
           * Get application instance by id
           * @param string $id target application id
@@ -103,10 +103,10 @@
          {
          	// Get system stroage
          	$storage = $this->getStorage();
-         	
+
          	// Try to get application from storage
          	$result = $storage->getApplicationById($id);
-         	
+
          	// This application is not in use
          	if (!$result->isEnabled())
          	{
@@ -114,18 +114,18 @@
          			'id' => $id,
          		));
          	}
-         	
+
          	// This application is in development mode
          	if ($result->isInDevmode())
          	{
          		$result->loadManifestFile();
          		$storage->updateApplication($result);
          	}
-         	
+
          	return $result;
          }
-         
-         
+
+
          /**
           * Get current locale instance
           * @return object Tinycar\App\Locale instance
@@ -136,28 +136,28 @@
          	// Already resolved
          	if (!is_null($this->locale))
          		return $this->locale;
-         	
+
          	// Get current locale name from session
          	$session = $this->getSession();
          	$name = $session->getLocale();
-         	
+
          	// Try to load target locale
          	$instance = Locale::loadFromSystem($name);
-         	
+
          	// Failed, revert to default
          	if (is_null($instance))
          		$instance = Locale::loadFromSystem('default');
-         	
+
          	// Still failed, we have no locales
          	if (is_null($instance))
          		throw new Exception('locale_files_missing');
-         	
+
 			// Remember
 			$this->locale = $instance;
 			return $this->locale;
          }
-         
-         
+
+
         /**
          * Get specified property value for current locale
          * @param string $name target locale property name
@@ -168,15 +168,15 @@
         	// Get from application's locale
          	$locale = $this->getLocale();
          	$value = $locale->getText($name);
-         		
+
          	// Revert to name
          	if (is_null($value))
          		$value = $name;
-         			
+
          	return $value;
 		}
-         
-         
+
+
          /**
           * Get specified parameter value
           * @param string $name target parameter name
@@ -188,8 +188,8 @@
                  $this->parameters[$name] : null
              );
          }
-         
-         
+
+
          /**
           * Get specified services instance
           * @param string $name target service name
@@ -200,13 +200,13 @@
          	// Already resolved
          	if (array_key_exists($name, $this->services))
          		return $this->services[$name];
-         
+
          	// Create new instance
          	$api = new Services($this);
-         
+
          	// System path to services file
          	$file = Config::getPath('SERVICES_FOLDER', '/'.$name.'.php');
-         
+
          	// Configure services
          	if (file_exists($file))
          	{
@@ -214,17 +214,17 @@
          		$system = $this;
          		$session = $this->getSession();
          		$user = $this->getUser();
-         		 
+
          		// Get file
          		include($file);
          	}
-         	
+
             // Remember
          	$this->services[$name] = $api;
          	return $this->services[$name];
          }
-         
-         
+
+
          /**
           * Get system storage instance
           * @return object Tinycar\System\Storage instance
@@ -234,13 +234,13 @@
          	// Already resolved
          	if (!is_null($this->storage))
          		return $this->storage;
-         			
+
          	// Remember
          	$this->storage = new Storage($this);
          	return $this->storage;
          }
-         
-         
+
+
          /**
           * Get all parameters
           * @return array parameters
@@ -249,8 +249,8 @@
          {
              return $this->parameters;
          }
-         
-         
+
+
          /**
           * Get session instance
           * @return object Tinycar\App\Session instance
@@ -260,13 +260,13 @@
          	// Already resolved
          	if (!is_null($this->session))
          		return $this->session;
-         	
+
          	// Remember
          	$this->session = new Session();
         	return $this->session;
 		}
-		
-		
+
+
 		/**
 		 * Get session user instance
 		 * @return object Tinycar\App\User instance
@@ -275,8 +275,8 @@
 		{
 			return $this->getSession()->getUser();
 		}
-		
-		
+
+
 		/**
 		 * Check if user has authenticated
 		 * @return bool user has authenticated
@@ -285,18 +285,18 @@
 		{
 			return ($this->getUser()->isEmpty() === false);
 		}
-		
-         
+
+
         /**
 		 * Check if authentication is required
-		 * @return bool authentication is required 
+		 * @return bool authentication is required
          */
 		public function hasAuthentication()
 		{
 			return is_string(Config::get('UI_APP_LOGIN'));
 		}
-         
-         
+
+
 		/**
          * Check if specified parameter has been defiend
          * @param string $name target parameter name
@@ -306,8 +306,8 @@
         {
         	return array_key_exists($name, $this->parameters);
 		}
-		
-		
+
+
         /**
          *  Show output
          */

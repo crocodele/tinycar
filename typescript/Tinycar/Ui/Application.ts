@@ -8,6 +8,7 @@ module Tinycar.Ui
 
 		Dialog:Tinycar.Ui.Dialog;
 		Model:Tinycar.Model.DataItem;
+		Side:Tinycar.Ui.SideList;
 		View:Tinycar.Ui.View;
 	
 		
@@ -54,22 +55,33 @@ module Tinycar.Ui
 					view : view,
 					url  : Tinycar.Url.getParams()
 				},
-				success : (data) =>
+				success : (data:Object) =>
 				{
-					// Add application-specific translations
-					Tinycar.Locale.loadText(data.text);
-					
 					// Create application model
-					this.Model = new Tinycar.Model.DataItem(data.app);
+					this.Model = new Tinycar.Model.DataItem(data['app']);
+					
+					// Add application-specific translations
+					Tinycar.Locale.loadText(data['text']);
 					
 					// Create view UI instance
-					this.View = new Tinycar.Ui.View(this, data.view);
+					this.View = new Tinycar.Ui.View(this, data['view']);
 					
-					// Build UI view
+					// Create sidebar UI instance
+					if (data.hasOwnProperty('side'))
+					{
+						// Create sidelist and add it to application
+						this.Side = new Tinycar.Ui.SideList(this, data['side']);
+						this.htmlRoot.append(this.Side.build());
+						
+						// Update layout style
+						Tinycar.Page.addStyle('has-sidelist');
+					}
+					
+					// Add view UI to application
 					this.htmlRoot.append(this.View.build());
 					
 					// Update layout name
-					Tinycar.System.Page.setLayoutName(
+					Tinycar.Page.setLayoutName(
 						this.Model.get('layout_name')
 					);
 					
@@ -78,15 +90,13 @@ module Tinycar.Ui
 						Tinycar.System.Side.update(this);
 					
 					// Set system theme color
-					Tinycar.System.Page.setThemeColors(
-						this.Model.get('colors')
-					);
+					Tinycar.Page.setThemeColors(this.Model.get('colors'));
 					
 					// Set content as rendered
 					window.setTimeout(() =>
 					{
 						// Set page state as rendered
-						Tinycar.System.Page.setState('rendered');
+						Tinycar.Page.setState('rendered');
 						
 						// Adding new item, autofocus
 						if (!Tinycar.Url.hasParam('id'))
@@ -135,6 +145,14 @@ module Tinycar.Ui
 			this.Dialog.load(this.View.getComponentsData());
 			
 			return this.Dialog;
+		}
+		
+		// Toggle sidelist open or close
+		toggleSideList():void
+		{
+			// No sidelist available
+			if (this.Side instanceof Tinycar.Ui.SideList)
+				this.Side.setAsVisible(!this.Side.isVisible());
 		}
 	}
 }

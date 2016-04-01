@@ -61,11 +61,14 @@ module Tinycar
 		}
 		
 		// Get unique id for active URL
-		export function getUid():string
+		export function getUid(target?:string):string
 		{
 			let result = 'uid';
+			let names  = ['app', 'view', 'id'];
 			
-			let names = ['app', 'view', 'id'];
+			// Limit to application level
+			if (typeof target === 'string' && target === 'app')
+				names = ['app'];
 			
 			// Pick relevant URL properties to string
 			names.forEach((name:string) => 
@@ -102,7 +105,7 @@ module Tinycar
 		// Open specified URL
 		export function openUrl(url:string):void
 		{
-			Tinycar.System.Page.setState('unloading');
+			Tinycar.Page.setState('unloading');
 			location.href = url;
 		}
 		
@@ -117,7 +120,7 @@ module Tinycar
 		{
 			// Get path as URL
 			let url = this.getAsPath(custom);
-			
+
 			// Add custom variables
 			if (typeof vars === 'object')
 			{
@@ -132,14 +135,14 @@ module Tinycar
 					}
 				}
 			}
-			
+
 			this.updateUrl(url);
 		}
 		
 		// Update URL by replacing it with another
 		export function updateUrl(url:string):void
 		{
-			Tinycar.System.Page.setState('unloading');
+			Tinycar.Page.setState('unloading');
 			location.replace(url);
 		}
 	}

@@ -50,7 +50,7 @@ module Tinycar.Ui.Component
 			// When clicked
 			container.click((e:Event) =>
 			{
-				Tinycar.System.Page.setState('unloading');
+				Tinycar.Page.setState('unloading');
 			});
 		}
 		

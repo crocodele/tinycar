@@ -1,19 +1,19 @@
-<?php 
+<?php
 
 	namespace Tinycar\System\Application;
-	
+
 	use Tinycar\App\Config;
 	use Tinycar\Core\Xml\Data;
 	use Tinycar\System\Application;
 	use Tinycar\System\Application\Webhook;
-	
+
 	class Manifest
 	{
 		private $app;
 		private $xdata;
 		private $webhooks;
-		
-		
+
+
 		/**
 		 * Initiate class
 		 * @param object $app Tinycar\System\Application instance
@@ -24,8 +24,8 @@
 			$this->app = $app;
 			$this->xdata = $xdata;
 		}
-		
-		
+
+
 		/**
 		 * Get manifest XML as a string
 		 * @return string XML
@@ -34,8 +34,8 @@
 		{
 			return $this->xdata->getAsXml();
 		}
-		
-		
+
+
 		/**
 		 * Get application color
 		 * @return string|null color or null on failure
@@ -44,8 +44,8 @@
 		{
 			return $this->xdata->getString('app/color');
 		}
-		
-		
+
+
 		/**
 		 * Get color adjustment
 		 * @param string $color source color
@@ -56,23 +56,23 @@
 		{
 			// Trim value
 			$color = substr($color, 1);
-				
+
 			$result = '#';
-				
+
 			// Adjust R, G and B
 			foreach (str_split($color, 2) as $c)
 			{
 				$c = hexdec($c);
 				$c = max(0, min(255, $c + $adjust));
 				$c = dechex($c);
-		
+
 				$result .= str_pad($c, 2, '0', STR_PAD_LEFT);
 			}
-				
+
 			return $result;
 		}
-		
-		
+
+
 		/**
 		 * Get application color map
 		 * @return array map of colors and their adjustments
@@ -84,7 +84,7 @@
 		public function getColorMap()
 		{
 			$color = $this->xdata->getString('app/color');
-		
+
 			return array(
 				'base'   => $color,
 				'dark'   => $this->getColorAdjust($color, -10),
@@ -92,8 +92,8 @@
 				'lite'   => $this->getColorAdjust($color, +10),
 			);
 		}
-		
-		
+
+
 		/**
 		 * Get application description
 		 * @return string|null color or null on failure
@@ -102,8 +102,8 @@
 		{
 			return $this->xdata->getString('app/description');
 		}
-		
-		
+
+
 		/**
 		 * Get application icon data
 		 * @return string icon data
@@ -112,23 +112,23 @@
 		{
 			// System path to application-specific file
 			$file = $this->getResourcePath('/icon.png');
-		
+
 			// No such file, revet to default image
 			if (!file_exists($file))
 			{
-				$file = Config::getPath('SYSTEM_PATH', 
+				$file = Config::getPath('SYSTEM_PATH',
 					'/public/assets/base/images/default-appicon.png'
 				);
 			}
-						
+
 			// Read file
 			return sprintf(
 				'data:image/png;base64,%s',
 				base64_encode(file_get_contents($file))
 			);
 		}
-		
-		
+
+
 		/**
 		 * Get application layout name
 		 * @return string layout name
@@ -138,12 +138,12 @@
 			// Login application is always using the modal layout
 			if ($this->app->getId() === Config::get('UI_APP_LOGIN'))
 				return 'modal';
-			
+
 			// Main layout name
 			return 'main';
 		}
-		
-		
+
+
 		/**
 		 * Get application name
 		 * @return string name
@@ -152,8 +152,8 @@
 		{
 			return $this->xdata->getString('app/name');
 		}
-		
-		
+
+
 		/**
 		 * Get application provider
 		 * @return string provider
@@ -162,8 +162,8 @@
 		{
 			return $this->xdata->getString('app/provider');
 		}
-		
-		
+
+
 		/**
 		 * Get path to specified application resource file
 		 * @param string $postfix target postfix string
@@ -171,12 +171,12 @@
 		 */
 		public function getResourcePath($postfix)
 		{
-			return Config::getPath('APPS_FOLDER', 
+			return Config::getPath('APPS_FOLDER',
 				'/'.$this->app->getId().$postfix
 			);
 		}
-		
-		
+
+
 		/**
 		 * Get webhook instances
 		 * @return array Tinycar\System\Application\Webhook instances
@@ -186,9 +186,9 @@
 			// Already resolved
 			if (is_array($this->webhooks))
 				return $this->webhooks;
-			
+
 			$result = array();
-			
+
 			// Create instances
 			foreach ($this->xdata->getNodes('webhook') as $node)
 				$result[] = new Webhook($this->app, $node);
@@ -197,8 +197,8 @@
 			$this->webhooks = $result;
 			return $this->webhooks;
 		}
-		
-		
+
+
 		/**
 		 * Get webhook instances by action name
 		 * @param string $action target action name
@@ -207,17 +207,17 @@
 		public function getWebhooksByAction($action)
 		{
 			$result = array();
-				
+
 			foreach ($this->getWebhooks() as $item)
 			{
 				if ($item->getAction() === $action)
 					$result[] = $item;
 			}
-				
+
 			return $result;
 		}
-		
-		
+
+
 		/**
 		 * Check if this application uses a local storage database
 		 * @return bool has a local storage database

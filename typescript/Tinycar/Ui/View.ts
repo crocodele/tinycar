@@ -263,14 +263,8 @@ module Tinycar.Ui
 			});
 		}
 		
-		// Open specified dialog
-		openDialog(name:string):void
-		{
-			this.App.openDialog(name);
-		}
-		
-		// Save current model from an action
-		saveModel(action:Tinycar.Ui.Sidebar.Action):void
+		// Save current datamodel
+		onSave(params:Tinycar.Model.DataItem):void
 		{
 			// Try to save
 			Tinycar.Api.call({
@@ -283,30 +277,26 @@ module Tinycar.Ui
 				},
 				success  : (result:any) => 
 				{
-					// Set success message
-					Tinycar.System.Toast.setMessage({
-						type : 'success',
-						text : Tinycar.Locale.getText('toast_saved_success')
-					});
-
-					// We have a new id, update URL parameters
+					// Update model id into URL
 					if (typeof result === 'number')
 					{
-						// Store toast message
-						Tinycar.System.Toast.store();
-						
-						// Move to URL specified by action
-						Tinycar.Url.updateUrl(action.getLinkUrl({
-							id:result
-						}));
+						params.set('value', result)
+						this.onResponse(params);
 					}
-					// Just show the toast message
+					// Response without redirecting
 					else
 					{
-						Tinycar.System.Toast.show();
+						params.clear('link');
+						this.onResponse(params);						
 					}
 				}
 			});
+		}
+		
+		// Open specified dialog
+		openDialog(name:string):void
+		{
+			this.App.openDialog(name);
 		}
 		
 		// Show specified view tab contents
@@ -362,7 +352,7 @@ module Tinycar.Ui
 			path.push(Tinycar.Config.get('SYSTEM_TITLE'));
 			
 			// Update title
-			Tinycar.System.Page.setTitle(path);
+			Tinycar.Page.setTitle(path);
 		}
 	}
 }

@@ -13,10 +13,9 @@ module Tinycar.Ui.Component
 			this.buildEditor();
 			
 			// Load external module
-			Tinycar.System.Page.loadVendor('trumbowyg', () => {
-
+			Tinycar.Page.loadVendor('trumbowyg', () =>
+			{
 				this.initEditor();
-
 			});
 		}
 		
