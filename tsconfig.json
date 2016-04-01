@@ -41,6 +41,7 @@
         "typescript/Tinycar/Ui/Component/DateTime.ts",
         "typescript/Tinycar/Ui/Component/Group.ts",
         "typescript/Tinycar/Ui/Component/IconListView.ts",
+        "typescript/Tinycar/Ui/Component/NavigationList.ts",
         "typescript/Tinycar/Ui/Component/Password.ts",
         "typescript/Tinycar/Ui/Component/RadioList.ts",
         "typescript/Tinycar/Ui/Component/Reference.ts",

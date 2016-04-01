@@ -169,10 +169,7 @@ module Tinycar
 			
 			// Authentication is required
 			if (this.isLoginRequired())
-			{
 				name = Tinycar.Config.get('APP_LOGIN');
-				view = 'default';
-			}
 			
 			// Create new instance
 			var app = new Tinycar.Ui.Application(name);

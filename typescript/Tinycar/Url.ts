@@ -40,10 +40,10 @@ module Tinycar
 			for (var name in params)
 				path.push(name + ':' + params[name]);
 			
-			// Get URL syntax
+			// Get URL string
 			return '?' + 
 				Tinycar.Config.get('PATH_PARAM') + 
-				'=/' + path.join('/') + '/'; 
+				'=/' + path.join('/') + '/';
 		}
 		
 		// Get specified parameter value
@@ -80,10 +80,50 @@ module Tinycar
 			return result;
 		}
 		
+		// Get link proeprties evaluated with custom variables
+		export function getWithVars(custom:Object, vars:Object):Object
+		{
+			// Copy source object
+			let result = jQuery.extend(true, {}, custom);
+			
+			// Go through variables
+			for (let type in vars)
+			{
+				// Variables properties
+				for (let name in vars[type])
+				{
+					// Update custom properties
+					for (let key in custom)
+					{
+						if (result[key] === '$' + type + '.' + name)
+							result[key] = vars[type][name];
+					}
+				}
+				
+			}
+			
+			return result;
+		}
+		
 		// Check if specified parameter exits
 		export function hasParam(name:string):boolean
 		{
 			return this.paramList.hasOwnProperty(name);
+		}
+		
+		// Check if specified path properties match current path
+		export function isPathMatch(custom:Object):boolean
+		{
+			console.log(custom);
+			
+			for (var name in custom)
+			{
+				// This path part does not match property
+				if (this.getParam(name) !== custom[name])
+					return false;
+			}
+			
+			return true;
 		}
 		
 		// Load parameters
@@ -118,25 +158,12 @@ module Tinycar
 		// Update path by replacing with another
 		export function updatePath(custom:Object, vars?:Object):void
 		{
-			// Get path as URL
-			let url = this.getAsPath(custom);
-
 			// Add custom variables
 			if (typeof vars === 'object')
-			{
-				// Add dynamic variables
-				for (let type in vars)
-				{
-					for (let name in vars[type])
-					{
-						url = url.
-							split('$' + type + '.' + name).
-							join(vars[type][name]);
-					}
-				}
-			}
-
-			this.updateUrl(url);
+				custom = this.getWithVars(custom, vars);
+				
+			// Update URL
+			this.updateUrl(this.getAsPath(custom));
 		}
 		
 		// Update URL by replacing it with another
