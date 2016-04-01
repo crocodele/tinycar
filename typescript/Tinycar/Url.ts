@@ -114,8 +114,6 @@ module Tinycar
 		// Check if specified path properties match current path
 		export function isPathMatch(custom:Object):boolean
 		{
-			console.log(custom);
-			
 			for (var name in custom)
 			{
 				// This path part does not match property
