@@ -48,7 +48,7 @@
 
 			// Try to read colors
 			foreach ($this->xdata->getNodes('palette/color') as $node)
-				$result[] = $node->getString();
+				$result[] = strtolower($node->getString());
 
 			// No palette colors defined, use default colors
 			if (count($result) === 0)
