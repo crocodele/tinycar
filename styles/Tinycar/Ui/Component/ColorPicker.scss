@@ -1,0 +1,148 @@
+div.tinycar-ui-component-colorpicker {
+    
+    > div.type-content {
+    
+        position: relative;
+    
+        > div.field {
+        
+            position: relative;
+            float: left;
+            padding: 0px 35px 0px 0px;
+        
+            > span.sample {
+            
+                position: absolute;
+                right: 2px;
+                top: 8px;
+                display: block;
+                width: 20px;
+                height: 20px;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                @include border-radius(11px);
+                
+            }
+            
+            > input {
+
+                position: relative;
+                padding-right: 40px;
+                width: 130px;
+                z-index: 11;
+                
+            }
+            
+            > a.tinycar-ui-button {
+    
+                position: absolute;
+                right: 35px;
+                top: 0px;
+                bottom: 0px;
+                margin: 1px;
+                padding: 4px 5px 0px 4px;
+                border-left: 1px solid $field-border-color;
+                z-index: 11;
+                
+            }
+            
+        }
+
+    }
+	
+}
+
+div.tinycar-ui-component-colorpicker-palette {
+    
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    padding: 13px 12px 12px 13px;
+    width: 195px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border: 1px solid darken($main-color-uigray, 10%);
+    overflow: hidden;
+    z-index: 20;
+    @include border-radius(3px);
+    @include unselectable();
+        
+    > a.color {
+            
+        display: block;
+        float: left;
+        width: 20px;
+        height: 20px;
+        border-top: 1px solid #ffffff;
+        border-right: 1px solid #ffffff;
+        cursor: pointer;
+                
+        > span {
+                
+            display: block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid transparent;
+            box-sizing: border-box;
+
+        }
+                
+        &:focus > span,
+        &:hover > span {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+                
+        &:active > span {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+                
+        &.is-selected > span {
+            border-color: rgba(0, 0, 0, 0.5);
+        }
+                
+    }
+    
+}
+
+
+div.tinycar-ui-component-group {
+    
+    > div.type-content {
+    
+        > div.tinycar-ui-component-colorpicker {
+        
+            float: left;
+            min-width: 180px;
+            padding-right: 30px;
+            padding-bottom: 10px;
+        
+            > div.type-label {
+            
+                float: none;
+                padding-top: 20px;
+                padding-bottom: 10px;
+                
+            }
+            
+        }
+        
+    }
+    
+}
+
+@media (min-width: $view-tablet-width)
+{
+    div.tinycar-ui-component-group {
+        
+        > div.type-content {
+        
+            > div.tinycar-ui-component-colorpicker {
+            
+                > div.type-label {
+                    padding-top: 10px;
+                }
+            }
+            
+        }
+        
+    }
+}

@@ -52,6 +52,7 @@
 	<!-- General -->
 	<text name="content">Content</text>
     <text name="created">Created</text>
+    <text name="colorpicker_color">Color</text>
     <text name="commentslist_add_comment">Add comment</text>
 	<text name="commentslist_author_wrote_at">$author wrote at $time</text>
     <text name="commentslist_comments">Comments</text>
