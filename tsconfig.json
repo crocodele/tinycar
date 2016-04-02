@@ -36,6 +36,7 @@
         "typescript/Tinycar/Ui/View.ts",
         "typescript/Tinycar/Ui/Component/Button.ts",
         "typescript/Tinycar/Ui/Component/CheckBox.ts",
+        "typescript/Tinycar/Ui/Component/ColorPicker.ts",
         "typescript/Tinycar/Ui/Component/CommentsList.ts",
         "typescript/Tinycar/Ui/Component/DataGrid.ts",
         "typescript/Tinycar/Ui/Component/DateTime.ts",
