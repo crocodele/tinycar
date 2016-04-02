@@ -55,7 +55,7 @@ div.ui-datepicker {
 	margin: 1px 0px 0px 0px;
 	padding: 5px 5px 10px 5px;
 	background-color: #ffffff;
-	border: 1px solid darken($main-color-uigray, 20%);
+	border: 1px solid darken($main-color-uigray, 10%);
 	color: $main-font-color;
 	overflow: hidden;
 	@include border-radius(3px);
