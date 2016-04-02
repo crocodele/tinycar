@@ -89,6 +89,7 @@ module Tinycar.Ui.Component
 				// Update with a delay
 				timer = window.setTimeout(() =>
 				{
+					timer = null;
 					this.fldInput.trigger('change');
 					
 				}, 300);
