@@ -44,6 +44,17 @@ module Tinycar.Ui
 			return this.Model.get('id');
 		}
 		
+		// Get specified application theme color varionta
+		getThemeColor(name:string):string
+		{
+			let colors = this.Model.getObject('colors');
+			
+			if (!colors.hasOwnProperty(name))
+				return '#000000';
+			
+			return colors[name];
+		}
+		
 		// Load specified view
 		loadView(view:string):void
 		{
