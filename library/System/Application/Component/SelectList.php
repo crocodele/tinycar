@@ -1,13 +1,13 @@
 <?php
-	
+
 	namespace Tinycar\System\Application\Component;
 
 	use Tinycar\Core\Http\Params;
-	use Tinycar\System\Application\Component;
-	
-	class SelectList extends Component
+	use Tinycar\System\Application\View\Field;
+
+	class SelectList extends Field
 	{
-		
+
 		/**
 		 * Get select list options data
 		 * @return array options data
@@ -15,7 +15,7 @@
 		private function getOptionsData()
 		{
 			$result = array();
-			
+
 			// Go trough options
 			foreach ($this->xdata->getNodes('options/option') as $node)
 			{
@@ -27,11 +27,11 @@
 					),
 				);
 			}
-			
+
 			return $result;
 		}
-		
-		
+
+
 		/**
 		 * @see Tinycar\System\Application\Compont::onModelAction()
 		 */
@@ -41,7 +41,7 @@
 
 			// Get options data
 			$result['options'] = $this->getOptionsData();
-			
+
 			return $result;
 		}
 	}
