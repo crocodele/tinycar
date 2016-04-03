@@ -123,28 +123,29 @@
 			// Pick data nodes
 			foreach ($this->xdata->getNodes('data/property') as $node)
 			{
-				// Get name
-				$property = $this->getStringValue($node->getString('@name'));
+				// Get name and value
+				$name = $this->getStringValue($node->getString('@name'));
+				$value = $this->getStringValue($node->getString('@value'));
 
-				// Not a property instance, ignore
-				if (!($property instanceof Property))
-					continue;
-
-				// Get desired value
-				$value = $this->getStringValue(
-					$node->getString('@value')
-				);
-
-				// Invalid default value for this property
-				if (!$property->isValidValue($value))
+				// Process property instance
+				if ($name instanceof Property)
 				{
-					throw new Exception('invalid_property_value', array(
-						'name' => $property->getName(),
-					));
-				}
+					// Invalid default value for this property
+					if (!$name->isValidValue($value))
+					{
+						throw new Exception('invalid_property_value', array(
+							'name' => $name->getName(),
+						));
+					}
 
-				// Add to list as typed value
-				$result[$property->getName()] = $property->getAsValue($value);
+					// Add to list as typed value
+					$result[$name->getName()] = $name->getAsValue($value);
+				}
+				// Simple, untyped value
+				else
+				{
+					$result[$name] = $value;
+				}
 			}
 
 			return $result;
