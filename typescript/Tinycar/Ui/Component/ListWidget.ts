@@ -49,32 +49,38 @@ module Tinycar.Ui.Component
 		// Build single list item
 		private buildListItem(data:Object):void
 		{
+			let container;
+			
 			// Target item id
 			let id = data['id']['value'];
 			
-			// Create container
-			let container = $('<a>').
-				attr('class', 'item').
-				appendTo(this.htmlList);
-			
-			// Link to static URL
+			// Row contains a linke
 			if (typeof this.linkPattern === 'string')
 			{
-				// Add link
-				container.attr('href', this.linkPattern.
-					split('$item.id').join(id)
-				);
-			}
-			
-			// When clicked
-			container.click((e:JQueryKeyEventObject) => 
-			{
-				if (e.ctrlKey === false && e.shiftKey === false)
+				// Create container
+				container = $('<a>').
+					attr('href', this.linkPattern.split('$item.id').join(id)).
+					attr('class', 'item').
+					appendTo(this.htmlList);
+				
+				// When clicked
+				container.click((e:JQueryKeyEventObject) => 
 				{
-					e.preventDefault();
-					Tinycar.Url.openUrl(container.attr('href'));
-				}
-			});
+					if (e.ctrlKey === false && e.shiftKey === false)
+					{
+						e.preventDefault();
+						Tinycar.Url.openUrl(container.attr('href'));
+					}
+				});
+			}
+			// Row is static
+			else
+			{
+				// Create container
+				container = $('<span>').
+					attr('class', 'item').
+					appendTo(this.htmlList);
+			}
 			
 			// Create columns
 			this.Model.get('columns').forEach((column:Object) => 

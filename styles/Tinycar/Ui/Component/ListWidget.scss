@@ -14,15 +14,12 @@ div.tinycar-ui-component-listwidget {
         border: 1px solid $main-color-uigray;
         background-color: #ffffff;
         
-        > a.item {
+        > .item {
         
             display: block;
             padding: 12px 15px 12px 15px;
             color: $main-font-color;
             border-bottom: 1px solid $main-color-uigray;
-            cursor: pointer;
-            outline: none;
-            @include unselectable();
             
             > span.column {
                 
@@ -30,6 +27,18 @@ div.tinycar-ui-component-listwidget {
                 padding: 3px 0px 3px 0px;
                 
             }
+            
+            &:Last-child {
+                border-bottom: none;
+            }            
+        }
+        
+        
+        > a.item {
+        
+            cursor: pointer;
+            outline: none;
+            @include unselectable();
             
             &:focus,
             &:hover {
@@ -44,9 +53,6 @@ div.tinycar-ui-component-listwidget {
                 background-color: darken($main-color-background, 1%);
             }
 
-            &:Last-child {
-                border-bottom: none;
-            }            
         }
         
     }
@@ -64,7 +70,7 @@ div.tinycar-ui-component-listwidget {
             border-collapse: collapse;
             box-sizing: border-box;
             
-            > a.item {
+            > .item {
             
                 display: table-row;
                 padding: 0px;
