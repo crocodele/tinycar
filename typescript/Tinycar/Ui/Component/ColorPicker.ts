@@ -52,13 +52,6 @@ module Tinycar.Ui.Component
 		// Build palette colors
 		private buildPalette():boolean
 		{
-			// Get shared palette container
-			this.htmlPalette = $('div.tinycar-ui-component-colorpicker-palette:first');
-
-			// Sahred was found
-			if (this.htmlPalette.length === 1)
-				return true;
-
 			// Create container
 			this.htmlPalette = $('<div>').
 				attr('class', 'tinycar-ui-component-colorpicker-palette').
@@ -78,7 +71,8 @@ module Tinycar.Ui.Component
 			// When resized
 			Tinycar.System.addEvent('resize', () =>
 			{
-				this.hidePalette();
+				if (this.visibleState === true)
+					this.hidePalette();
 			});
 			
 			return true;
