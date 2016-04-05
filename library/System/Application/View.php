@@ -84,6 +84,8 @@
 			if (is_array($this->system_actions))
 				return $this->system_actions;
 
+			$result = array();
+
 			// Expand/collapse sidelist
 			if ($this->app->hasSideList())
 			{
