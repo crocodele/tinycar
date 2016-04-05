@@ -2,8 +2,7 @@ module Tinycar.Ui.Component
 {
 	export class NavigationList extends Tinycar.Main.Component
 	{
-		private fldList:JQuery;
-	
+		
 	
 		// Build content
 		buildContent()
@@ -60,12 +59,6 @@ module Tinycar.Ui.Component
 			});
 			
 			return container;
-		}
-		
-		// @see Tinycar.Main.Field.focus()
-		focus():void
-		{
-			this.fldList.focus();
 		}
 	}
 }
