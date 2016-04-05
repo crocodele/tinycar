@@ -1,0 +1,31 @@
+div#tinycar-main-sidebar {
+	
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	display: block;
+	width: 64px;
+	height: 100%;
+	z-index: 20;
+	
+	> div.components {
+	
+        > div.tinycar-ui-component-image {
+	   
+            padding: 2px 2px 2px 2px;
+            background-color: rgba(0, 0, 0, 0.3);
+
+        }
+        
+        > div.tinycar-ui-component-actionlist:last-child {
+
+            position: absolute;
+            width: 100%;
+            left: 0px;
+            bottom: 0px;
+        
+        }
+	   
+	}
+	
+}

@@ -15,6 +15,7 @@
     use Tinycar\System\Application\Model;
     use Tinycar\System\Application\Model\Variable;
     use Tinycar\System\Application\View;
+    use Tinycar\System\Application\SideBar;
     use Tinycar\System\Application\SideList;
     use Tinycar\System\Application\Storage;
     use Tinycar\System\Application\Xml\Action;
@@ -32,6 +33,7 @@
     	private $manifest;
     	private $model;
     	private $properties;
+    	private $sidebar;
     	private $sidelist;
     	private $services;
     	private $storage;
@@ -262,90 +264,17 @@
 		{
 			$result = array();
 
-			// Default view actions
-			if ($this->hasSideList())
-			{
-				// Get sidelist
-				$sidelist = $this->getSideList();
-
-				// Add expand/collapse action
-				$result[] = new Action(array(
-					'target' => 'view',
-					'type'   => 'list',
-					'label'  => $this->getLocaleText('action_sidelist'),
-				));
-
-				// Add sidelist actions
-				foreach ($sidelist->getActions() as $item)
-					$result[] = $item;
-			}
-
 			// Add view actions
-			foreach ($view->getActions() as $item)
+			foreach ($view->getViewActions() as $item)
 				$result[] = $item;
 
-			// Default view actions
-			if (!$this->isHomeApplication())
-			{
-				// Target application
-				$app = ($view->isDefault() || $this->hasSideList() ?
-					Config::get('UI_APP_HOME') : $this->getId()
-				);
+			// Add system actions
+			foreach ($view->getSystemActions() as $item)
+				$result[] = $item;
 
-				$result[] = new Action(array(
-					'target' => 'system',
-					'type'   => 'back',
-					'label'  => $this->getLocaleText('action_back'),
-					'link'   => array(
-						'app'  => $app,
-						'view' => 'default',
-					),
-				));
-			}
-
-			// Home application
-			if (!$this->isHomeApplication())
-			{
-				$result[] = new Action(array(
-					'target' => 'system',
-					'type'   => 'home',
-					'label'  => $this->getLocaleText('action_home'),
-					'link'   => array(
-						'app'  => Config::get('UI_APP_HOME'),
-						'view' => 'default',
-					),
-				));
-			}
-
-			// We have an app for applications
-			$app = Config::get('UI_APP_APPS');
-
-			if (is_string($app))
-			{
-				$result[] = new Action(array(
-					'target' => 'system',
-					'type'   => 'apps',
-					'label'  => $this->getLocaleText('action_apps'),
-					'link'   => array(
-						'app'  => $app,
-						'view' => 'default',
-					),
-				));
-			}
-
-			// Logout link
-			if ($this->system->hasAuthentication() && $this->system->hasAuthenticated())
-			{
-				$result[] = new Action(array(
-					'target'  => 'session',
-					'type'    => 'user',
-					'label'   => $this->getLocaleText('action_logout'),
-					'service' => 'session.logout',
-					'link'    => array(
-						'app' => '$url.app',
-					),
-				));
-			}
+			// Add session actions
+			foreach ($view->getSessionActions() as $item)
+				$result[] = $item;
 
 			return $result;
 		}
@@ -696,6 +625,47 @@
 
 
 		/**
+		 * Get sidebar instance
+		 * @return object Tinycar\System\Application\SideBar instance
+		 */
+		public function getSideBar()
+		{
+			// Already resolved
+			if (!is_null($this->sidebar))
+				return $this->sidebar;
+
+			try
+			{
+				// Try to load XML from file
+				$xml = Data::loadFromFile(Config::getPath(
+					'SYSTEM_PATH', '/config/manifest.xml'
+				));
+			}
+			catch (Exception $e)
+			{
+				// Manifest is invalid
+				throw new Exception('system_manifest_invalid', array(
+					'id' => $this->getId(),
+				));
+			}
+
+			// Get sidebar node
+			$node = $xml->getNode('bar');
+
+			// Use a dummy node when none exists
+			if (is_null($node))
+				$node = $this->xdata->getAsNode(array());
+
+			// Create new instance
+			$instance = new SideBar($this->system, $this, $node);
+
+			// Remember
+			$this->sidebar = $instance;
+			return $this->sidebar;
+		}
+
+
+		/**
 		 * Get sidelist instance
 		 * @return object Tinycar\System\Application\SideList instance
 		 */
@@ -942,7 +912,10 @@
 		 */
 		public function init()
 		{
-			// Initialize sidelist components
+			// Initialize related sections so that the
+			// global component id's remain consistent
+
+			$this->getSideBar()->getComponents();
 			$this->getSideList()->getComponents();
 		}
 
@@ -1002,29 +975,23 @@
 		 */
 		public function loadManifestFile()
 		{
-			// System path to manifes file
-			$file = Config::getPath('APPS_FOLDER',
-				'/'.$this->getId().'/manifest.xml'
-			);
-
-			// Manifest file is missing
-			if (!file_exists($file))
-				throw new Exception('app_manifest_missing');
-
-			// Create new XML document instance
-			$xml = new \DOMDocument();
-			$xml->preserveWhiteSpace = false;
-
-			// Unable to read/parse XML
-			if ($xml->load($file) === false)
+			try
 			{
+				// Try to load XML from file
+				$instance = Data::loadFromFile(Config::getPath(
+					'APPS_FOLDER', '/'.$this->getId().'/manifest.xml'
+				));
+			}
+			catch (Exception $e)
+			{
+				// Manifest is invalid
 				throw new Exception('app_manifest_invalid', array(
 					'id' => $this->getId(),
 				));
 			}
 
 			// Update data
-			$this->xdata = new Data($xml);
+			$this->xdata = $instance;
 
 			// Reset internal properties
 			$this->manifest = null;

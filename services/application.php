@@ -222,6 +222,7 @@
      *               - array  [url] source URL parameters
 	 * @return array properties
 	 *         - array app    application properties
+     *         - array [bar]  sidebar properties
      *         - array [side] sidelist properties
 	 *         - array view   view properties
 	 *         - array text   application-specific translations
@@ -247,6 +248,9 @@
 		// Get target data record
 		$record = $view->getDataRecord();
 
+		// Get sidebar instance
+		$sidebar = $instance->getSideBar();
+
 		$result = array();
 
 		// Application properties
@@ -256,8 +260,16 @@
 			'name'        => $manifest->getName(),
 			'provider'    => $manifest->getProvider(),
 			'colors'      => $manifest->getColorMap(),
-			'icon'        => $manifest->getIconData(),
 		);
+
+		// Sidebar properties
+		$result['bar'] = array(
+			'components' => array(),
+		);
+
+		// Add components
+		foreach ($sidebar->getComponents() as $item)
+			$result['bar']['components'][] = $item->callAction('model');
 
 		// Get side properties
 		if ($instance->hasSideList())
@@ -301,11 +313,11 @@
 			);
 		}
 
-		// Add actions
-		foreach ($instance->getActions($view) as $item)
+		// Add view actions
+		foreach ($view->getActions($view) as $item)
 			$result['view']['actions'][] = $item->getAll();
 
-		// Add components
+		// Add view components
 		foreach ($view->getComponents() as $item)
 			$result['view']['components'][] = $item->callAction('model');
 

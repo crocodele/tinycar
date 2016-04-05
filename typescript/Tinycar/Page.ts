@@ -117,6 +117,12 @@ module Tinycar
 			
 		`;
 		
+		// Add specified node to page
+		export function addNode(node:JQuery):void
+		{
+			this.htmlRoot.append(node);
+		}
+		
 		// Add style name to page
 		export function addStyle(name:string):void
 		{

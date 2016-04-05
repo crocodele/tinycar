@@ -2,16 +2,20 @@
 
 	namespace Tinycar\System\Application;
 
+	use Tinycar\App\Config;
 	use Tinycar\Core\Xml\Data;
 	use Tinycar\System\Application;
 	use Tinycar\System\Application\Component;
 	use Tinycar\System\Application\Model\Property;
+	use Tinycar\System\Application\Xml\Action;
 	use Tinycar\System\Application\Xml\Section;
 	use Tinycar\System\Application\View\Tab;
 
 	class View extends Section
 	{
-		protected $tabs;
+		private $session_actions;
+		private $system_actions;
+		private $tabs;
 
 
 		/**
@@ -71,6 +75,103 @@
 
 
 		/**
+		 * Get sessio nactions data for application and current specified view
+		 * @return array list of Tinycar\System\Application\Xml\Action instances
+		 */
+		public function getSessionActions()
+		{
+			// Already resolved
+			if (is_array($this->system_actions))
+				return $this->system_actions;
+
+			// Expand/collapse sidelist
+			if ($this->app->hasSideList())
+			{
+				// Add expand/collapse action
+				$result[] =  new Action(array(
+					'target' => 'session',
+					'type'   => 'list',
+					'label'  => $this->app->getLocaleText('action_sidelist'),
+				));
+			}
+
+			// Logout link
+			if ($this->system->hasAuthentication() && $this->system->hasAuthenticated())
+			{
+				$result[] = new Action(array(
+					'target'  => 'session',
+					'type'    => 'user',
+					'label'   => $this->app->getLocaleText('action_logout'),
+					'service' => 'session.logout',
+					'link'    => array('app' => '$url.app'),
+				));
+			}
+
+			// Remember
+			$this->session_actions = $result;
+			return $this->session_actions;
+		}
+
+
+		/**
+		 * Get system actions data for application and current specified view
+		 * @return array list of Tinycar\System\Application\Xml\Action instances
+		 */
+		public function getSystemActions()
+		{
+			// Already resolved
+			if (is_array($this->system_actions))
+				return $this->system_actions;
+
+			// System applications
+			$app_home = Config::get('UI_APP_HOME');
+			$app_apps = Config::get('UI_APP_APPS');
+
+			$result = array();
+
+			// Default view actions
+			if (!$this->app->isHomeApplication())
+			{
+				// Previous application name
+				$app = ($this->isDefault() || $this->app->hasSideList() ?
+					$app_home : $this->app->getId()
+				);
+
+				// Back action
+				$result[] = new Action(array(
+					'target' => 'system',
+					'type'   => 'back',
+					'label'  => $this->app->getLocaleText('action_back'),
+					'link'   => array('app' => $app, 'view' => 'default'),
+				));
+
+				// Home action
+				$result[] = new Action(array(
+					'target' => 'system',
+					'type'   => 'home',
+					'label'  => $this->app->getLocaleText('action_home'),
+					'link'   => array('app' => $app_home, 'view' => 'default'),
+				));
+			}
+
+			// Applications action
+			if (is_string($app_apps))
+			{
+				$result[] = new Action(array(
+					'target' => 'system',
+					'type'   => 'apps',
+					'label'  => $this->app->getLocaleText('action_apps'),
+					'link'   => array('app'  => $app_apps, 'view' => 'default'),
+				));
+			}
+
+			// Remember
+			$this->system_actions = $result;
+			return $this->system_actions;
+		}
+
+
+		/**
 		 * Get list of tab item instances
 		 * @return array list of Tinycar\System\Application\View\Tab instances
 		 */
@@ -89,6 +190,30 @@
 			// Remember
 			$this->tabs = $result;
 			return $this->tabs;
+		}
+
+
+		/**
+		 * Get view actions data for application and current specified view
+		 * @return array list of Tinycar\System\Application\Xml\Action instances
+		 */
+		public function getViewActions()
+		{
+			// Get direct actions
+			$result = $this->getActions();
+
+			// Add actions from a sidelist
+			if ($this->app->hasSideList())
+			{
+				// Get sidelist
+				$sidelist = $this->app->getSideList();
+
+				// Add sidelist actions
+				foreach ($sidelist->getActions() as $item)
+					$result[] = $item;
+			}
+
+			return $result;
 		}
 
 

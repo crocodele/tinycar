@@ -22,12 +22,8 @@ module Tinycar.Ui
 			this.buildTabs();
 			this.buildComponents();
 			
-			// Build actions into sidebar
-			if (this.App.Model.get('layout_name') === 'main')
-				this.buildSidebar();
-
 			// Build actions into content
-			else
+			if (this.App.Model.get('layout_name') !== 'main')
 				this.buildActions();
 			
 			// Update page title
@@ -78,12 +74,9 @@ module Tinycar.Ui
 			// Build view
 			this.Model.get('actions').forEach((item:Object) => 
 			{
-				if (item['target'] === 'view') 
-				{
-					container.append(this.buildAction(
-						new Tinycar.Model.DataItem(item)
-					));
-				}
+				container.append(this.buildAction(
+					new Tinycar.Model.DataItem(item)
+				));
 			});				
 		}
 		
@@ -161,17 +154,6 @@ module Tinycar.Ui
 				attr('type', 'submit').
 				attr('class', 'view-submit').
 				appendTo(this.htmlRoot);
-		}
-		
-		// Build sidebar for view
-		private buildSidebar():void
-		{
-			// Build actions to sidebar
-			this.Model.get('actions').forEach((item:Object) => 
-			{
-				let instance = new Tinycar.Ui.Sidebar.Action(this, item);
-				Tinycar.System.Side.addAction(instance);
-			});
 		}
 		
 		// Build view tabs

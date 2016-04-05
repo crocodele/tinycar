@@ -2,6 +2,10 @@
 
 	namespace Tinycar\Core\Xml;
 
+	use Tinycar\App\Config;
+	use Tinycar\Core\Exception;
+
+
 	class Data
 	{
 		private $context;
@@ -25,6 +29,31 @@
 			// Remember
 			$this->xmldoc = $xml;
 			$this->context = $context;
+		}
+
+
+		/**
+		 * Load XML from filed
+		 * @param string $file system path to file
+		 * @return object Tinycar\Core\Xml\Data instance
+		 * @throws Tinycar\Core\Exception
+		 */
+		public static function loadFromFile($file)
+		{
+			// Manifest file is missing
+			if (!file_exists($file))
+				throw new Exception('xml_file_missing');
+
+			// Create new XML document instance
+			$xml = new \DOMDocument();
+			$xml->preserveWhiteSpace = false;
+
+			// Unable to read/parse XML
+			if ($xml->load($file) === false)
+				throw new Exception('xml_data_invalid');
+
+			// Get as instance
+			return new Data($xml);
 		}
 
 

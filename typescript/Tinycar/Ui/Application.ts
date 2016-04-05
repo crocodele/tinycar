@@ -6,9 +6,11 @@ module Tinycar.Ui
 		private htmlRoot:JQuery;
 		private viewName:string;
 
+		Bar:Tinycar.Main.SideBar;
 		Dialog:Tinycar.Ui.Dialog;
+		List:Tinycar.Ui.SideList;
+		Mask:Tinycar.Main.Mask;
 		Model:Tinycar.Model.DataItem;
-		Side:Tinycar.Ui.SideList;
 		View:Tinycar.Ui.View;
 	
 		
@@ -28,9 +30,20 @@ module Tinycar.Ui
 			return this.htmlRoot;
 		}
 		
+		// Build mask instance
+		private buildMask():void
+		{
+			// Create mask
+			this.Mask = new Tinycar.Main.Mask();
+			Tinycar.Page.addNode(this.Mask.build());
+		}
+		
 		// Close dialog
 		closeDialog():void
 		{
+			// Close mask
+			this.Mask.hide();
+			
 			// Reset reference
 			this.Dialog = null;
 			
@@ -77,12 +90,20 @@ module Tinycar.Ui
 					// Create view UI instance
 					this.View = new Tinycar.Ui.View(this, data['view']);
 					
+					// Build sidebar for main layout
+					if (this.Model.get('layout_name') === 'main')
+					{
+						// Create sidebar
+						this.Bar = new Tinycar.Main.SideBar(this.View, data['bar']);
+						Tinycar.Page.addNode(this.Bar.build());
+					}
+					
 					// Create sidebar UI instance
 					if (data.hasOwnProperty('side'))
 					{
-						// Create sidelist and add it to application
-						this.Side = new Tinycar.Ui.SideList(this, data['side']);
-						this.htmlRoot.append(this.Side.build());
+						// Create sidelist
+						this.List = new Tinycar.Ui.SideList(this, data['side']);
+						this.htmlRoot.append(this.List.build());
 						
 						// Update layout style
 						Tinycar.Page.addStyle('has-sidelist');
@@ -95,10 +116,6 @@ module Tinycar.Ui
 					Tinycar.Page.setLayoutName(
 						this.Model.get('layout_name')
 					);
-					
-					// Main layout has sidebar
-					if (this.Model.get('layout_name') === 'main')
-						Tinycar.System.Side.update(this);
 					
 					// Set system theme color
 					Tinycar.Page.setThemeColors(this.Model.get('colors'));
@@ -130,8 +147,12 @@ module Tinycar.Ui
 		{
 			// @todo: show loading state
 			
+			// Build mask once
+			if (!(this.Mask instanceof Tinycar.Main.Mask))
+				this.buildMask();
+			
 			// Show mask
-			Tinycar.System.Mask.show();
+			this.Mask.show();
 			
 			// Default application id
 			let app = this.getId();
@@ -162,8 +183,8 @@ module Tinycar.Ui
 		toggleSideList():void
 		{
 			// No sidelist available
-			if (this.Side instanceof Tinycar.Ui.SideList)
-				this.Side.setAsVisible(!this.Side.isVisible());
+			if (this.List instanceof Tinycar.Ui.SideList)
+				this.List.setAsVisible(!this.List.isVisible());
 		}
 	}
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+
+	<bar>
+	
+        <component type="Image">
+            <data service="sidebar.appimage" />
+        </component>
+        
+        <component type="ActionList">
+            <data service="sidebar.systemactions" />
+        </component>
+        
+        <component type="ActionList">
+            <data service="sidebar.viewactions" />
+        </component>
+        
+        <component type="ActionList">
+            <data service="sidebar.sessionactions" />
+        </component>
+        
+    </bar>
+	
+</manifest>

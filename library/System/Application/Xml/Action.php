@@ -30,41 +30,34 @@
         {
             // Defaults
             $data = array(
-                'target' => 'view',
-                'type'   => 'default',
-                'label'   => '',
+                'target'  => 'view',
+            	'icon'    => $xdata->getString('@icon'),
+                'type'    => $xdata->getString('@type'),
+                'label'   => $xdata->getString('@label'),
                 'service' => $xdata->getString('@service'),
                 'link'    => $xdata->getAttributes('link'),
                 'toast'   => $xdata->getString('toast'),
                 'dialog'  => $xdata->getString('@dialog'),
             );
 
-            // Resolve type
-            $type = $xdata->getString('@type');
-            $label = $xdata->getString('@label');
-
-            // Custom type
-            if (is_string($type))
-                $data['type'] = $type;
-
             // Default label using type
-            if (!is_string($label))
-                $label = '$locale.action_'.$data['type'];
+            if (!is_string($data['label']))
+                $data['label'] = '$locale.action_'.$data['type'];
 
             // Default toast message for remove
             if (!is_string($data['toast']) && $data['service'] === 'storage.remove')
                 $data['toast'] = '$locale.toast_removed_success';
 
-            // Defaults for save
+            // Default toast message for save
+            if (!is_string($data['toast']) && $data['type'] === 'save')
+             	$data['toast'] = '$locale.toast_saved_success';
+
+            // Enforce service for save
             if ($data['type'] === 'save')
-            {
-                // Default toast
-               	if (!is_string($data['toast']))
-               		$data['toast'] = '$locale.toast_saved_success';
-            }
+          		$data['service'] = 'application.save';
 
             // Resolve locales
-            $data['label'] = $section->getStringValue($label);
+            $data['label'] = $section->getStringValue($data['label']);
             $data['toast'] = $section->getStringValue($data['toast']);
 
             return new self($data);
@@ -78,13 +71,14 @@
         public function getAll()
         {
             return array(
+            	'target'  => $this->getTarget(),
+            	'icon'    => $this->getIcon(),
                 'type'    => $this->getType(),
-                'target'  => $this->get('target'),
                 'label'   => $this->getLabel(),
                 'link'    => $this->getLink(),
+            	'dialog'  => $this->getDialog(),
                 'service' => $this->getService(),
-                'toast'   => $this->get('toast'),
-                'dialog'  => $this->get('dialog'),
+                'toast'   => $this->getToast(),
             );
         }
 
@@ -94,11 +88,32 @@
          * @param string $name target data property name
          * @return mixed|null property value or null on failure
          */
-        protected function get($name)
+        private function get($name)
         {
             return (array_key_exists($name, $this->data) ?
                 $this->data[$name] : null
             );
+        }
+
+
+        /**
+         * Get dialog name
+         * @return string|nulll dialog or null on failure
+         */
+        public function getDialog()
+        {
+        	return $this->get('dialog');
+        }
+
+
+        /**
+         * Get action icon
+         * @return string|null icon or null on failure
+         */
+        public function getIcon()
+        {
+        	$value = $this->get('icon');
+        	return (is_string($value) ? $value : $this->getType());
         }
 
 
@@ -133,11 +148,61 @@
 
 
         /**
+         * Get action target section
+         * @return string|null target or null on failure
+         */
+        public function getTarget()
+        {
+        	return $this->get('target');
+        }
+
+
+        /**
+         * Get action toast message
+         * @return string|null toast or null on failure
+         */
+        public function getToast()
+        {
+        	return $this->get('toast');
+        }
+
+
+        /**
          * Get action type
          * @return string|null type or null on failure
          */
         public function getType()
         {
             return $this->get('type');
+        }
+
+
+        /**
+         * Check to see if this is a system action
+         * @return bool is system action
+         */
+        public function isSystemAction()
+        {
+        	return ($this->get('target') === 'system');
+        }
+
+
+        /**
+         * Check to see if this is a session action
+         * @return bool is session action
+         */
+        public function isSessionAction()
+        {
+        	return ($this->get('target') === 'session');
+        }
+
+
+        /**
+         * Check to see if this is a view action
+         * @return bool is view action
+         */
+        public function isViewAction()
+        {
+        	return ($this->get('target') === 'view');
         }
     }

@@ -161,9 +161,6 @@ module Tinycar.Ui
 		// Close dialog
 		close():void
 		{
-			// Hide mask
-			Tinycar.System.Mask.hide();
-			
 			// Close dialog
 			this.App.closeDialog();
 			

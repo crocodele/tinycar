@@ -32,6 +32,23 @@ module Tinycar.Main
 				this.fieldList.push(instance);
 		}
 		
+		// Create a component instance
+		createComponent(data:Object):Tinycar.Main.Component
+		{
+			// Create new model instance
+			let model = new Tinycar.Model.DataItem(data);
+			
+			// Target component type
+			let type = model.get('type_name');
+			
+			// Create new instance
+			let instance = new Tinycar.Ui.Component[type](
+				this.App, this, model
+			);
+			
+			return instance;
+		}
+		
 		// Get data from current components
 		getComponentsData():Object
 		{
