@@ -92,7 +92,7 @@ module Tinycar.Ui.Component
             	this.htmlField.addClass('has-datetime');
             
             // Set initial value
-            if (this.getDataValue() > 0)
+            if (this.getDataValue() !== null)
             {
             	// Format timestmp into value
             	this.lastValue = Tinycar.Format.toDate(
@@ -219,12 +219,12 @@ module Tinycar.Ui.Component
             // it was last parsed into a timestamp
             if (this.lastValue === value)
             	return false;
-
+            
             // Try to convert to a unix timestamp
-            var time = Tinycar.Format.toTime(value);
+           	let time = Tinycar.Format.toTime(value);
 
-            // Failed to parse to unix timestamp
-            if (time === null)
+            // We had a string but failed get timestamp
+            if (value.length > 0 && time === null)
             	return false;
 
             // Update cache
@@ -239,7 +239,9 @@ module Tinycar.Ui.Component
 		// @see Tinycar.Main.Field.getDataValue()
 		getDataValue():number
 		{
-			return this.Model.getNumber('data_value');
+			return (this.Model.isNumber('data_value') ?
+				this.Model.get('data_value') : null
+			);
 		}
 		
 		// Check to see if formatting contains both a 
