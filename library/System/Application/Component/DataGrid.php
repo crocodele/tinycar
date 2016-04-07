@@ -100,17 +100,24 @@
 			$result = array();
 
 			// Manipulate data to fit our datagrid column syntax
-			foreach ($data as $row)
+			foreach ($data as $index => $row)
 			{
-				// Default
+				// Defaults
 				$item = array(
-
 					'id' => array(
+						'value' => $index,
+						'text'  => strval($index),
+					),
+				);
+
+				// Custom id
+				if (array_key_exists('id', $row))
+				{
+					$item['id'] = array(
 						'value' => $row['id'],
 						'text'  => strval($row['id']),
-					),
-
-				);
+					);
+				}
 
 				// Process values for each column
 				foreach ($columns as $column)
