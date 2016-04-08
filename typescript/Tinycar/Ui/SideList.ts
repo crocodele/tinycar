@@ -55,22 +55,12 @@ module Tinycar.Ui
 			// Create components only for this tab
 			this.Model.get('components').forEach((item:Object) =>
 			{
-				// Create new model instance
-				let model = new Tinycar.Model.DataItem(item);
-				
-				// Target component type
-				let type = model.get('type_name');
-				
 				// Create new instance
-				let instance = new Tinycar.Ui.Component[type](
-					this.App, this.App.View, model
-				);
-				
-				// Build to components list
+				let instance = this.App.View.createComponent(item);
 				this.htmlComponents.append(instance.build());
 				
-				// Add to list of components
-				this.App.View.addComponent(instance);
+				// Show component
+				instance.setAsVisible(true);
 			});
 		}
 		
