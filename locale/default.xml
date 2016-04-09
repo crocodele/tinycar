@@ -43,7 +43,7 @@
 	<text name="calendar_month_7">July</text>
 	<text name="calendar_month_8">August</text>
 	<text name="calendar_month_9">September</text>
-	<text name="calendar_month_10">Ocotober</text>
+	<text name="calendar_month_10">October</text>
 	<text name="calendar_month_11">November</text>
 	<text name="calendar_month_12">December</text>
 	<text name="calendar_next_month">Next month</text>
@@ -84,12 +84,12 @@
 	<!-- Toast messages -->
 	<text name="toast_app_dialog_invalid">Dialog "$name" does not exist</text>
 	<text name="toast_app_manifest_invalid">Manifest for application $id is invalid.</text>
-	<text name="toast_app_view_invalid">This application does not have view called "$name".</text>
+	<text name="toast_app_view_invalid">This application does not have a view called "$name".</text>
 	<text name="toast_component_action_invalid">This component does not have an action called "$name".</text>
 	<text name="toast_install_php_version">The PHP version in this environment is older than is recommended.</text>
 	<text name="toast_install_sqlite_support">This environment seems to be missing the required PDO SQLite driver.</text>
 	<text name="toast_install_database_privileges">It seems that the database folder (storage/database) can't be modified.</text>
-	<text name="toast_install_logs_privileges">The logs folder (storage/logs) is excepted to be writable.</text>
+	<text name="toast_install_logs_privileges">The logs folder (storage/logs) is expected to be writable.</text>
 	<text name="toast_storage_setup_failed">Something went wrong when trying to setup the system database.</text>
 	<text name="toast_model_value_invalid">Value for model property $name is invalid.</text>
 	<text name="toast_native_error">PHP Native error: $message. See error log for more details.</text>

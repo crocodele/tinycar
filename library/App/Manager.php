@@ -101,7 +101,7 @@
           */
          public function getApplicationById($id)
          {
-         	// Get system stroage
+         	// Get system storage
          	$storage = $this->getStorage();
 
          	// Try to get application from storage

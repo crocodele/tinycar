@@ -49,12 +49,12 @@
 					$this->bindAsInt($name, $value);
 				break;
 					
-				// List of  integers
+				// List of integers
 				case 'intlist':
 					$this->bindAsIntList($name, $value);
 				break;
 				
-				// List of stirngs
+				// List of strings
 				case 'stringlist':
 					$this->bindAsStringList($name, $value);
 				break;
@@ -79,7 +79,7 @@
 		
 		
 		/**
-		 * Bind variable as a intlist
+		 * Bind variable as an intlist
 		 * @param string $name target variable name
 		 * @param mixed $value new variable value
 		 * @throws Tinycar\Core\Exception
@@ -121,14 +121,14 @@
 		
 		
 		/**
-		 * Bind variable a stringlist
+		 * Bind variable as a stringlist
 		 * @param string $name target variable name
 		 * @param mixed $value new variable value
 		 * @throws Tinycar\Core\Exception
 		 */
 		private function bindAsStringList($name, $value)
 		{
-			// Ensure we have only integers
+			// Ensure we have only strings
 			$value = array_map('strval', $value);
 			$value = array_map('addslashes', $value);
 			$value = array_unique($value);

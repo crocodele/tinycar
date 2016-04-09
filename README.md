@@ -2,7 +2,7 @@
 An open source application for running small admin user interfaces.
 
 ### Summary
-Tinycar is an application to run multiple administration user interfaces that are each defined with a single XML-file. This might be very usefull to you, if you need a user-friendly tool to manage your custom content, but you don't have the time or know-how to develope one, let alone provide future support for it. Tinycar let's you focus on your solution rather than it's administration.
+Tinycar is an application to run multiple administration user interfaces that are each defined with a single XML-file. This might be very useful to you, if you need a user-friendly tool to manage your custom content, but you don't have the time or know-how to develop one, let alone provide future support for it. Tinycar lets you focus on your solution rather than its administration.
 
 ### Features
 - Application-specific datamodels and built-in SQLite-databases
@@ -17,7 +17,7 @@ Tinycar is an application to run multiple administration user interfaces that ar
 - PHP extensions enabled: mbstring, PDO, pdo_sqlite
 
 ### Installation
-1. Grant writing privileges to folder tinycar/storage and all of it's subfolders
+1. Grant writing privileges to folder tinycar/storage and all of its subfolders
 2. Complete the installation by pointing your web browser to tinycar/public/index.php
 
 ### Development tools
@@ -25,8 +25,8 @@ Tinycar is an application to run multiple administration user interfaces that ar
 - TypeScript
 
 ### Included integrations
-- RequireJS, MIT-licence, http://requirejs.org/
-- jQuery, MIT-license, https://jqueyry.com
+- RequireJS, MIT-license, http://requirejs.org/
+- jQuery, MIT-license, https://jquery.com/
 - jQueryUI, MIT-license, http://jqueryui.com/
 - Trumbowyg, MIT-license, https://alex-d.github.io/Trumbowyg/
 
