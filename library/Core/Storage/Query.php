@@ -337,7 +337,7 @@
 			$this->param_var = array();
 
 			// Execute query
-			$result = $query->execute(array());
+			$result = $query->execute();
 			
 			// Execution failed
 			if ($result === false)
