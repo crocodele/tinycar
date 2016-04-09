@@ -83,6 +83,7 @@
 	
 	<!-- Toast messages -->
 	<text name="toast_app_dialog_invalid">Dialog "$name" does not exist</text>
+	<text name="toast_app_id_invalid">Application $id is invalid.</text>
 	<text name="toast_app_manifest_invalid">Manifest for application $id is invalid.</text>
 	<text name="toast_app_view_invalid">This application does not have a view called "$name".</text>
 	<text name="toast_component_action_invalid">This component does not have an action called "$name".</text>
@@ -92,6 +93,7 @@
 	<text name="toast_install_logs_privileges">The logs folder (storage/logs) is expected to be writable.</text>
 	<text name="toast_storage_setup_failed">Something went wrong when trying to setup the system database.</text>
 	<text name="toast_model_value_invalid">Value for model property $name is invalid.</text>
+	<text name="toast_model_value_required">Model property $name is a required field.</text>
 	<text name="toast_native_error">PHP Native error: $message. See error log for more details.</text>
 	<text name="toast_query_prepare_failed">SQL query preparation failed.</text>
 	<text name="toast_param_intlist_empty">SQL query failed due to empty list of integers.</text>
