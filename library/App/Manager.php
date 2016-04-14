@@ -2,14 +2,17 @@
 
     namespace Tinycar\App;
 
-    use Tinycar\Core\Exception;
+    use Tinycar\App\Config;
     use Tinycar\App\Locale;
     use Tinycar\App\Session;
+    use Tinycar\Core\Exception;
+    use Tinycar\System\Manifest;
     use Tinycar\System\Storage;
 
     class Manager
     {
     	private $locale;
+    	private $manifest;
         private $parameters = array();
         private $services = array();
         private $session;
@@ -177,27 +180,48 @@
 		}
 
 
+		/**
+		 * Get system manifest instance
+		 * @return object Tinycar\System\Manifest instance
+		 */
+		public function getManifest()
+		{
+			// Already resolved
+			if (!is_null($this->manifest))
+				return $this->manifest;
+
+			// Try to load from file
+			$instance = Manifest::loadFromFile($this, Config::getPath(
+				'SYSTEM_PATH', '/config/manifest.xml'
+			));
+
+			// Remember
+			$this->manifest = $instance;
+			return $this->manifest;
+		}
+
+
          /**
           * Get specified parameter value
           * @param string $name target parameter name
           * @return mixed|null parameter value or null on failure
           */
-         public function getParameter($name)
-         {
-             return (array_key_exists($name, $this->parameters) ?
-                 $this->parameters[$name] : null
-             );
-         }
+        public function getParameter($name)
+        {
+            return (array_key_exists($name, $this->parameters) ?
+                $this->parameters[$name] : null
+            );
+        }
 
 
-         /**
-          * Get specified services instance
-          * @param string $name target service name
-          * @return object Tinycar\App\Services instance
-          */
-         private function getServices($name)
-         {
-         	// Already resolved
+        /**
+         * Get specified services instance
+         * @param string $name target service name
+         * @return object Tinycar\App\Services instance
+         */
+        private function getServices($name)
+        {
+            // Already resolved
          	if (array_key_exists($name, $this->services))
          		return $this->services[$name];
 
@@ -221,8 +245,8 @@
 
             // Remember
          	$this->services[$name] = $api;
-         	return $this->services[$name];
-         }
+            return $this->services[$name];
+        }
 
 
          /**

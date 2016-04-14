@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
 
+    <!-- Default application properties -->
+    <app>
+        <color>#4e827d</color>
+    </app>
+
+    <!-- Default system sidebar -->
 	<bar>
 	
         <component type="Image">

@@ -4,6 +4,7 @@
 
     use Tinycar\App\Config;
     use Tinycar\Core\Exception;
+    use Tinycar\Core\Format;
     use Tinycar\App\Locale;
     use Tinycar\App\Manager;
     use Tinycar\App\Services;
@@ -305,6 +306,47 @@
 				return null;
 
 			return $this->properties[$name];
+		}
+
+
+		/**
+		 * Get application color
+		 * @return string|null color or null on failure
+		 */
+		public function getColor()
+		{
+			// Get color from application manifest
+			$result = $this->getManifest()->getColor();
+
+			// If necessary, check for a system default
+			if (!is_string($result))
+			{
+				$sys_manifest = $this->system->getManifest();
+				$result = $sys_manifest->getAppColor();
+			}
+
+			return $result;
+		}
+
+
+		/**
+		 * Get application color map
+		 * @return array map of colors and their adjustments
+		 *         - string base   base color
+		 *         - stirng dark   dark base color
+		 *         - stirng darker darker base color
+		 *         - string lite   light base color
+		 */
+		public function getColorMap()
+		{
+			$color = $this->getColor();
+
+			return array(
+				'base'   => $color,
+				'dark'   => Format::adjustColor($color, -10),
+				'darker' => Format::adjustColor($color, -25),
+				'lite'   => Format::adjustColor($color, +10),
+			);
 		}
 
 
@@ -634,30 +676,11 @@
 			if (!is_null($this->sidebar))
 				return $this->sidebar;
 
-			try
-			{
-				// Try to load XML from file
-				$xml = Data::loadFromFile(Config::getPath(
-					'SYSTEM_PATH', '/config/manifest.xml'
-				));
-			}
-			catch (Exception $e)
-			{
-				// Manifest is invalid
-				throw new Exception('system_manifest_invalid', array(
-					'id' => $this->getId(),
-				));
-			}
+			// Get system manifest
+			$manifest = $this->system->getManifest();
 
-			// Get sidebar node
-			$node = $xml->getNode('bar');
-
-			// Use a dummy node when none exists
-			if (is_null($node))
-				$node = $this->xdata->getAsNode(array());
-
-			// Create new instance
-			$instance = new SideBar($this->system, $this, $node);
+			// Get sidebar instance for this application
+			$instance = $manifest->getSideBar($this);
 
 			// Remember
 			$this->sidebar = $instance;

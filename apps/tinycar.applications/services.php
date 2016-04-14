@@ -1,8 +1,8 @@
 <?php
 
 	use Tinycar\Core\Http\Params;
-	
-	
+
+
 	/**
 	 * Update applications list
 	 * @return bool operation outcome
@@ -11,42 +11,42 @@
 	{
 		return $system->callService('system.refresh');
 	});
-	
+
 
 	/**
 	 * Get properties for all applications
 	 * @return array applications and their properties from system.applications
 	 */
-	$api->setService('storage.rows', function(Params $params) use ($system) 
+	$api->setService('storage.rows', function(Params $params) use ($system)
 	{
 		// Get system storage instance
 		$storage = $system->getStorage();
-		
+
 		// Get application instances from storage
 		$list = $storage->getApplications(true);
-		
+
 		$result = array();
-			
+
 		foreach ($list as $item)
 		{
 			// Get application manifest instance
 			$manifest = $item->getManifest();
-			
+
 			$result[] = array(
 				'id'           => $item->getId(),
 				'label'        => $manifest->getName(),
 				'description'  => $manifest->getProvider(),
-				'image_color'  => $manifest->getColor(),
+				'image_color'  => $item->getColor(),
 				'image_data'   => $manifest->getIconData(),
 				'status_type'  => $item->getStatusType(),
 				'status_label' => $item->getStatusLabel(),
 			);
 		}
-			
+
 		return $result;
 	});
-	
-	
+
+
 	/**
 	 * Get single application's properties
 	 * @param object $params Tinycar\Core\Http\Params instance
@@ -67,7 +67,7 @@
 	{
 		// Get system storage instance
 		$storage = $system->getStorage();
-		
+
 		// Get specified appliation instance from storage
 		$item = $storage->getApplicationById(
 			$params->get('row')
@@ -75,7 +75,7 @@
 
 		// Get application manifest instance
 		$manifest = $item->getManifest();
-		
+
 		// Get properties
 		return array(
 			'id'           => $item->getId(),
@@ -89,8 +89,8 @@
 			'is_system'    => $item->isSystemApplication(),
 		);
 	});
-	
-	
+
+
 	/**
 	 * Update application properties
 	 * @param object $params Tinycar\Core\Http\Params instance
@@ -103,17 +103,17 @@
 	{
 		// Get system storage instance
 		$storage = $system->getStorage();
-		
+
 		// Get specified appliation instance from storage
 		$instance = $storage->getApplicationById($params->get('row'));
-		
+
 		// Get data properties
 		$data = $params->getParams('data');
-		
+
 		// Update application properties
 		$instance->setEnabled($data->getBool('enabled'));
 		$instance->setDevmode($data->getBool('devmode'));
-		
+
 		// Refresh manifest file contents
 		$instance->loadManifestFile();
 

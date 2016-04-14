@@ -47,54 +47,6 @@
 
 
 		/**
-		 * Get color adjustment
-		 * @param string $color source color
-		 * @param int $adjust adjustment color (-255 - +255)
-		 * @return string new color
-		 */
-		private function getColorAdjust($color, $adjust)
-		{
-			// Trim value
-			$color = substr($color, 1);
-
-			$result = '#';
-
-			// Adjust R, G and B
-			foreach (str_split($color, 2) as $c)
-			{
-				$c = hexdec($c);
-				$c = max(0, min(255, $c + $adjust));
-				$c = dechex($c);
-
-				$result .= str_pad($c, 2, '0', STR_PAD_LEFT);
-			}
-
-			return $result;
-		}
-
-
-		/**
-		 * Get application color map
-		 * @return array map of colors and their adjustments
-		 *         - string base   base color
-		 *         - stirng dark   dark base color
-		 *         - stirng darker darker base color
-		 *         - string lite   light base color
-		 */
-		public function getColorMap()
-		{
-			$color = $this->xdata->getString('app/color');
-
-			return array(
-				'base'   => $color,
-				'dark'   => $this->getColorAdjust($color, -10),
-				'darker' => $this->getColorAdjust($color, -25),
-				'lite'   => $this->getColorAdjust($color, +10),
-			);
-		}
-
-
-		/**
 		 * Get application description
 		 * @return string|null color or null on failure
 		 */

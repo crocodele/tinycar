@@ -259,7 +259,7 @@
 			'layout_name' => $manifest->getLayoutName(),
 			'name'        => $manifest->getName(),
 			'provider'    => $manifest->getProvider(),
-			'colors'      => $manifest->getColorMap(),
+			'colors'      => $instance->getColorMap(),
 		);
 
 		// Sidebar properties
