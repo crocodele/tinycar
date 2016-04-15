@@ -8,6 +8,8 @@
 
     <!-- Default system sidebar -->
 	<bar>
+
+        <width>170</width>
 	
         <component type="Image">
             <data service="sidebar.appimage" />

@@ -264,7 +264,8 @@
 
 		// Sidebar properties
 		$result['bar'] = array(
-			'components' => array(),
+			'default_width' => $sidebar->getDefaultWidth(),
+			'components'    => array(),
 		);
 
 		// Add components

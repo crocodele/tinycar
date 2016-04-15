@@ -70,6 +70,7 @@ module Tinycar.Ui
 			let instance = new Tinycar.View.Heading(this.Model);
 			this.htmlRoot.append(instance.build());
 		}
+		
 
 		// Build root container
 		private buildRoot():void

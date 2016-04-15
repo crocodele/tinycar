@@ -26,6 +26,7 @@ module Tinycar
 		export var eventList:IEventList = {};
 		export var htmlRoot:JQuery;
 	
+		export var Mask:Tinycar.Main.Mask;
 		export var Toast:Tinycar.Main.Toast;
 	
 	
@@ -76,6 +77,9 @@ module Tinycar
 			
 			// Build page
 			Tinycar.Page.build();
+			
+			// Create mask which is built when used
+			this.Mask = new Tinycar.Main.Mask();
 			
 			// Create toast
 			this.Toast = new Tinycar.Main.Toast();

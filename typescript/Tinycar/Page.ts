@@ -51,6 +51,10 @@ module Tinycar
 				color: %base%;
 			}
 			
+			.theme-text-lite {
+				color: %lite%;
+			}
+			
 			.theme-base {
 				background-color: %base%;
 			}
@@ -200,6 +204,12 @@ module Tinycar
 			// Theme background
 			if (name !== 'main')
 				this.htmlRoot.addClass('theme-background');
+		}
+		
+		// Set sidebar width
+		export function setSideBarWidth(width:number):void
+		{
+			this.htmlRoot.css('padding-left', width);
 		}
 		
 		// Set page status

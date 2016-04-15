@@ -8,7 +8,6 @@ div.tinycar-ui-component-actionlist {
         position: relative;
         display: block;
         padding: 10px 4px 10px 0px;
-        box-sizing: border-box;
         color: #000000;
         cursor: pointer;
         outline: none;
@@ -25,9 +24,9 @@ div.tinycar-ui-component-actionlist {
             top: 0px;
             display: none;
             padding: 19px 25px 0px 55px;
-            min-height: 50px;
-            background-color: #ffffff; 
             box-sizing: border-box;
+            height: 100%;
+            background-color: #ffffff; 
             font-size: 0.95em;
             line-height: 1.0em;
             white-space: nowrap;
@@ -46,7 +45,6 @@ div.tinycar-ui-component-actionlist {
         &:hover {
         
             color: #000000;
-            background-color: #ffffff;
             
             > span.label {
             
@@ -59,18 +57,87 @@ div.tinycar-ui-component-actionlist {
         
         &:active {
         
+            color: #666666;
+            
             > span.label {
             
-                color: #666666;
+                display: block;
+                @include box-shadow(0px 0px 2px rgba(0, 0, 0, 0.2));
                 
-                > span.icon {
-                    opacity: 0.5;
-                }
-                
+            }
+            
+            > span.label > span.icon {
+                opacity: 0.5;
             }
             
         }
 
 	}
     
+}
+
+@media (min-width: $view-tablet-width)
+{
+    div#tinycar-main-sidebar.width-expanded {
+    
+        div.tinycar-ui-component-actionlist {
+        
+            > a.item {
+                
+                color: #ffffff;
+                
+                > span.icon {
+                
+                    position: absolute;
+                    left: 12px;
+                    top: 6px;
+                    opacity: 0.5;
+                    
+                }
+                
+                > span.label {
+                
+                    position: relative;
+                    display: block;
+                    padding: 2px 20px 1px 52px;
+                    background-color: transparent;
+                    line-height: 1.35em;
+                    white-space: normal;
+                    @include box-shadow-none();
+
+                    
+                    > span.icon {
+                        display: none;
+                    }
+                    
+                }
+                
+                &:focus,
+                &:hover {
+                
+                    background-color: rgba(0, 0, 0, 0.2);
+                    text-decoration: none;
+                    
+                    > span.icon {
+                        opacity: 1.0;
+                    }
+                    
+                }
+                
+                &:active {
+                
+                    color: #ffffff;
+                    background-color: rgba(0, 0, 0, 0.4);
+                    
+                    > span.icon {
+                        opacity: 0.3;
+                    }
+                    
+                }
+        
+            }
+            
+        }
+        
+    }
 }

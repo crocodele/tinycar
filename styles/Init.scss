@@ -40,6 +40,7 @@ $main-success-color: #ffffff;
 
 /** Dimensions **/
 
+$view-sidebar-width: 64px;
 $view-tablet-width: 800px;
 
 
@@ -71,6 +72,15 @@ $view-tablet-width: 800px;
      
 }
 
+@mixin box-shadow-none() {
+    
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    -webkit-box-shadow: none;
+    
+}
+
 @mixin transform($value) {
 
 	transform: $value;
@@ -80,12 +90,12 @@ $view-tablet-width: 800px;
      
 }
 
-@mixin transition($value) {
+@mixin transition($values...) {
 
-	transition: $value;
-	-moz-transition: $value;
-	-ms-transition: $value;
-	-webkit-transition: $value;
+	transition: $values;
+	-moz-transition: $values;
+	-ms-transition: $values;
+	-webkit-transition: $values;
      
 }
 
@@ -153,6 +163,7 @@ $view-tablet-width: 800px;
 @import "Tinycar/Ui/Component/Toggle.scss";
 @import "Tinycar/Ui/Main/Help.scss";
 @import "Tinycar/Ui/Main/Icon.scss";
+@import "Tinycar/Ui/Main/ResizeGap.scss";
 @import "Tinycar/View/Heading.scss";
 @import "Tinycar/View/Tabs.scss";
 
