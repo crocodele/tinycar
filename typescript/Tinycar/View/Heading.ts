@@ -2,6 +2,7 @@ module Tinycar.View
 {
 	export class Heading
 	{
+	    private backLink:Object;
 		private htmlRoot:JQuery;
 		private Model:Tinycar.Model.DataItem;
 	
@@ -20,7 +21,28 @@ module Tinycar.View
 			this.buildHeading();
 			this.buildDetails();
 			
+			// Build back button
+			if (this.backLink instanceof Object)
+			    this.buildBackButton();
+			
 			return this.htmlRoot;
+		}
+		
+		// Build back button
+		private buildBackButton():void
+		{
+			// Create new button instance
+			let instance = new Tinycar.Ui.Button({
+				style : 'dark-icon',
+				icon  : 'back',
+				link  : this.backLink
+			});
+				
+			// Add to container
+			this.htmlRoot.append(instance.build());
+			
+			// Update root styles
+			this.htmlRoot.addClass('has-back');
 		}
 		
 		// Build details
@@ -81,6 +103,12 @@ module Tinycar.View
 			return Tinycar.Locale.getText(
 				'view_' + name, {time:value}
 			);
+		}
+		
+		// Set custom path to back button
+		setBackLink(path:Object):void
+		{
+		    this.backLink = path;
 		}
 	}
 }

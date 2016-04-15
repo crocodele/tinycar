@@ -294,6 +294,7 @@
 			'created_time'  => $record->get('created_time'),
 			'modified_time' => $record->get('modified_time'),
 			'layout_type'   => $view->getLayoutType(),
+		    'has_sidelist'  => $instance->hasSideList(),
 			'heading'       => $view->getHeading(),
 			'tabs'          => array(),
 			'actions'       => array(),

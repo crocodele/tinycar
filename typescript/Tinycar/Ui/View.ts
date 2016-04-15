@@ -127,7 +127,14 @@ module Tinycar.Ui
 		// Build heading
 		private buildHeading():void
 		{
+		    // Create new instance
 			let instance = new Tinycar.View.Heading(this.Model);
+			
+            // Set custom link to previous view
+			if (!this.hasSideList())
+			    instance.setBackLink(this.getPreviousPath());
+            
+			// Add to content
 			this.htmlRoot.append(instance.build());
 		}
 
@@ -220,6 +227,30 @@ module Tinycar.Ui
 			this.fieldList[index].focus();
 			
 			return true;
+		}
+		
+		// Get path to previous view
+		private getPreviousPath():Object
+		{
+		    // Home application
+		    let home = Tinycar.Config.get('APP_HOME');
+		    
+            // We are already at home, nowhere to go
+            if (this.App.getId() === home)
+                return null;
+           
+            // We are at default view, go home
+            if (this.isDefaultView())
+                return {app:home, view:'default'};
+                    
+            // Current application's default view
+            return {app:this.App.getId(), view:'default'};
+		}
+		
+		// Check if this view has a sidelist
+		private hasSideList():boolean
+		{
+		    return (this.Model.get('has_sidelist') === true);
 		}
 		
 		// Check if this default view

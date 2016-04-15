@@ -1,5 +1,6 @@
 div.tinycar-view-heading {
     
+    position: relative;
     padding: 30px 0px 30px 0px;
     
     > strong {
@@ -13,7 +14,7 @@ div.tinycar-view-heading {
     
     > div.details {
     
-        padding: 10px 0px 0px 1px;
+        padding: 5px 0px 0px 2px;
         color: $main-color-info;
         font-size: 0.9em;
         line-height: 1.4em;
@@ -24,6 +25,21 @@ div.tinycar-view-heading {
             
         > span:nth-child(2):before {
             content: ", ";
+        }
+        
+    }
+    
+    &.has-back {
+    
+        position: relative;
+        padding-left: 40px;
+    
+        > a.tinycar-ui-button {
+            
+            position: absolute;
+            left: 0px;
+            top: 33px;
+            
         }
         
     }

@@ -67,7 +67,16 @@ module Tinycar.Ui
 		// Build heading
 		private buildHeading():void
 		{
+            // Create new instance
 			let instance = new Tinycar.View.Heading(this.Model);
+			
+            // Set custom link to previous view, assumably home
+            instance.setBackLink({
+                app  : Tinycar.Config.get('APP_HOME'),
+                view : 'default'
+            });
+            
+            // Add to content
 			this.htmlRoot.append(instance.build());
 		}
 		

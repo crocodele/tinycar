@@ -125,7 +125,7 @@ module Tinycar.Ui.Component
 		{
 			// Create new instance
 			let instance = new Tinycar.Ui.Button({
-				style : 'dark-icon',
+				style : 'field-icon',
 				icon  : 'menu-horizontal'
 			});
 			
