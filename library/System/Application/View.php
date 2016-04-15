@@ -53,6 +53,18 @@
 
 
 		/**
+		 * Get view details line string
+		 * @return string|null details line or null on failure
+		 */
+		public function getDetailsLine()
+		{
+		    return $this->getStringValue(
+		        $this->xdata->getString('details')
+		    );
+		}
+
+
+		/**
 		 * Get view name
 		 * @return string name
 		 */

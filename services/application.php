@@ -296,6 +296,7 @@
 			'layout_type'   => $view->getLayoutType(),
 		    'has_sidelist'  => $instance->hasSideList(),
 			'heading'       => $view->getHeading(),
+		    'details_line'  => $view->getDetailsLine(),
 			'tabs'          => array(),
 			'actions'       => array(),
 			'components'    => array(),

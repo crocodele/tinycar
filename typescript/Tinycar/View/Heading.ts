@@ -50,13 +50,21 @@ module Tinycar.View
 		{
 			let result = [];
 			
-			// We have creation time
-			if (this.Model.hasNumber('created_time'))
-				result.push(this.getDateLabel('created_time'));
+			// We have a custom details string
+			if (this.Model.hasString('details_line'))
+			    result.push(this.Model.get('details_line'));
 			
-			// We have modified time
-			if (this.Model.hasNumber('modified_time'))
-				result.push(this.getDateLabel('modified_time'));
+			// Automatic timestamps, if any
+			else
+			{
+    			// We have creation time
+    			if (this.Model.hasNumber('created_time'))
+    				result.push(this.getDateLabel('created_time'));
+    			
+    			// We have modified time
+    			if (this.Model.hasNumber('modified_time'))
+    				result.push(this.getDateLabel('modified_time'));
+			}
 			
 			// Create details when needed
 			if (result.length > 0)
