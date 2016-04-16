@@ -151,14 +151,6 @@
 					$app_home : $this->app->getId()
 				);
 
-				// Back action
-				$result[] = new Action(array(
-					'target' => 'system',
-					'type'   => 'back',
-					'label'  => $this->app->getLocaleText('action_back'),
-					'link'   => array('app' => $app, 'view' => 'default'),
-				));
-
 				// Home action
 				$result[] = new Action(array(
 					'target' => 'system',
