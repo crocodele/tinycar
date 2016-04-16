@@ -42,7 +42,6 @@ module Tinycar.Ui.Component
 				if (this.triggerListItemAction(model))
 				{
 					e.preventDefault();
-					container.blur();
 				}
 				// Open fixed URL
 				else if (model.isObject('link'))

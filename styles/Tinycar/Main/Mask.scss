@@ -9,6 +9,10 @@ div#tinycar-main-mask {
 	background-image: url(../images/main-mask-pattern.png);
 	z-index: 20;
 	
+	&.is-skin {
+	   background: rgba(255, 255, 255, 0);
+	}
+	
 	&.is-visible {
 		display: block;
 	}

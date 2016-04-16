@@ -75,6 +75,8 @@ module Tinycar.Ui
 		// Build root container
 		private buildRoot():void
 		{
+			var linkTarget = null;
+			
 			// Create container
 			this.htmlRoot = $('<a>').
 				addClass('tinycar-ui-button').
@@ -88,6 +90,16 @@ module Tinycar.Ui
 			else if (this.Model.get('style') === 'theme-button')
 				this.htmlRoot.addClass('theme-base-lite');
 			
+			// We have a fixed link target
+			if (this.Model.isObject('link'))
+			{
+			    linkTarget = Tinycar.Url.getAsPath(
+			        this.Model.get('link')
+			    );
+			    
+				this.htmlRoot.attr('href', linkTarget);
+			}
+
 			// When clicked
 			this.htmlRoot.click((e:Event) =>
 			{
@@ -96,13 +108,22 @@ module Tinycar.Ui
 				// Small delay for visual effect
 				window.setTimeout(() =>
 				{
+				    // Must be enabled
 					if (this.isEnabled === true)
-						this.callHandler('click');
+					{
+    					// Open static URL
+    					if (typeof linkTarget === 'string')
+    						Tinycar.Url.openUrl(linkTarget);
+    					
+    					// Call custom handler
+    					else
+    					    this.callHandler('click');
+					}
 					
 				}, 100);
 			});
 		}
-		
+
 		// Set button as enabled or disabled
 		setAsEnabled(status:boolean):void
 		{

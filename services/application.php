@@ -264,7 +264,8 @@
 
 		// Sidebar properties
 		$result['bar'] = array(
-			'components' => array(),
+			'default_width' => $sidebar->getDefaultWidth(),
+			'components'    => array(),
 		);
 
 		// Add components
@@ -293,7 +294,9 @@
 			'created_time'  => $record->get('created_time'),
 			'modified_time' => $record->get('modified_time'),
 			'layout_type'   => $view->getLayoutType(),
+		    'has_sidelist'  => $instance->hasSideList(),
 			'heading'       => $view->getHeading(),
+		    'details_line'  => $view->getDetailsLine(),
 			'tabs'          => array(),
 			'actions'       => array(),
 			'components'    => array(),

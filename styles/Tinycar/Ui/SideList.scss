@@ -1,7 +1,6 @@
 div.tinycar-ui-sidelist {
 
     position: fixed;
-    left: 64px;
     display: none;
     padding: 0px 20px 0px 20px;
     width: 80%;
@@ -30,6 +29,10 @@ body.has-sidelist.sidelist-visible {
     
         div.tinycar-ui-sidelist {
             width: 270px;
+        }
+        
+        form.tinycar-ui-view {
+            padding-left: 300px;
         }
         
     }

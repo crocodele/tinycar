@@ -42,7 +42,7 @@ module Tinycar.Ui.Component
         {
 			// Create new button instance
 			let instance = new Tinycar.Ui.Button({
-				style : 'dark-icon',
+				style : 'field-icon',
 				icon  : 'date'
 			});
 			

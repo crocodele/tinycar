@@ -555,18 +555,19 @@
 		/**
          * Get specified property value for current locale
          * @param string $name target locale property name
+		 * @param array [$vars] custom variables to add in key-value pairs
          * @return string locale property value or requested name on failure
 		 * @see Tinycar\App\Manager::getLocaleText()
 		 */
-		public function getLocaleText($name)
+		public function getLocaleText($name, array $vars = array())
 		{
 			// Get from application's locale
 			$locale = $this->getLocale();
-			$value = $locale->getText($name);
+			$value = $locale->getText($name, $vars);
 
 			// Revert to system locale
 			if (is_null($value))
-				$value = $this->system->getLocaleText($name);
+				$value = $this->system->getLocaleText($name, $vars);
 
 			// Revert to name
 			if (is_null($value))

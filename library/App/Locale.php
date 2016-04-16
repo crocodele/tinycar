@@ -163,11 +163,23 @@
 		/**
 		 * Get specified text property value
 		 * @param string $name target text property name
+		 * @param array [$vars] custom variables to add in key-value pairs
 		 * @return string|null text property value or null on failure
 		 */
-		public function getText($name)
+		public function getText($name, array $vars = array())
 		{
-			return $this->xdata->getString("text[@name='$name']");
+		    // Target string
+			$result = $this->xdata->getString("text[@name='$name']");
+
+			// Not found or no variables to process
+			if (!is_string($result) || count($vars) === 0)
+			    return $result;
+
+			// Add variables
+			foreach ($vars as $name => $value)
+			    $result = str_replace('$'.$name, $value, $result);
+
+			return $result;
 		}
 
 

@@ -9,7 +9,6 @@ module Tinycar.Ui
 		Bar:Tinycar.Main.SideBar;
 		Dialog:Tinycar.Ui.Dialog;
 		List:Tinycar.Ui.SideList;
-		Mask:Tinycar.Main.Mask;
 		Model:Tinycar.Model.DataItem;
 		View:Tinycar.Ui.View;
 	
@@ -30,19 +29,11 @@ module Tinycar.Ui
 			return this.htmlRoot;
 		}
 		
-		// Build mask instance
-		private buildMask():void
-		{
-			// Create mask
-			this.Mask = new Tinycar.Main.Mask();
-			Tinycar.Page.addNode(this.Mask.build());
-		}
-		
 		// Close dialog
 		closeDialog():void
 		{
 			// Close mask
-			this.Mask.hide();
+			Tinycar.System.Mask.hide();
 			
 			// Reset reference
 			this.Dialog = null;
@@ -147,12 +138,8 @@ module Tinycar.Ui
 		{
 			// @todo: show loading state
 			
-			// Build mask once
-			if (!(this.Mask instanceof Tinycar.Main.Mask))
-				this.buildMask();
-			
 			// Show mask
-			this.Mask.show();
+			Tinycar.System.Mask.showAsMask();
 			
 			// Default application id
 			let app = this.getId();

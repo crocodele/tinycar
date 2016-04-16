@@ -5,7 +5,35 @@ a.tinycar-ui-button {
 	overflow: hidden;
 	@include unselectable();
 	
-	&.dark-icon {
+    &.dark-icon {
+    
+        > span.icon {
+        
+            opacity: 0.5;
+            @include transition(opacity 0.1s ease);
+            
+        }
+        
+        &:hover,
+        &:focus {
+        
+            > span.icon {
+                opacity: 0.8;
+            }
+            
+        }
+                    
+        &:active {
+                
+            > span.icon {
+                opacity: 0.5;
+            }
+                
+        }
+        
+    }
+	
+	&.field-icon {
 	
 		background-color: #ffffff;
 		box-sizing: border-box;

@@ -113,3 +113,10 @@ textarea {
 body.layout-main {
 	padding-left: 64px;
 }
+
+@media (max-width: $view-tablet-width)
+{
+    body.layout-main {
+        padding-left: $view-sidebar-width !important;
+    }
+}
