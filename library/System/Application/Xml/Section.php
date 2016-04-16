@@ -240,7 +240,7 @@
 
 
 		/**
-		 * @see Tinycar\System\Application\Xml\Section::getStringValue()
+		 * @see Tinycar\System\Application::getStringValue()
 		 */
 		public function getStringValue($source)
 		{
