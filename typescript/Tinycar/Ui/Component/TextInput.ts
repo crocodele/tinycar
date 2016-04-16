@@ -4,7 +4,7 @@ module Tinycar.Ui.Component
 	{
 		private fldInput:JQuery;
 		private hasValue:boolean;
-		private type:string;
+		private isArea:boolean;
 
 
 		// Build content
@@ -29,7 +29,7 @@ module Tinycar.Ui.Component
 		private buildArea():void
 		{
 			// Remember type
-			this.type = 'area';
+			this.isArea = true;
 
 			// Create field
 			this.fldInput = $('<textarea>').
@@ -50,7 +50,7 @@ module Tinycar.Ui.Component
 		private buildInput():void
 		{
 			// Remember type
-			this.type = 'input';
+			this.isArea = false;
 
 			// Create field
 			this.fldInput = $('<input>').
@@ -64,6 +64,15 @@ module Tinycar.Ui.Component
 			// Add maxlength restriction
 			if (this.Model.get('maxlength') > 0)
 				this.fldInput.prop('maxlength', this.Model.get('maxlength'));
+		}
+
+
+		// Get vertical field padding
+		private getVerticalFieldPadding():number
+		{
+			// @note: The box model probably affects which properties should
+			// be used. Here we assume that box-sizing: border-box; is used.
+			return this.fldInput.innerHeight() - this.fldInput.height();
 		}
 
 
@@ -87,46 +96,20 @@ module Tinycar.Ui.Component
 		// Initiate listeners
 		private initListeners():void
 		{
-			var timer = null;
+			// Resolve field padding once
+			let padding = this.getVerticalFieldPadding();
 
-			// Change value is changed
-			this.fldInput.change((e:Event) =>
+			// When user types, copy-pastes etc. text into field
+			this.fldInput.on('input', (e:Event) =>
 			{
 				let value = this.fldInput.val();
 
 				// Update current value
 				this.setDataValue(value);
-			});
 
-			// Set up vertical auto-resize for textarea
-			if (this.type === 'area')
-			{
-				// Resolve field padding
-				// @note: The box model probably affects which properties should
-				// be used. Here we assume that box-sizing: border-box; is used.
-				var padding = this.fldInput.innerHeight() - this.fldInput.height();
-
-				// When user types, copy-pastes etc.
-				this.fldInput.on('input', (e:Event) =>
-				{
+				// Auto-resize textarea vertically to fit content
+				if (this.isArea)
 					this.fitHeightToContent(padding);
-				});
-			}
-
-			// When is typed
-			this.fldInput.keyup((e:Event) =>
-			{
-				// Clear old timer
-				if (timer)
-					window.clearTimeout(timer);
-
-				// Update with a delay
-				timer = window.setTimeout(() =>
-				{
-					timer = null;
-					this.fldInput.trigger('change');
-
-				}, 300);
 			});
 		}
 
@@ -159,9 +142,9 @@ module Tinycar.Ui.Component
 			this.hasValue = this.Model.hasString('data_value');
 			this.callHandler('value', this.hasValue);
 
-			// Trigger input event to set initial height of textarea
-			if (this.type === 'area')
-				this.fldInput.trigger('input');
+			// Set initial height of textarea
+			if (this.isArea)
+				this.fitHeightToContent(this.getVerticalFieldPadding());
 		}
 	}
 }
