@@ -1,3 +1,11 @@
 div.tinycar-ui-component-textinput {
-	
+
+	> div.type-content {
+
+		> textarea {
+
+			overflow-y: hidden;
+
+		}
+	}
 }
