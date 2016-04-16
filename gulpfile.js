@@ -33,14 +33,28 @@
     gulp.task('iconmaps', function()
     {
     	return gulp.src('public/assets/base/images/iconmap.svg').
+    	
+    	    // Mark nodes existing attributes
+    	    pipe(replace(/<circle([^>]{1,})fill=([^>]{1,})>/g, '<xcircle$1fill=$2>')).
+    	    pipe(replace(/<path([^>]{1,})fill=([^>]{1,})>/g, '<xpath$1fill=$2>')).
+    	    
+    	    // Enforce color attributes
     		pipe(replace(/<circle([^>]{1,})>/g, '<circle fill="#000"$1>')).
     		pipe(replace(/<path([^>]{1,})>/g, '<path fill="#000"$1>')).
+    		
+    		// Unmark nodes
+    		pipe(replace(/<xcircle([^>]{1,})>/g, '<circle$1>')).
+    		pipe(replace(/<xpath([^>]{1,})>/g, '<path$1>')).
+    		
+    		// Change color
     		pipe(replace(/#000/g, '#FFF')).
+    		
+    		// Output
     		pipe(rename('iconmap-lite.svg')).
     		pipe(gulp.dest('public/assets/base/images'));
     });
     
     // Build
-    gulp.task('build', ['styles', 'typescript', 'iconmaps'], function()
+    gulp.task('build', ['styles', 'typescript'], function()
     {
     });
