@@ -232,11 +232,15 @@ module Tinycar.Ui
 		// Get path to previous view
 		private getPreviousPath():Object
 		{
-		    // Home application
-		    let home = Tinycar.Config.get('APP_HOME');
+		    // Current application id
+		    let app = this.App.getId();
 		    
-            // We are already at home, nowhere to go
-            if (this.App.getId() === home)
+		    // System applications
+		    let home = Tinycar.Config.get('APP_HOME');
+		    let login = Tinycar.Config.get('APP_LOGIN');
+		    
+            // We are at login or at home, nowhere to go
+            if (app === home || app === login)
                 return null;
            
             // We are at default view, go home
@@ -244,7 +248,7 @@ module Tinycar.Ui
                 return {app:home, view:'default'};
                     
             // Current application's default view
-            return {app:this.App.getId(), view:'default'};
+            return {app:app, view:'default'};
 		}
 		
 		// Check if this view has a sidelist

@@ -8,11 +8,25 @@
     class ActionList extends Component
     {
 
+
         /**
-         * Get select list options data
+         * Get options data
          * @return array options data
          */
         private function getOptionsData()
+        {
+            return (is_string($this->getDataSource()) ?
+                $this->getOptionsDataFromService() :
+                $this->getOptionsDataFromXml()
+            );
+        }
+
+
+        /**
+         * Get options data from service
+         * @return array options data
+         */
+        private function getOptionsDataFromService()
         {
             // Current URL
             $url = $this->app->getUrlParams();
@@ -99,6 +113,32 @@
 
 
         /**
+         * Get options data from XML
+         * @return array options data
+         */
+        private function getOptionsDataFromXml()
+        {
+            $result = array();
+
+            // Go through nodes
+            foreach ($this->xdata->getNodes('options/option') as $node)
+            {
+                $result[] = array(
+                    'icon'    => $node->getString('@icon'),
+                    'type'    => null,
+                    'label'   => $this->getStringValue($node->getString('@label')),
+                	'link'    => $node->getAttributes('link'),
+                    'dialog'  => null,
+                	'service' => $this->getStringValue($node->getString('@service')),
+                	'toast'   => null,
+                );
+            }
+
+            return $result;
+        }
+
+
+        /**
          * @see Tinycar\System\Application\Compont::onModelAction()
          */
         public function onModelAction(Params $params)
@@ -106,6 +146,7 @@
             $result = parent::onModelAction($params);
 
             // Get properties
+            $result['title'] = $this->getNodeString('title');
             $result['options'] = $this->getOptionsData();
 
             return $result;

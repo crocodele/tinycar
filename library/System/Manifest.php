@@ -2,6 +2,7 @@
 
 	namespace Tinycar\System;
 
+	use Tinycar\App\Locale;
 	use Tinycar\App\Manager;
 	use Tinycar\Core\Xml\Data;
 	use Tinycar\System\Application;
@@ -9,6 +10,7 @@
 
 	class Manifest
 	{
+	    private $locale;
 		private $system;
 		private $xdata;
 
@@ -56,6 +58,28 @@
 		public function getAppColor()
 		{
 			return $this->xdata->getString('app/color');
+		}
+
+
+		/**
+		 * Get current locale instance
+		 * @return object Tinycar\App\Locale instance
+		 * @throws Tinycar\Core\Exception
+		 */
+		public function getLocale()
+		{
+		    // Already resolved
+		    if (!is_null($this->locale))
+		        return $this->locale;
+
+	        // Try to load target locale
+		    $instance = Locale::loadFromManifest(
+		        $this->xdata, $this->system->getLocaleName()
+		    );
+
+		    // Remember
+		    $this->locale = $instance;
+		    return $this->locale;
 		}
 
 

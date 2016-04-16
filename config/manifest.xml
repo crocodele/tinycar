@@ -5,6 +5,11 @@
     <app>
         <color>#4e827d</color>
     </app>
+    
+    <locale>
+        <text name="actions">Actions</text>
+        <text name="system">System</text>
+    </locale>    
 
     <!-- Default system sidebar -->
 	<bar>
@@ -17,10 +22,12 @@
         
         <component type="ActionList">
             <data service="sidebar.systemactions" />
+            <title>$locale.system</title>
         </component>
         
         <component type="ActionList">
             <data service="sidebar.viewactions" />
+            <title>$locale.actions</title>
         </component>
         
         <component type="ActionList">

@@ -114,7 +114,7 @@
 			{
 				$result[] = new Action(array(
 					'target'  => 'session',
-					'type'    => 'user',
+				    'icon'    => 'logout',
 					'label'   => $this->app->getLocaleText('action_logout'),
 					'service' => 'session.logout',
 					'link'    => array('app' => '$url.app'),

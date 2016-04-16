@@ -51,8 +51,8 @@ module Tinycar
 				color: %base%;
 			}
 			
-			.theme-text-lite {
-				color: %lite%;
+			.theme-text-liter {
+				color: %liter%;
 			}
 			
 			.theme-base {

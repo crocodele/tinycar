@@ -9,6 +9,12 @@ module Tinycar.Ui.Component
 		{
 			// Build elements
 			super.buildContent();
+			
+			// Add title
+			if (this.Model.hasString('title'))
+			    this.buildTitle();
+			
+			// Build list options
 			this.buildList();
 		}
 		
@@ -76,17 +82,20 @@ module Tinycar.Ui.Component
 			let container = $('<a>').
 				attr('class', 'item');
 		
-			// Add link to custom path when we the link
-			// is clearly intended as a static link
-			
-			if (!model.hasString('service') && model.isObject('link'))
+			// Add link to custom path
+			if (this.isListItemLink(model))
 			{
 				let path = Tinycar.Url.getWithVars(
 					model.get('link'), 
 					{url:Tinycar.Url.getParams()}
 				);
-				
+
+				// Set link target
 				container.attr('href', Tinycar.Url.getAsPath(path));
+				
+                // Check if path matches, with fuzzy check
+                if (Tinycar.Url.isPathMatch(path, true))
+                    container.addClass('is-active');
 			}
 		
 			return container;
@@ -125,6 +134,25 @@ module Tinycar.Ui.Component
 			return container;
 		}
 		
+		// Build title
+		private buildTitle():void
+		{
+		    // Add title
+		    $('<div>').
+		        attr('class', 'title theme-text-liter').
+		        text(this.Model.get('title')).
+		        appendTo(this.htmlRoot);
+		    
+		    // Update root style
+		    this.htmlRoot.addClass('with-title');
+		}
+		
+        // Check if list item is a static link
+        private isListItemLink(model:Tinycar.Model.DataItem):boolean
+        {
+            return (!model.hasString('service') && model.isObject('link'));
+        }
+		
 		// @see Tinycar.Main.Component.setAsVisible()
 		setAsVisible(visible:boolean):void
 		{
@@ -141,7 +169,6 @@ module Tinycar.Ui.Component
 			{
 				this.App.openDialog(model.get('dialog'));
 				return true;
-				
 			}
 			
 			// Save action

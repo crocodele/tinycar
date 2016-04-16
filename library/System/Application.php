@@ -336,6 +336,7 @@
 		 *         - stirng dark   dark base color
 		 *         - stirng darker darker base color
 		 *         - string lite   light base color
+		 *         - string liter  liter base color
 		 */
 		public function getColorMap()
 		{
@@ -346,6 +347,7 @@
 				'dark'   => Format::adjustColor($color, -10),
 				'darker' => Format::adjustColor($color, -25),
 				'lite'   => Format::adjustColor($color, +10),
+			    'liter'  => Format::adjustColor($color, +60),
 			);
 		}
 

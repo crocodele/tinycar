@@ -112,10 +112,14 @@ module Tinycar
 		}
 		
 		// Check if specified path properties match current path
-		export function isPathMatch(custom:Object):boolean
+		export function isPathMatch(custom:Object, fuzzy:Boolean = false):boolean
 		{
 			for (var name in custom)
 			{
+			    // When fuzzy, we should omit the default view
+			    if (fuzzy === true && name === 'view' && custom[name] === 'default')
+			        continue;
+			    
 				// This path part does not match property
 				if (this.getParam(name) !== custom[name])
 					return false;
