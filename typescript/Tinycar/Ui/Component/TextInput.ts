@@ -4,7 +4,8 @@ module Tinycar.Ui.Component
 	{
 		private fldInput:JQuery;
 		private hasValue:boolean;
-		private isArea:boolean;
+	    private isArea:boolean;
+        private minAreaHeight:number = 0;
 
 
 		// Build content
@@ -12,7 +13,7 @@ module Tinycar.Ui.Component
 		{
 			// Build elements
 			super.buildContent();
-
+			
 			// Build textarea when we have multiple rows
 			if (this.Model.get('rows') > 0)
 				this.buildArea();
@@ -30,19 +31,21 @@ module Tinycar.Ui.Component
 		{
 			// Remember type
 			this.isArea = true;
-
+			
 			// Create field
 			this.fldInput = $('<textarea>').
 				attr('id', this.getFieldId()).
 				attr('placeholder', this.Model.getString('placeholder')).
-				attr('rows', this.Model.get('rows')).
 				prop('spellcheck', false).
 				prop('value', this.getDataValue()).
 				appendTo(this.htmlContent);
-
+			
 			// Add maxlength restriction
 			if (this.Model.get('maxlength') > 0)
 				this.fldInput.prop('maxlength', this.Model.get('maxlength'));
+			
+			// Minimum area height based on row amount
+            this.minAreaHeight = this.Model.getNumber('rows') * 23;
 		}
 
 
@@ -51,7 +54,7 @@ module Tinycar.Ui.Component
 		{
 			// Remember type
 			this.isArea = false;
-
+			
 			// Create field
 			this.fldInput = $('<input>').
 				attr('id', this.getFieldId()).
@@ -81,9 +84,12 @@ module Tinycar.Ui.Component
 		{
 			// First set to natural height to allow shrinking when user removes text
 			this.fldInput.css('height', 'auto');
-
+			
 			// Take as much vertical space as needed to fit content perfectly
-			this.fldInput.height(this.fldInput.prop('scrollHeight') - padding);
+			this.fldInput.height(Math.max(
+		          this.minAreaHeight, 
+		          this.fldInput.prop('scrollHeight') - padding
+		    ));
 		}
 
 
