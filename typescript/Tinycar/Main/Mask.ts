@@ -32,6 +32,7 @@ module Tinycar.Main
 			// Update styles
 			this.htmlRoot.
 				removeClass('is-hidden').
+                removeClass('is-skin').
 				addClass('is-visible').
 				css('cursor', 'default');
 		}
