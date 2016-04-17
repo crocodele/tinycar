@@ -123,6 +123,17 @@ module Tinycar.Ui.Component
 				this.htmlItems[id].remove();
 				delete this.htmlItems[id];
 			}
+
+			// Find value from current value
+			let value = this.getDataValue();
+			let index = value.indexOf(id);
+
+			// Remove value from list
+			if (index > -1)
+				value.splice(index, 1);
+
+			// Update value
+			this.setDataValue(value);
 		}
 		
 		
