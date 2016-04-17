@@ -14,7 +14,7 @@ module Tinycar.Ui.Component
 				this.buildPlaceholder();
 			
 			// Build link
-			else if (this.Model.isObject('link'))
+			else if (this.hasLink())
 				this.buildLink();
 			
 			// Build text content
@@ -26,10 +26,11 @@ module Tinycar.Ui.Component
 		private buildLink():void
 		{
 			// Target URL
-			let url = Tinycar.Url.getAsPath(
-				this.Model.getObject('link')
+			let url = (this.Model.isObject('link_path') ?
+			    Tinycar.Url.getAsPath(this.Model.get('link_path')) :
+			    this.Model.get('link_url')
 			);
-			
+
 			// Create link container
 			let container = $('<a>').
 				attr('href', url). 
@@ -48,9 +49,10 @@ module Tinycar.Ui.Component
 				appendTo(container);
 			
 			// When clicked
-			container.click((e:Event) =>
+			container.click((e:JQueryMouseEventObject) =>
 			{
-				Tinycar.Page.setState('unloading');
+			    if (e.ctrlKey === false && e.shiftKey === false)
+			        Tinycar.Page.setState('unloading');
 			});
 		}
 		
@@ -78,6 +80,15 @@ module Tinycar.Ui.Component
 				attr('class', 'text').
 				html(this.getDataValue()).
 				appendTo(this.htmlContent);
+		}
+		
+		// Check if text should have a link
+		private hasLink():boolean
+		{
+		    return (
+		        this.Model.isObject('link_path') || 
+		        this.Model.hasString('link_url')
+		    );
 		}
 	}
 }
