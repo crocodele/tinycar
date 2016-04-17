@@ -40,7 +40,8 @@
 			);
 
 			// Link properties
-			$result['link'] = $this->getLinkProperties();
+			$result['link_path'] = $this->getLinkProperties();
+			$result['link_url']  = $this->getNodeString('link/url');
 
 			return $result;
 		}

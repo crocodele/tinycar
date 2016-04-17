@@ -75,6 +75,10 @@ div.tinycar-ui-component-group.layout-table {
     div.tinycar-ui-component-text {
             
         > div.type-content {
+        
+            > a.link {
+                padding: 5px 0px 0px 0px;
+            }
             
             > span.text {
                 padding: 5px 0px 5px 0px;
