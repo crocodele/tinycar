@@ -32,11 +32,14 @@
 
         /**
          * Get all data property values as an array
+         * @param array [$custom] custom data to add to returned copy
          * @return array all data
          */
-        public function getAll()
+        public function getAll(array $custom = array())
         {
-        	return $this->data;
+        	return (count($custom) > 0 ?
+        	    array_merge($this->data, $custom) : $this->data
+        	);
         }
 
 
