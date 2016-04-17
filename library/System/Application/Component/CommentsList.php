@@ -45,10 +45,20 @@
 			{
 				// Defaults
 				$item = array(
+				    'type'    => 'message',
+				    'icon'    => 'talk',
 					'author'  => null,
-					'created' => null,
+					'created' => 0,
 					'message' => null,
 				);
+
+				// Add type
+				if (array_key_exists('type', $row) && is_string($row['type']))
+				    $item['type'] = $row['type'];
+
+				// Add icon
+				if (array_key_exists('icon', $row) && is_string($row['icon']))
+				    $item['icon'] = $row['icon'];
 
 				// Add author name
 				if (array_key_exists('author', $row))
@@ -78,6 +88,14 @@
 				// Add to list
 				$result[] = $item;
 			}
+
+			// Sort by creation timestamp
+			usort($result, function(array $a, array $b)
+			{
+			    return ($a['created'] < $b['created'] ?
+			        -1 : ($a['created'] > $b['created'] ? +1 : 0)
+			    );
+			});
 
 			return $result;
 		}

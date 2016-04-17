@@ -54,7 +54,7 @@
     <text name="created">Created</text>
     <text name="colorpicker_color">Color</text>
     <text name="commentslist_add_comment">Add comment</text>
-	<text name="commentslist_author_wrote_at">$author wrote at $time</text>
+	<text name="commentslist_wrote_at">wrote at $time</text>
     <text name="commentslist_comments">Comments</text>
 	<text name="commentslist_new_comment">New comment</text>
     <text name="commentslist_write_comment">Write comment...</text>

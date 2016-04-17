@@ -112,6 +112,14 @@ module Tinycar.Ui.Component
 			this.Input = instance;
 		}
 		
+		// Build line into list
+		private buildLine():void
+		{
+		    $('<span>').  
+		        attr('class', 'line').
+		        appendTo(this.htmlList);
+		}
+		
 		// Build list container
 		private buildList():void
 		{
@@ -123,34 +131,89 @@ module Tinycar.Ui.Component
 		// Build single list item
 		private buildListItem(item:Object):JQuery
 		{
-			// Create container
-			let container = $('<div>').
-				attr('class', 'item');
-			
-			// Format source string
-			let source = Tinycar.Locale.getText('commentslist_author_wrote_at', {
-				author : item['author'],
-				time   : Tinycar.Locale.toDate(item['created'], 'datetime') 
-			});
-			
-			// Add container for message line
-			let line = $('<div>').
-				attr('class', 'line').
-				text(source).
-				appendTo(container);
-			
-			// Add Message icon to line
-			$('<span>').
-				attr('class', 'icon icon-tiny icon-talk').
-				prependTo(line);
-			
-			// Add message contents
-			$('<div>').
-				attr('class', 'message').
-				html(item['message']).
-				appendTo(container);
-			
-			return container;
+		    return (item['type'] === 'message' ?
+		        this.buildListItemAsMessage(item) :
+		        this.buildListItemAsEvent(item)
+		    );
+		}
+		
+        // Build single list item as an event
+        private buildListItemAsEvent(item:Object):JQuery
+        {
+            // Create container
+            let container = $('<div>').
+                attr('class', 'item item-event');
+            
+            // Add icon container
+            let symbol = $('<span>').
+                attr('class', 'symbol').
+                appendTo(container);
+            
+            // Add icon to symbol
+            $('<span>').
+                attr('class', 'icon icon-tiny icon-' + item['icon']).
+                prependTo(symbol);
+            
+            // Line text
+            let text = '' +
+                item['message'] + ' ' + 
+                Tinycar.Locale.toDate(item['created'], 'datetime'); 
+            
+            // Add message line
+            let line = $('<div>').
+                attr('class', 'line').
+                text(text).
+                appendTo(container);
+            
+            return container;           
+        }
+		
+		// Build single list item as a message
+		private buildListItemAsMessage(item:Object):JQuery
+		{
+            // Create container
+            let container = $('<div>').
+                attr('class', 'item item-message');
+            
+            // Add icon container
+            let symbol = $('<span>').
+                attr('class', 'symbol').
+                appendTo(container);
+            
+            // Add icon to symbol
+            $('<span>').
+                attr('class', 'icon icon-tiny icon-' + item['icon']).
+                prependTo(symbol);
+            
+            // Format line text
+            let text = Tinycar.Locale.getText('commentslist_wrote_at', {
+                time   : Tinycar.Locale.toDate(item['created'], 'datetime') 
+            });
+            
+            // Add message line
+            let line = $('<div>').
+                attr('class', 'line').
+                appendTo(container);
+            
+            // Add author name
+            $('<span>').
+                attr('class', 'author').
+                text(item['author'] + ' ').
+                appendTo(line);
+            
+            // Add timestamp
+            $('<span>').
+                attr('class', 'wrote').
+                text(text).
+                appendTo(line);
+            
+            // Add message contents
+            $('<div>').
+                attr('class', 'message').
+                html(item['message']).
+                appendTo(container);
+            
+            return container;		    
 		}
 		
 		// Load new list of comments
@@ -164,6 +227,9 @@ module Tinycar.Ui.Component
 				
 				// Update message amount
 				this.htmlAmount.text('(' + data.length + ')');
+				
+				// Build line
+				this.buildLine();
 				
 				// Create new items
 				data.forEach((item:Object) =>
