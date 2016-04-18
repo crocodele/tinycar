@@ -44,6 +44,10 @@ module Tinycar.Ui.Component
 			if (this.Model.get('maxlength') > 0)
 				this.fldInput.prop('maxlength', this.Model.get('maxlength'));
 			
+			// Add width restriction
+			if (this.Model.get('width') > 0)
+			    this.fldInput.css('max-width', this.Model.get('width'));
+			
 			// Minimum area height based on row amount
             this.minAreaHeight = this.Model.getNumber('rows') * 23;
 		}
@@ -67,6 +71,10 @@ module Tinycar.Ui.Component
 			// Add maxlength restriction
 			if (this.Model.get('maxlength') > 0)
 				this.fldInput.prop('maxlength', this.Model.get('maxlength'));
+			
+            // Add width restriction
+            if (this.Model.get('width') > 0)
+                this.fldInput.css('max-width', this.Model.get('width'));
 		}
 
 
