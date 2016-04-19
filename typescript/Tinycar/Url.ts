@@ -9,7 +9,7 @@ module Tinycar
 		
 		export var paramList:IUrlParams = {};
 		
-		// Get URL to target
+		// Get link path to target
 		export function getAsPath(custom:Object):string
 		{
 			// Defaults
@@ -30,17 +30,29 @@ module Tinycar
 			if (custom.hasOwnProperty('id'))
 				params['id'] = custom['id'];
 			
-			// Set custom view
+            // Remove login app
+            if (params['app'] === Tinycar.Config.get('APP_LOGIN'))
+                delete params['app'];
+                
+            // Remove home app
+            else if (params['app'] === Tinycar.Config.get('APP_HOME'))
+                delete params['app'];
+			
+			// Remove default view
 			if (params['view'] === 'default')
 				delete params['view'];
 				
 			let path = [];
-			
+
 			// Create path syntax
 			for (var name in params)
 				path.push(name + ':' + params[name]);
+
+			// No path needed, but keep similar syntax
+			if (path.length === 0)
+	            return '?' + Tinycar.Config.get('PATH_PARAM') + '=/';
 			
-			// Get URL string
+			// Get path as URL parameter
 			return '?' + 
 				Tinycar.Config.get('PATH_PARAM') + 
 				'=/' + path.join('/') + '/';
