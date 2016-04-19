@@ -51,8 +51,18 @@ module Tinycar
 				}
 			});
 		}
+		
+		// Get API URL to specified service
+		export function getServiceLink(service:string):string
+		{
+            return this.apiUrl + '?' + jQuery.param({
+                api_service : 'application.servicelink',
+                service     : service,
+                url         : Tinycar.Url.getParams()
+            });
+		}
 	
-		// Set API url
+		// Set API URL
 		export function setApiUrl(url:string):void
 		{
 			this.apiUrl = url;

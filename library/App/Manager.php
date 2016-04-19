@@ -5,18 +5,21 @@
     use Tinycar\App\Config;
     use Tinycar\App\Locale;
     use Tinycar\App\Session;
+    use Tinycar\App\Writer;
     use Tinycar\Core\Exception;
     use Tinycar\System\Manifest;
     use Tinycar\System\Storage;
 
     class Manager
     {
+        private $last_writer;
     	private $locale;
     	private $manifest;
         private $parameters = array();
         private $services = array();
         private $session;
         private $storage;
+        private $writers = array();
 
 
          /**
@@ -126,6 +129,25 @@
          	}
 
          	return $result;
+         }
+
+
+         /**
+          * Get last writer instance
+          * @return object|null Tinycar\App\Writer instance or null on failure
+          */
+         public function getLastWriter()
+         {
+             // No last writer
+             if (!is_string($this->last_writer))
+                 return null;
+
+             // Invalid type
+             if (!array_key_exists($this->last_writer, $this->writers))
+                 return null;
+
+             // Get writer instance
+             return $this->writers[$this->last_writer];
          }
 
 
@@ -318,6 +340,29 @@
 		public function getUser()
 		{
 			return $this->getSession()->getUser();
+		}
+
+
+		/**
+		 * Get specified writer instance
+		 * @param string $name target writer type
+		 * @return object Tinycar\App\Writer instance
+		 */
+		public function getWriter($type)
+		{
+		    // Already resolved
+		    if (array_key_exists($type, $this->writers))
+		        return $this->writers[$type];
+
+		    // Try to load writer instance by type
+		    $instance = Writer::loadByType($type);
+
+		    // Remembers last writer type
+		    $this->last_writer = $type;
+
+		    // Remember
+		    $this->writers[$type] = $instance;
+		    return $this->writers[$type];
 		}
 
 

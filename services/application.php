@@ -143,10 +143,35 @@
 		// Get target application
 		$instance = $system->getApplicationById($params->get('app'));
 
-		// GEt service result
+		// Get service result
 		return $instance->callService(
 			$params->get('service'), $params->getAll()
 		);
+	});
+
+
+	/**
+	 * Call specified application service via a link, with
+	 * simplified arguments
+	 * @param object $params Tinycar\Core\Http\Params instance
+	 *               - string app     target application id
+	 *               - array  url     source URL parameters
+	 *               - string service target service name
+	 * @return mixed application service result
+	 * @throws Tinycar\Core\Exception
+	 */
+	$api->setService('servicelink', function(Params $params) use ($system)
+	{
+	    // Get URL properties
+	    $url = $params->getParams('url');
+
+	    // Get target application
+	    $instance = $system->getApplicationById($url->get('app'));
+
+	    // Get service result
+	    return $instance->callService(
+	        $params->get('service'), $url->getAll()
+	    );
 	});
 
 

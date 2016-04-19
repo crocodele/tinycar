@@ -50,7 +50,7 @@ module Tinycar.Ui.Component
 					e.preventDefault();
 				}
 				// Open fixed URL
-				else if (model.isObject('link'))
+				else if (model.isObject('link_path'))
 				{
 					if (e.ctrlKey === false && e.shiftKey === false)
 					{
@@ -80,13 +80,14 @@ module Tinycar.Ui.Component
 		{
 			// Create container
 			let container = $('<a>').
-				attr('class', 'item');
+				attr('class', 'item').
+				attr('tabindex', 0);
 		
-			// Add link to custom path
-			if (this.isListItemLink(model))
+			// Add link to internal path
+            if (!model.hasString('service') && model.isObject('link_path'))
 			{
 				let path = Tinycar.Url.getWithVars(
-					model.get('link'), 
+					model.get('link_path'), 
 					{url:Tinycar.Url.getParams()}
 				);
 
@@ -97,6 +98,17 @@ module Tinycar.Ui.Component
                 if (Tinycar.Url.isPathMatch(path, true))
                     container.addClass('is-active');
 			}
+			// Add link to API service
+			else if (model.hasString('link_service'))
+			{
+                container.attr('href', Tinycar.Api.getServiceLink(
+                    model.get('link_service')
+                ));
+			}
+            
+            // Add link target
+            if (model.hasString('link_target'))
+                container.attr('target', model.get('link_target'));
 		
 			return container;
 		}
@@ -147,12 +159,6 @@ module Tinycar.Ui.Component
 		    this.htmlRoot.addClass('with-title');
 		}
 		
-        // Check if list item is a static link
-        private isListItemLink(model:Tinycar.Model.DataItem):boolean
-        {
-            return (!model.hasString('service') && model.isObject('link'));
-        }
-		
 		// @see Tinycar.Main.Component.setAsVisible()
 		setAsVisible(visible:boolean):void
 		{
@@ -175,7 +181,7 @@ module Tinycar.Ui.Component
 			if (model.get('type') === 'save')
 			{
 				this.View.onSave(new Tinycar.Model.DataItem({
-					link  : model.get('link'),
+					link  : model.get('link_path'),
 					toast : model.get('toast')
 				}));
 				

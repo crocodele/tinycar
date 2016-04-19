@@ -46,13 +46,15 @@
             {
                 // Defaults
                 $item = array(
-                    'icon'    => null,
-                    'type'    => '',
-                    'label'   => null,
-                	'link'    => null,
-                    'dialog'  => null,
-                	'service' => null,
-                	'toast'   => null,
+                    'icon'         => null,
+                    'type'         => '',
+                    'label'        => null,
+                	'link_path'    => null,
+                    'link_service' => null,
+                    'link_target'  => null,
+                    'dialog'       => null,
+                	'service'      => null,
+                	'toast'        => null,
                 );
 
                 // Add custom icon
@@ -76,12 +78,20 @@
                         $item['label'] = $row['label'];
                 }
 
-                // Add custom link
-                if (array_key_exists('link', $row))
+                // Add custom link path
+                if (array_key_exists('link_path', $row))
                 {
-                    if (is_array($row['link']) && count($row['link']) > 0)
-                    	$item['link'] = $row['link'];
+                    if (is_array($row['link_path']) && count($row['link_path']) > 0)
+                    	$item['link_path'] = $row['link_path'];
                 }
+
+                // Add custom link service name
+                if (array_key_exists('link_service', $row) && is_string($row['link_service']))
+                    $item['link_service'] = $row['link_service'];
+
+                // Add custom link target
+                if (array_key_exists('link_target', $row) && is_string($row['link_target']))
+                    $item['link_target'] = $row['link_target'];
 
                 // Add custom dialog
                 if (array_key_exists('dialog', $row))
@@ -124,13 +134,15 @@
             foreach ($this->xdata->getNodes('options/option') as $node)
             {
                 $result[] = array(
-                    'icon'    => $node->getString('@icon'),
-                    'type'    => null,
-                    'label'   => $this->getStringValue($node->getString('@label')),
-                	'link'    => $node->getAttributes('link'),
-                    'dialog'  => null,
-                	'service' => $this->getStringValue($node->getString('@service')),
-                	'toast'   => null,
+                    'icon'         => $node->getString('@icon'),
+                    'type'         => null,
+                    'label'        => $this->getStringValue($node->getString('@label')),
+                	'link_path'    => $node->getAttributes('link'),
+                    'link_service' => $node->getString('link/service'),
+                    'link_target'  => $node->getString('link/service'),
+                    'dialog'       => null,
+                	'service'      => $this->getStringValue($node->getString('@service')),
+                	'toast'        => null,
                 );
             }
 

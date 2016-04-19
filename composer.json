@@ -9,6 +9,10 @@
         "psr-4": {"Tinycar\\": "library/"}
     },
     
+    "require" : {
+        "faisalman/simple-excel-php" : "*"
+    },
+    
     "authors": [
         {
             "name": "Antti Launiainen",

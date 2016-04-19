@@ -30,14 +30,16 @@
         {
             // Defaults
             $data = array(
-                'target'  => 'view',
-            	'icon'    => $xdata->getString('@icon'),
-                'type'    => $xdata->getString('@type'),
-                'label'   => $xdata->getString('@label'),
-                'service' => $xdata->getString('@service'),
-                'link'    => $xdata->getAttributes('link'),
-                'toast'   => $xdata->getString('toast'),
-                'dialog'  => $xdata->getString('@dialog'),
+                'target'       => 'view',
+            	'icon'         => $xdata->getString('@icon'),
+                'type'         => $xdata->getString('@type'),
+                'label'        => $xdata->getString('@label'),
+                'service'      => $xdata->getString('@service'),
+                'link_path'    => $xdata->getAttributes('link'),
+                'link_service' => $xdata->getString('link/service'),
+                'link_target'  => $xdata->getString('link/target'),
+                'toast'        => $xdata->getString('toast'),
+                'dialog'       => $xdata->getString('@dialog'),
             );
 
             // Default label using type
@@ -71,14 +73,16 @@
         public function getAll()
         {
             return array(
-            	'target'  => $this->getTarget(),
-            	'icon'    => $this->getIcon(),
-                'type'    => $this->getType(),
-                'label'   => $this->getLabel(),
-                'link'    => $this->getLink(),
-            	'dialog'  => $this->getDialog(),
-                'service' => $this->getService(),
-                'toast'   => $this->getToast(),
+            	'target'       => $this->getTarget(),
+            	'icon'         => $this->getIcon(),
+                'type'         => $this->getType(),
+                'label'        => $this->getLabel(),
+                'link_path'    => $this->getLinkPath(),
+                'link_service' => $this->getLinkService(),
+                'link_target'  => $this->getLinkTarget(),
+            	'dialog'       => $this->getDialog(),
+                'service'      => $this->getService(),
+                'toast'        => $this->getToast(),
             );
         }
 
@@ -131,9 +135,29 @@
          * Get action link parameters
          * @return array|null link parameters or null on failure
          */
-        public function getLink()
+        public function getLinkPath()
         {
-            return $this->get('link');
+            return $this->get('link_path');
+        }
+
+
+        /**
+         * Get action link service name
+         * @return string|null link API service or null on failure
+         */
+        public function getLinkService()
+        {
+            return $this->get('link_service');
+        }
+
+
+        /**
+         * Get action link target
+         * @return string|null link target or null on failure
+         */
+        public function getLinkTarget()
+        {
+            return $this->get('link_target');
         }
 
 

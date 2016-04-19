@@ -1,63 +1,71 @@
 <?php
 
     namespace Tinycar\Service;
-    
+
     use Tinycar\Core\Exception;
-    
+
     class Manager extends \Tinycar\App\Manager
     {
-    	
-        
+
+
         /**
          * Show output
          */
 		public function show()
         {
-        	// Default response
-            $response = array(
-                'id' => $this->getParameter('api_id'),
-            );
-            
+            $result = null;
+		    $error  = null;
+
             // Try to call service
             try
             {
                 // Get service result
-				$response['result']  = $this->callService(
-					$this->getParameter('api_service'),
-					$this->getParameters(),
-					true
-               );
-            }
-            catch (Exception $e)
-            {
-            	$response['error'] = array(
-            		'id'      => $e->getMessage(),
-            		'code'    => $e->getCustomCode(),
-            		'message' => $e->getCustomData(),
-				);
-            }
-            catch (\Exception $e)
-            {
-                $response['error'] = array(
-                    'id'      => 'native_error',
-                    'code'    => 'native_error', 
-                    'message' => array(
-                    	'message' => $e->getMessage(),
-                    ),
+                $result = $this->callService(
+                    $this->getParameter('api_service'),
+                    $this->getParameters(),
+                    true
                 );
             }
-            
-            // Convert response to JSON
-            $response = (defined('JSON_PRETTY_PRINT') ?
-            	json_encode($response, JSON_PRETTY_PRINT) : 
-            	json_encode($response)
-            );
-            
-            // Send custom headers
-            header('Content-Type: application/json; charset=UTF8');
-            header('Content-Length: '.mb_strlen($response));
-            
-            // Output
-            echo $response;
+            // Internal exception occured
+            catch (Exception $e)
+            {
+                $error = array(
+                    $e->getMessage(),
+                    $e->getCustomCode(),
+                    $e->getCustomData(),
+                );
+            }
+            // Native exception occured
+            catch (\Exception $e)
+            {
+                $error = array(
+                    'native_error',
+                    'native_error',
+                    array('message' => $e->getMessage()),
+                );
+            }
+
+            // Get last writer instance
+            $writer = $this->getLastWriter();
+
+            // Revert to JSON-RPC writer
+            if (is_null($writer) || is_array($error))
+            {
+                // Get writer instance
+                $writer = $this->getWriter('JsonRpc');
+
+                // Set properties
+                $writer->setRequestId($this->getParameter('api_id'));
+
+                // Set result
+                $writer->setResult($result);
+
+                // We have an array
+                if (is_array($error))
+                    $writer->setError($error[0], $error[1], $error[2]);
+            }
+
+            // Output writer contents
+            $writer->output();
         }
     }
