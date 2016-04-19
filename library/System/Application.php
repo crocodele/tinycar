@@ -400,7 +400,7 @@
 
 
     	/**
-		 * Get applicatoin dialog by name
+		 * Get application dialog by name
 		 * @param string $name target dialog name
 		 * @return object|null Tinycar\System\Application\Dialog
 		 *                     instance or null on failure
@@ -924,12 +924,33 @@
 
 
 		/**
+		 * Check if application has a sidebar
+		 * @return bool application has sidebar
+		 */
+		public function hasSideBar()
+		{
+		    return !$this->isLoginApplication();
+		}
+
+
+		/**
 		 * Check if application has a sidelist
 		 * @return bool application has sidelist
 		 */
 		public function hasSideList()
 		{
 			return !is_null($this->xdata->getNode('side'));
+		}
+
+
+    	/**
+		 * Check if application has specified view
+		 * @param string $name target view name
+		 * @return bool has view
+		 */
+		public function hasView($name)
+		{
+			return array_key_exists($name, $this->getViews());
 		}
 
 
@@ -941,8 +962,21 @@
 			// Initialize related sections so that the
 			// global component id's remain consistent
 
-			$this->getSideBar()->getComponents();
-			$this->getSideList()->getComponents();
+		    if ($this->hasSidebar())
+		        $this->getSideBar()->getComponents();
+
+		    if ($this->hasSideList())
+		        $this->getSideList()->getComponents();
+		}
+
+
+		/**
+		 * Check if this is the system home application
+		 * @return bool is home application
+		 */
+		public function isHomeApplication()
+		{
+		    return ($this->getId() === Config::get('UI_APP_HOME'));
 		}
 
 
@@ -961,12 +995,22 @@
 
 
 		/**
-		 * Check if this is the system home applicatoin
+		 * Check if this application is in development mode
+		 * @return bool is in development mode
+		 */
+		public function isInDevmode()
+		{
+		    return ($this->getData('devmode') === '1');
+		}
+
+
+		/**
+		 * Check if this is the system login application
 		 * @return bool is home application
 		 */
-		public function isHomeApplication()
+		public function isLoginApplication()
 		{
-			return ($this->getId() === Config::get('UI_APP_HOME'));
+		    return ($this->getId() === Config::get('UI_APP_LOGIN'));
 		}
 
 
@@ -981,16 +1025,6 @@
 				Config::get('UI_APP_HOME'),
 				Config::get('UI_APP_LOGIN'),
 			));
-		}
-
-
-		/**
-		 * Check if this application is in development mode
-		 * @return bool is in development mode
-		 */
-		public function isInDevmode()
-		{
-			return ($this->getData('devmode') === '1');
 		}
 
 

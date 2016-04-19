@@ -236,6 +236,10 @@
 		// Set URL parameters to application request
 		$instance->setUrlParams($params->getArray('url'));
 
+		// When logging in, revert non-existent views to default
+		if ($instance->isLoginApplication() && !$instance->hasView($params->get('view')))
+		    $params->set('view', 'default');
+
 		// Get target view
 		$view = $instance->getViewByName($params->get('view'));
 
@@ -247,9 +251,6 @@
 
 		// Get target data record
 		$record = $view->getDataRecord();
-
-		// Get sidebar instance
-		$sidebar = $instance->getSideBar();
 
 		$result = array();
 
@@ -263,14 +264,20 @@
 		);
 
 		// Sidebar properties
-		$result['bar'] = array(
-			'default_width' => $sidebar->getDefaultWidth(),
-			'components'    => array(),
-		);
+		if ($instance->hasSideBar())
+		{
+		    // Get sidebar instance
+		    $sidebar = $instance->getSideBar();
 
-		// Add components
-		foreach ($sidebar->getComponents() as $item)
-			$result['bar']['components'][] = $item->callAction('model');
+    		$result['bar'] = array(
+    			'default_width' => $sidebar->getDefaultWidth(),
+    			'components'    => array(),
+    		);
+
+    		// Add components
+    		foreach ($sidebar->getComponents() as $item)
+    			$result['bar']['components'][] = $item->callAction('model');
+		}
 
 		// Get side properties
 		if ($instance->hasSideList())
