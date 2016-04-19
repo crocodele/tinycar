@@ -20,6 +20,17 @@
 
 
 		/**
+		 * Clear specified property value
+		 * @param string $name target property name
+		 */
+		public function clear($name)
+		{
+		    if (array_key_exists($name, $_SESSION))
+		        unset($_SESSION[$name]);
+		}
+
+
+		/**
 		 * Destroy current session
 		 */
 		public function destroy()
@@ -104,6 +115,16 @@
 			// Remember
 			$this->user = $result;
 			return $this->user;
+		}
+
+
+		/**
+		 * Check if session has specified property
+		 * @param string $name target property name
+		 */
+		public function has($name)
+		{
+		    return array_key_exists($name, $_SESSION);
 		}
 
 
