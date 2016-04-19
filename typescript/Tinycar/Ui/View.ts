@@ -36,19 +36,27 @@ module Tinycar.Ui
 		}
 		
 		// Build action button
-		private buildAction(data:Tinycar.Model.DataItem):JQuery
+		private buildAction(index:number, data:Tinycar.Model.DataItem):JQuery
 		{
 			// Create button instance
 			let instance = new Tinycar.Ui.Button({
-				style : 'theme-button',
+				style : (index === 0 ? 'theme-button' : 'secondary-button'),
 				label : data.get('label')
 			});
 			
-			// When clicked
-			instance.setHandler('click', () => 
-			{
-				this.callAction(data);
-			});
+            // We have a link, but no service
+            if (data.isObject('link') && !data.hasString('service'))
+                instance.setLink(data.get('link'));
+            
+            // Call service when clicked
+            else
+            {
+    			// When clicked
+    			instance.setHandler('click', () => 
+    			{
+    				this.callAction(data);
+    			});
+            }
 			
 			// Submit event
 			if (data.get('type') === 'submit')
@@ -72,10 +80,10 @@ module Tinycar.Ui
 				appendTo(this.htmlRoot);
 			
 			// Build view
-			this.Model.get('actions').forEach((item:Object) => 
+			this.Model.get('actions').forEach((item:Object, index:number) => 
 			{
-				container.append(this.buildAction(
-					new Tinycar.Model.DataItem(item)
+				container.prepend(this.buildAction(
+					index, new Tinycar.Model.DataItem(item)
 				));
 			});				
 		}

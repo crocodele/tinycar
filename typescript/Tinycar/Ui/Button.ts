@@ -80,7 +80,8 @@ module Tinycar.Ui
 			// Create container
 			this.htmlRoot = $('<a>').
 				addClass('tinycar-ui-button').
-				addClass(this.Model.get('style'));
+				addClass(this.Model.get('style')).
+				attr('tabindex', 0);
 			
 			// This is a theme icon
 			if (this.Model.get('style') === 'theme-icon')
@@ -143,6 +144,12 @@ module Tinycar.Ui
 		setHandler(name:string, callback:Function):void
 		{
 			this.handlerList[name] = callback;
+		}
+		
+		// Set internal link path
+		setLink(link:Object):void
+		{
+		    this.Model.set('link', link);
 		}
 	}
 }
