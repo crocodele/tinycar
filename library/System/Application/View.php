@@ -93,8 +93,8 @@
 		public function getSessionActions()
 		{
 			// Already resolved
-			if (is_array($this->system_actions))
-				return $this->system_actions;
+			if (is_array($this->session_actions))
+				return $this->session_actions;
 
 			$result = array();
 
@@ -114,10 +114,14 @@
 			{
 				$result[] = new Action(array(
 					'target'  => 'session',
+				    'type'    => 'logout',
 				    'icon'    => 'logout',
 					'label'   => $this->app->getLocaleText('action_logout'),
 					'service' => 'session.logout',
-					'link'    => array('app' => '$url.app'),
+					'link'    => array(
+					    'app' => Config::get('UI_APP_LOGIN'),
+					    'view' => 'out'
+					),
 				));
 			}
 
