@@ -5,6 +5,10 @@ a.tinycar-ui-button {
 	overflow: hidden;
 	@include unselectable();
 	
+	&:active {
+	   outline: none;
+	}
+	
     &.dark-icon {
     
         > span.icon {
@@ -88,15 +92,21 @@ a.tinycar-ui-button {
 	}
 	
 	&.secondary-button {
-	
+
+        border-color: $main-color-uigray;
 		color: $main-font-color;
 	
 		&:focus,
 		&:hover {
+		
+		    border-color: darken($main-color-uigray, 10%);
 			color: $main-font-color;
+			
 		}
 	
 		&:active {
+		
+            border-color: darken($main-color-uigray, 20%);
 			color: #000000;
 		}
 	
@@ -105,9 +115,9 @@ a.tinycar-ui-button {
 	&.theme-button {
 	
 		color: #ffffff;
+        text-decoration: none;
 		@include border-radius(1px);
 		@include transition(background-color 0.2s ease);
-		text-decoration: none;
 	
 		&:hover {
 			color: #ffffff;
@@ -125,4 +135,17 @@ a.tinycar-ui-button {
 		
 	}
 	
+}
+
+body.layout-modal {
+    
+    a.tinycar-ui-button.secondary-button {
+    
+        padding: 6px 24px 6px 24px;
+        border-style: solid;
+        border-width: 1px;
+        text-decoration: none;
+        
+    }   
+
 }
