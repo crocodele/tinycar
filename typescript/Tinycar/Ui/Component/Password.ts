@@ -25,6 +25,10 @@ module Tinycar.Ui.Component
 				attr('type', 'password').
 				attr('placeholder', this.Model.getString('placeholder')).
 				appendTo(this.htmlContent);
+			
+			// Align text to center
+			if (this.Model.get('align') === 'center')
+			    this.fldInput.css('text-align', 'center');
 		}
 		
 		// @see Tinycar.Main.Field.focus()
@@ -59,6 +63,33 @@ module Tinycar.Ui.Component
 					
 				}, 300);
 			});			
+		}
+		
+		// Check if current value is an empty string
+		private isValueEmptyString():boolean
+		{
+		    return (
+		        this.Model.isString('data_value') &&
+		        this.Model.get('data_value').length === 0
+		    );
+		}
+		
+		// @see Tinycar.Main.Field.start()
+		start():void
+		{
+		    super.start();
+		    
+		    // We have an empty data string, reset the input
+		    // value because the browser might have filled it in
+		    if (this.isValueEmptyString())
+		    {
+		        // We need to wait a second for rendering
+                window.setTimeout(() =>
+                {
+                    this.fldInput.val('');
+                    
+                }, 100);
+		    }
 		}
 	}
 }
