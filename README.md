@@ -7,7 +7,7 @@ Tinycar is an application to run multiple administration user interfaces that ar
 ### Features
 - Application-specific datamodels and built-in SQLite-databases
 - HTTP-accessable JSON API for external integrations
-- 16 available UI components
+- 26 available UI components
 - Support for multiple language versions
 - Optional authentication mechanism
 - Option to add application-specific services and webhooks
@@ -18,7 +18,7 @@ Tinycar is an application to run multiple administration user interfaces that ar
 
 ### Installation
 1. Grant writing privileges to folder tinycar/storage and all of its subfolders
-2. Complete the installation by pointing your web browser to tinycar/public/index.php
+2. Complete the installation by pointing your web browser to tinycar/public/index.php  
 
 ### Development tools
 - Gulp
@@ -29,6 +29,7 @@ Tinycar is an application to run multiple administration user interfaces that ar
 - jQuery, MIT-license, https://jquery.com/
 - jQueryUI, MIT-license, http://jqueryui.com/
 - Trumbowyg, MIT-license, https://alex-d.github.io/Trumbowyg/
+- Simple Excel, MIT-license, https://github.com/faisalman/simple-excel-php
 
 ### License
 Tinycar uses the MIT-license.
