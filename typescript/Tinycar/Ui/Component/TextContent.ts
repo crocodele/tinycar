@@ -14,10 +14,15 @@ module Tinycar.Ui.Component
 		// Build text content
 		private buildText():void
 		{
-			$('<div>').
+		    // Create content
+			let container = $('<div>').
 				attr('class', 'text').
 				html(this.Model.get('text')).
 				appendTo(this.htmlRoot);
+			
+			// Align text to center
+            if (this.Model.get('align') === 'center')
+                container.addClass('align-center');
 		}
 	}
 }

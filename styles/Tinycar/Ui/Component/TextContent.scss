@@ -9,7 +9,24 @@ div.tinycar-ui-component-textcontent {
 		> span.var {
 			text-decoration: underline;
 		}
-		
+	
+	    &.align-center {
+	    
+	        padding-left: 30px;
+	        text-align: center;
+	        
+        }
 	}
 	
+}
+
+body.layout-modal {
+    
+    div.tinycar-ui-component-textcontent {
+    
+        padding-top: 15px;
+        padding-bottom: 15px;
+        
+    }
+    
 }
