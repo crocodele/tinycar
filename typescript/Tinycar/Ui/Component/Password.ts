@@ -65,28 +65,22 @@ module Tinycar.Ui.Component
 			});			
 		}
 		
-		// Check if current value is an empty string
-		private isValueEmptyString():boolean
-		{
-		    return (
-		        this.Model.isString('data_value') &&
-		        this.Model.get('data_value').length === 0
-		    );
-		}
-		
 		// @see Tinycar.Main.Field.start()
 		start():void
 		{
 		    super.start();
 		    
-		    // We have an empty data string, reset the input
-		    // value because the browser might have filled it in
-		    if (this.isValueEmptyString())
+		    // We have an custom string value to prefill, set it
+		    // later because the browser migth have set it's own
+		    // credentials - sometimes however Password is used for 
+		    // other purposes other than logging in
+		    
+		    if (this.Model.isString('data_value'))
 		    {
 		        // We need to wait a second for rendering
                 window.setTimeout(() =>
                 {
-                    this.fldInput.val('');
+                    this.fldInput.val(this.Model.get('data_value'));
                     
                 }, 100);
 		    }
