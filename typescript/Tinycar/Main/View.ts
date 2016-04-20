@@ -1,5 +1,10 @@
 module Tinycar.Main
 {
+    interface IFieldMap
+    {
+        [key:string]:number;
+    }
+    
 	interface IView
 	{
 		onComponent(id:string, name:string, params:Object, callback:Function):void;
@@ -9,6 +14,7 @@ module Tinycar.Main
 	{
 		protected componentList:Array<Tinycar.Main.Component> = [];
 		protected fieldList:Array<Tinycar.Main.Field> = [];
+		protected fieldMap:IFieldMap = {};
 		
 		App:Tinycar.Ui.Application;
 		Model:Tinycar.Model.DataItem;
@@ -29,7 +35,11 @@ module Tinycar.Main
 			
 			// This is a field
 			if (instance instanceof Tinycar.Main.Field)
+			{
+			    let index = this.fieldList.length;
+			    this.fieldMap[instance.getDataName()] = index;
 				this.fieldList.push(instance);
+			}
 		}
 		
 		// Create a component instance
@@ -74,6 +84,15 @@ module Tinycar.Main
 		getDialogName():string
 		{
 			return null;
+		}
+		
+		
+		// Get field instance by data name
+		getFieldByDataName(name:string):Tinycar.Main.Field
+		{
+		    return (this.fieldMap.hasOwnProperty(name) ?
+		        this.fieldList[this.fieldMap[name]] : null
+		    );
 		}
 		
 		// Get name
@@ -145,5 +164,15 @@ module Tinycar.Main
 			else if (params.hasString('toast'))
 				Tinycar.System.Toast.show();
 		}
+		
+	    // Trigger all bind rules for speciifed source
+	    triggerBindSource(field:Tinycar.Main.Field):void
+	    {
+	        this.componentList.forEach((item:Tinycar.Main.Component) =>
+	        {
+	            if (item.hasBindSource(field))
+	                item.processBindField(field);
+	        });
+	    }
 	}
 }

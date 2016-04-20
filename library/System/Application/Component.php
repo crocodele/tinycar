@@ -96,6 +96,36 @@
 
 
 		/**
+		 * Get binding properties
+		 * @return array map of binding lists by source names
+		 *         - string      type   bind type
+		 *         - string|null value  target value
+		 */
+		protected function getBindRules()
+		{
+		    $result = array();
+
+		    foreach ($this->xdata->getNodes('bind') as $node)
+		    {
+		        // Source name
+		        $source = $node->getString('@source');
+
+		        // Initiate list
+		        if (!array_key_exists($source, $result))
+		            $result[$source] = array();
+
+		        // Add to list
+		        $result[$source][] = array(
+		            'type' => $node->getString('@type'),
+		            'value'=> $node->getString('@value'),
+		        );
+		    }
+
+		    return $result;
+		}
+
+
+		/**
 		 * Get data default value
 		 * @return mixed|null default value or null on failure
 		 */
@@ -382,10 +412,7 @@
 			return array(
 				'id'            => $this->getId(),
 				'type_name'     => $this->getTypeName(),
-				'type_label'    => $this->getTypeLabel(),
-				'data_name'     => $this->getDataName(),
-				'data_type'     => $this->getDataType(),
-				'data_source'   => $this->getDataSource(),
+			    'bind_rules'    => $this->getBindRules(),
 				'data_value'    => $this->getDataValue($this->getDataDefault()),
 				'tab_name'      => $this->getTabName(),
 			);

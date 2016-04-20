@@ -83,11 +83,39 @@ module Tinycar.Main
 			return this.Model.get('tab_name');
 		}
 		
+        // Check if component has bindings for specified source field
+        hasBindSource(field:Tinycar.Main.Field):boolean
+        {
+            let rules = this.Model.getObject('bind_rules');
+            let name = field.getDataName();
+            
+            return rules.hasOwnProperty(name);
+        }
+		
 		// Check if component is currently visible
 		isVisible():boolean
 		{
 			return this.isCmpVisible;
 		}
+		
+	    // Process bind rules for specified source name 
+		processBindField(field:Tinycar.Main.Field):void
+	    {
+		    // Component binding rules
+            let rules = this.Model.getObject('bind_rules');
+            
+            // Source field name and value
+            let name  = field.getDataName();
+            let value = field.getDataValue();
+            
+            // Process rules
+            rules[name].forEach((item:Object) =>
+	        {
+	            // Update visibility
+	            if (item['type'] === 'visible')
+                    this.setAsVisible((item['value'] === value));
+	        });
+	    }
 		
 		// Refresh component
 		refresh():void
@@ -97,13 +125,14 @@ module Tinycar.Main
 		// Set component as visible or non-visible
 		setAsVisible(visible:boolean):void
 		{
-			// This is the first time, set 
-			if (visible === true)
+			// Show 
+			if (!this.isCmpVisible && visible)
 			{
 				this.isCmpVisible = true;
 				this.htmlRoot.addClass('is-visible');
 			}
-			else
+			// Hide
+			else if (this.isCmpVisible && !visible)
 			{
 				this.isCmpVisible = false;
 				this.htmlRoot.removeClass('is-visible');

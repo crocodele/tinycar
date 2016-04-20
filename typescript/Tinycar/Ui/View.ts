@@ -340,17 +340,20 @@ module Tinycar.Ui
 				// @note: starting components should  probably be
 				//         global event after application's been built 
 			
-				// Update visibility for all created compents
+				// Update visibility for new and existing components
 				this.componentList.forEach((item:Tinycar.Main.Component) => 
 				{
-					// Set component visible or hidden
-					item.setAsVisible((item.getTabName() === name));
-					
-					// Start component
-					if (item.isVisible())
-						item.start();
-						
+				    item.setAsVisible((item.getTabName() === name));
 				});
+				
+                // Start currently visible components, which needs to happen
+				// after visibility is set, due to possible bindings
+                this.componentList.forEach((item:Tinycar.Main.Component) => 
+                {
+                    if (item.isVisible())
+                        item.start();
+                        
+                });
 			}
 			// Just display components
 			else

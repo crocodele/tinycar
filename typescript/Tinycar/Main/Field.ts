@@ -139,7 +139,24 @@ module Tinycar.Main
 		// Set new data value
 		setDataValue(value:any):void
 		{
-			this.Model.set('data_value', value);
+		    // This is a new value
+		    if (this.Model.get('data_value') !== value)
+		    {
+		        // Set new value
+	            this.Model.set('data_value', value);
+	            
+	            // Trigger bindings
+		        this.View.triggerBindSource(this);
+		    }
 		}
+		
+        // Tinycar.Main.Component.start();
+        start():void
+        {
+            super.start();
+            
+            // Trigger initial bindings
+            this.View.triggerBindSource(this);
+        }
 	}
 }
