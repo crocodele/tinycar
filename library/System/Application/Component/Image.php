@@ -14,18 +14,21 @@
 		 */
 		private function getImageData()
 		{
-			// Current URL
-			$url = $this->app->getUrlParams();
+		    // We have no custom service defined
+		    if (!is_string($this->getDataSource()))
+		        return null;
 
-			// Call target service
-			return $this->app->callService($this->getDataSource(), array(
-				'url'  => $url->getAll(),
-				'app'  => $url->get('app'),
-				'view' => $url->get('view'),
-				'row'  => $url->get('id'),
-			));
+		    // Current URL
+		    $url = $this->app->getUrlParams();
+
+		    // Call target service
+		    return $this->app->callService($this->getDataSource(), array(
+		        'url'  => $url->getAll(),
+		        'app'  => $url->get('app'),
+		        'view' => $url->get('view'),
+		        'row'  => $url->get('id'),
+		    ));
 		}
-
 
 		/**
 		 * @see Tinycar\System\Application\Component::onModelAction()
@@ -35,7 +38,9 @@
 			$result = parent::onModelAction($params);
 
 			// Properties
-			$result['image_data'] = $this->getImageData();
+			$result['image_data']   = $this->getImageData();
+		    $result['image_screen'] = $this->xdata->getString('path/screen');
+		    $result['image_mobile'] = $this->xdata->getString('path/mobile');
 
 			return $result;
 		}
