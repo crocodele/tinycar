@@ -119,23 +119,23 @@ module Tinycar.Main
 			}
 			
 			// We must redirect after this message
-			if (params.isObject('link') && params.hasString('toast'))
+			if (params.isObject('link_path') && params.hasString('toast'))
 			{
 				// Store toast message
 				Tinycar.System.Toast.store();
 				
 				// Move to URL specified by action
-				Tinycar.Url.updatePath(params.getObject('link'), {
+				Tinycar.Url.updatePath(params.getObject('link_path'), {
 					url   : Tinycar.Url.getParams(),
 					model : {id:params.get('value')}
 				});
 			}
 			
 			// Redirect to URL
-			else if (params.isObject('link'))
+			else if (params.isObject('link_path'))
 			{
 				// Move to URL specified by action
-				Tinycar.Url.updatePath(params.getObject('link'), {
+				Tinycar.Url.updatePath(params.getObject('link_path'), {
 					url   : Tinycar.Url.getParams(),
 					model : {id:params.get('value')}
 				});

@@ -181,8 +181,8 @@ module Tinycar.Ui.Component
 			if (model.get('type') === 'save')
 			{
 				this.View.onSave(new Tinycar.Model.DataItem({
-					link  : model.get('link_path'),
-					toast : model.get('toast')
+					link_path : model.get('link_path'),
+					toast     : model.get('toast')
 				}));
 				
 				return true;

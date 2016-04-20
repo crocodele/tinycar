@@ -44,9 +44,9 @@ module Tinycar.Ui
 				label : data.get('label')
 			});
 			
-            // We have a link, but no service
-            if (data.isObject('link') && !data.hasString('service'))
-                instance.setLink(data.get('link'));
+            // We have internal link, but no service
+            if (data.isObject('link_path') && !data.hasString('service'))
+                instance.setLink(data.get('link_path'));
             
             // Call service when clicked
             else
@@ -311,7 +311,7 @@ module Tinycar.Ui
 					// Response without redirecting
 					else
 					{
-						params.clear('link');
+						params.clear('link_path');
 						this.onResponse(params);						
 					}
 				}
