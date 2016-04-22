@@ -4,44 +4,50 @@ module Tinycar.Ui
 	{
 		[key:string]:Function;
 	}
-	
+
 	export class Button
 	{
 		private handlerList:IHandlerList = {};
 		private htmlRoot:JQuery;
 		private isEnabled:boolean = true;
 		private Model:Tinycar.Model.DataItem;
-	
+
 		// Initiate class
 		constructor(config:Object)
 		{
 			this.Model = new Tinycar.Model.DataItem(config);
 		}
-		
+
 		// Build
 		build():JQuery
 		{
 			// Build elements
 			this.buildRoot();
-			
+
 			// Add icon
 			if (this.Model.hasString('icon'))
 				this.buildIcon();
-			
+
 			// Add label
 			if (this.Model.hasString('label'))
 				this.buildLabel();
-			
+
 			return this.htmlRoot;
 		}
-		
+
 		// Call specified handler
-		callHandler(name:string):void
+		callHandler(name:string, e:Event = null):void
 		{
 			if (this.handlerList.hasOwnProperty(name))
-				this.handlerList[name]();
+				this.handlerList[name](e);
 		}
-		
+
+		// Focus on button
+		focus():void
+		{
+			this.htmlRoot.focus();
+		}
+
 		// Build icon
 		private buildIcon():void
 		{
@@ -49,9 +55,9 @@ module Tinycar.Ui
 			let icon = $('<span>').
 				attr('class', 'icon icon-' + this.Model.get('icon')).
 				appendTo(this.htmlRoot);
-			
+
 			// Set icon size
-			icon.addClass((this.Model.has('size') ? 
+			icon.addClass((this.Model.has('size') ?
 				'icon-' + this.Model.get('size') : 'icon-small'
 			));
 
@@ -59,30 +65,30 @@ module Tinycar.Ui
 			if (this.Model.get('style') === 'theme-icon')
 				icon.addClass('icon-lite');
 		}
-		
+
 		// Build label
 		private buildLabel():void
 		{
 			// Add label
 			this.htmlRoot.text(this.Model.get('label'));
-			
+
 			// Set button size
-			this.htmlRoot.addClass((this.Model.has('size') ? 
+			this.htmlRoot.addClass((this.Model.has('size') ?
 				'button-' + this.Model.get('size') : 'button-default'
 			));
 		}
-		
+
 		// Build root container
 		private buildRoot():void
 		{
 			var linkTarget = null;
-			
+
 			// Create container
 			this.htmlRoot = $('<a>').
 				addClass('tinycar-ui-button').
 				addClass(this.Model.get('style')).
 				attr('tabindex', 0);
-			
+
 			// This is a theme icon
 			if (this.Model.get('style') === 'theme-icon')
 				this.htmlRoot.addClass('theme-base-lite');
@@ -90,14 +96,14 @@ module Tinycar.Ui
 			// This is a theme button
 			else if (this.Model.get('style') === 'theme-button')
 				this.htmlRoot.addClass('theme-base-lite');
-			
+
 			// We have a fixed link target
 			if (this.Model.isObject('link'))
 			{
 			    linkTarget = Tinycar.Url.getAsPath(
 			        this.Model.get('link')
 			    );
-			    
+
 				this.htmlRoot.attr('href', linkTarget);
 			}
 
@@ -105,7 +111,7 @@ module Tinycar.Ui
 			this.htmlRoot.click((e:Event) =>
 			{
 				e.preventDefault();
-				
+
 				// Small delay for visual effect
 				window.setTimeout(() =>
 				{
@@ -115,13 +121,20 @@ module Tinycar.Ui
     					// Open static URL
     					if (typeof linkTarget === 'string')
     						Tinycar.Url.openUrl(linkTarget);
-    					
+
     					// Call custom handler
     					else
-    					    this.callHandler('click');
+    					    this.callHandler('click', e);
 					}
-					
+
 				}, 100);
+			});
+
+			// When key is pressed
+			this.htmlRoot.keydown((e:JQueryKeyEventObject) =>
+			{
+				// Call custom handler
+				this.callHandler('keydown', e);
 			});
 		}
 
@@ -139,13 +152,13 @@ module Tinycar.Ui
 				this.htmlRoot.addClass('is-disabled');
 			}
 		}
-		
+
 		// Set custom event hander
 		setHandler(name:string, callback:Function):void
 		{
 			this.handlerList[name] = callback;
 		}
-		
+
 		// Set internal link path
 		setLink(link:Object):void
 		{

@@ -4,49 +4,59 @@ module Tinycar.Ui.Component
 	{
 		[key:number]:JQuery;
 	}
-	
+
 	export class Reference extends Tinycar.Main.Field
 	{
 		private htmlItems:IItems = {};
 		private htmlList:JQuery;
-		
-		
+
+
 		// Add new item to list
 		private addListItem(item:Object):void
 		{
 			// Target id
 			let id = item['id'];
-			
+
 			// Find last property's name
 			for (var name in item)
 			{
 			}
-			
+
 			// Create container
 			let container = $('<div>').
 				attr('class', 'item').
 				text(item[name]).
 				appendTo(this.htmlList);
-			
+
 			// Add remove icon
 			let close = $('<a>').
 				attr('class', 'close').
+				attr('tabindex', 0).
 				click((e:Event) =>
 				{
 					e.preventDefault();
 					this.clearListItem(id);
 				}).
+				keydown((e:JQueryKeyEventObject) =>
+				{
+					// Remove item when space bar is pressed
+					if (e.which === 32)
+					{
+						e.preventDefault();
+						close.click();
+					}
+				}).
 				appendTo(container);
-			
+
 			// Add icon
 			$('<span>').
 				attr('class', 'icon icon-tiny icon-close').
 				appendTo(close);
-			
+
 			// Update reference
 			this.htmlItems[id] = container;
 		}
-		
+
 		// Build button
 		private buildButton():void
 		{
@@ -64,32 +74,50 @@ module Tinycar.Ui.Component
 				let dialog = this.App.openDialog(
 					this.Model.get('data_dialog')
 				);
-				
+
 				// Initial component data
 				dialog.addDataForComponentType('DataGrid', {
 					data_value : this.Model.getList('data_value'),
 					data_limit : this.Model.getNumber('data_limit')
 				});
-				
+
 				// When dialog requsts values
 				dialog.setHandler('values', ():Array<number> =>
 				{
 					return this.getDataValue();
 				});
-				
+
 				// When dialog selected
 				dialog.setHandler('select', (list:Array<number>) =>
 				{
 					this.setDataValue(list);
 					this.updateListItems();
+					instance.focus();
+				});
+
+				// When dialog is closed
+				dialog.setHandler('close', () =>
+				{
+					instance.focus();
 				});
 
 			});
-			
+
+			// When key is pressed
+			instance.setHandler('keydown', (e:JQueryKeyEventObject) =>
+			{
+				// Open dialog when space bar or Enter is pressed
+				if (e.which === 32 || e.which === 13)
+				{
+					e.preventDefault();
+					instance.callHandler('click');
+				}
+			});
+
 			// Add to content
 			this.htmlContent.append(instance.build());
 		}
-	
+
 		// Build content
 		buildContent()
 		{
@@ -98,7 +126,7 @@ module Tinycar.Ui.Component
 			this.buildListItems();
 			this.buildButton();
 		}
-		
+
 		// Build items
 		private buildListItems():void
 		{
@@ -106,14 +134,14 @@ module Tinycar.Ui.Component
 			this.htmlList = $('<div>').
 				attr('class', 'list').
 				appendTo(this.htmlContent);
-			
+
 			// Add new items
 			this.Model.get('type_items').forEach((item:Object) =>
 			{
 				this.addListItem(item);
 			});
 		}
-		
+
 		// Clear list item
 		private clearListItem(id:number):void
 		{
@@ -135,20 +163,20 @@ module Tinycar.Ui.Component
 			// Update value
 			this.setDataValue(value);
 		}
-		
-		
+
+
 		// @see Tinycar.Main.Field.getDataValue()
 		getDataValue():Array<number>
 		{
 			return this.Model.getList('data_value');
 		}
-		
+
 		// @see Tinycar.Main.Field.setDataValue()
 		setDataValue(value:Array<number>):void
 		{
 			this.Model.set('data_value', value);
 		}
-		
+
 		// Update list items to match value
 		private updateListItems():void
 		{
@@ -157,7 +185,7 @@ module Tinycar.Ui.Component
 				// Clear existing items
 				this.htmlItems = {};
 				this.htmlList.empty();
-				
+
 				// Add list items
 				data.forEach((item:Object) =>
 				{
