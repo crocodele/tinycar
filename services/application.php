@@ -170,7 +170,8 @@
 
 	    // Get service result
 	    return $instance->callService(
-	        $params->get('service'), $url->getAll()
+	        $params->get('service'),
+	        $url->getAll($params->getArray('data'))
 	    );
 	});
 

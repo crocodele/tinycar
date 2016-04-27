@@ -34,15 +34,9 @@ module Tinycar
 					// We have have an error
 					else if (response.hasOwnProperty('error'))
 					{
-						Tinycar.System.Toast.setMessage({
-							type : 'failure',
-							vars : response['error']['message'],
-							text : Tinycar.Locale.getText(
-								'toast_' + response['error']['code']
-							)
-						});
-						
-						Tinycar.System.Toast.show();
+						Tinycar.System.Toast.showFromError(
+						    response['error']
+						);
 					}
 				},
 				error       : (error:Object) =>
@@ -51,6 +45,17 @@ module Tinycar
 				}
 			});
 		}
+		
+        // Get API URL to specified upload preview image
+        export function getPreviewLink(name:string):string
+        {
+            return this.apiUrl + '?' + jQuery.param({
+                api_service : 'application.servicelink',
+                service     : 'upload.image',
+                url         : Tinycar.Url.getParams(),
+                data        : {name:name}
+            });
+        }
 		
 		// Get API URL to specified service
 		export function getServiceLink(service:string):string

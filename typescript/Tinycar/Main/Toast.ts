@@ -168,6 +168,20 @@ module Tinycar.Main
 			return true;
 		}
 		
+		// Show error API error response
+		showFromError(error:Object):void
+		{
+		    // Set message
+            this.setMessage({
+                type : 'failure',
+                vars : error['message'],
+                text : Tinycar.Locale.getText('toast_' + error['code'])
+            });
+            
+            // Show message 
+            this.show();
+		}
+		
 		// Set specified message
 		private showMessage(message:IToastMessage):void
 		{

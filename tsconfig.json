@@ -11,6 +11,7 @@
     "files": [
         "typescript/Typed/jquery/jquery.d.ts",
         "typescript/Typed/jqueryui/jqueryui.d.ts",
+        "typescript/Typed/jquery.fileupload/jquery.fileupload.d.ts",
         "typescript/Typed/requirejs/require.d.ts",
         "typescript/Typed/trumbowyg.d.ts",
         "typescript/Tinycar/System.ts",
@@ -45,6 +46,7 @@
         "typescript/Tinycar/Ui/Component/Group.ts",
         "typescript/Tinycar/Ui/Component/IconListView.ts",
         "typescript/Tinycar/Ui/Component/Image.ts",
+        "typescript/Tinycar/Ui/Component/ImageUpload.ts",
         "typescript/Tinycar/Ui/Component/ListWidget.ts",
         "typescript/Tinycar/Ui/Component/NavigationList.ts",
         "typescript/Tinycar/Ui/Component/NumbersWidget.ts",
