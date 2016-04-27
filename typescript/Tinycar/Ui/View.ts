@@ -344,16 +344,11 @@ module Tinycar.Ui
 				this.componentList.forEach((item:Tinycar.Main.Component) => 
 				{
 				    item.setAsVisible((item.getTabName() === name));
+				    
+				    // Start component for the first time
+				    if (item.isVisible())
+				        item.start();
 				});
-				
-                // Start currently visible components, which needs to happen
-				// after visibility is set, due to possible bindings
-                this.componentList.forEach((item:Tinycar.Main.Component) => 
-                {
-                    if (item.isVisible())
-                        item.start();
-                        
-                });
 			}
 			// Just display components
 			else
@@ -364,6 +359,15 @@ module Tinycar.Ui
 					item.setAsVisible((item.getTabName() === name));
 				});
 			}
+			
+            // Trigger binding actions for visible fields, which needs 
+			// to happen after initial visibility has been set and does
+			// not interfere with binded vsibiility
+            this.fieldList.forEach((item:Tinycar.Main.Field) =>
+            {
+                if (item.isVisible())
+                    this.triggerBindSource(item);
+            });
 		}
 		
 		// Update current page title

@@ -149,14 +149,5 @@ module Tinycar.Main
 		        this.View.triggerBindSource(this);
 		    }
 		}
-		
-        // Tinycar.Main.Component.start();
-        start():void
-        {
-            super.start();
-            
-            // Trigger initial bindings
-            this.View.triggerBindSource(this);
-        }
 	}
 }
