@@ -113,15 +113,12 @@
 			if ($this->system->hasAuthentication() && $this->system->hasAuthenticated())
 			{
 				$result[] = new Action(array(
-					'target'  => 'session',
-				    'type'    => 'logout',
-				    'icon'    => 'logout',
-					'label'   => $this->app->getLocaleText('action_logout'),
-					'service' => 'session.logout',
-					'link'    => array(
-					    'app' => Config::get('UI_APP_LOGIN'),
-					    'view' => 'out'
-					),
+					'target'    => 'session',
+				    'type'      => 'logout',
+				    'icon'      => 'logout',
+					'label'     => $this->app->getLocaleText('action_logout'),
+					'service'   => 'session.logout',
+					'link_path' => array('app'  => Config::get('UI_APP_LOGIN'), 'view' => 'out'),
 				));
 			}
 
@@ -157,10 +154,10 @@
 
 				// Home action
 				$result[] = new Action(array(
-					'target' => 'system',
-					'type'   => 'home',
-					'label'  => $this->app->getLocaleText('action_home'),
-					'link'   => array('app' => $app_home, 'view' => 'default'),
+					'target'    => 'system',
+					'type'      => 'home',
+					'label'     => $this->app->getLocaleText('action_home'),
+					'link_path' => array('app' => $app_home, 'view' => 'default'),
 				));
 			}
 
@@ -168,10 +165,10 @@
 			if (is_string($app_apps))
 			{
 				$result[] = new Action(array(
-					'target' => 'system',
-					'type'   => 'apps',
-					'label'  => $this->app->getLocaleText('action_apps'),
-					'link'   => array('app'  => $app_apps, 'view' => 'default'),
+					'target'    => 'system',
+					'type'      => 'apps',
+					'label'     => $this->app->getLocaleText('action_apps'),
+					'link_path' => array('app' => $app_apps, 'view' => 'default'),
 				));
 			}
 
