@@ -144,22 +144,13 @@
 
 			$result = array();
 
-			// Default view actions
-			if (!$this->app->isHomeApplication())
-			{
-				// Previous application name
-				$app = ($this->isDefault() || $this->app->hasSideList() ?
-					$app_home : $this->app->getId()
-				);
-
-				// Home action
-				$result[] = new Action(array(
-					'target'    => 'system',
-					'type'      => 'home',
-					'label'     => $this->app->getLocaleText('action_home'),
-					'link_path' => array('app' => $app_home, 'view' => 'default'),
-				));
-			}
+			// Home action
+			$result[] = new Action(array(
+				'target'    => 'system',
+				'type'      => 'home',
+				'label'     => $this->app->getLocaleText('action_home'),
+				'link_path' => array('app' => $app_home, 'view' => 'default'),
+			));
 
 			// Applications action
 			if (is_string($app_apps))
