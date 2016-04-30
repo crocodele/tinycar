@@ -136,18 +136,8 @@ module Tinycar.Ui.Component
                     // When file upload fails
                     fail:(e:Event, data:Object) =>
                     {
-                        if (data['jqXHR'].hasOwnProperty('responseJSON'))
-                        {
-                            if (typeof data['jqXHR']['responseJSON'] === 'object')
-                            {
-                                if (typeof data['jqXHR']['responseJSON']['error'] === 'object')
-                                {
-                                    Tinycar.System.Toast.showFromError(
-                                        data['jqXHR']['responseJSON']['error']
-                                    );
-                                }
-                            }
-                        }
+                        // Try to show error from API response
+                        Tinycar.Api.showApiError(data['jqXHR']);
                     },
                     
                     // When file upload is done

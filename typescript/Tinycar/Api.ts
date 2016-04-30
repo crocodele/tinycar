@@ -30,18 +30,11 @@ module Tinycar
 					// We have a successfull response
 					if (response.hasOwnProperty('result'))
 						request['success'](response['result']);
-					
-					// We have have an error
-					else if (response.hasOwnProperty('error'))
-					{
-						Tinycar.System.Toast.showFromError(
-						    response['error']
-						);
-					}
 				},
 				error       : (error:Object) =>
 				{
-					console.log(error);
+				    // Show error from repsonse
+				    this.showApiError(error);
 				}
 			});
 		}
@@ -71,6 +64,33 @@ module Tinycar
 		export function setApiUrl(url:string):void
 		{
 			this.apiUrl = url;
+		}
+		
+		// Show error from JSON response
+		export function showApiError(data:Object):boolean
+		{
+		    // No JSON response
+		    if (!data.hasOwnProperty('responseJSON'))
+		        return false;
+
+            // No error data
+            if (!data['responseJSON'].hasOwnProperty('error'))
+                return false;
+            
+            // Error properties
+            let error = data['responseJSON']['error'];
+
+            // Set toast message
+            Tinycar.System.Toast.setMessage({
+                type : 'failure',
+                vars : error['message'],
+                text : Tinycar.Locale.getText('toast_' + error['code'])
+            });
+            
+            // Show toast 
+            Tinycar.System.Toast.show();
+            
+            return true;
 		}
 	}
 }
