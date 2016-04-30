@@ -1,0 +1,64 @@
+div.tinycar-ui-menu {
+    
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    visibility: hidden;
+    margin: 3px 0px 0px 0px;
+    max-height: 0px;
+    background-color: #ffffff;
+    border: 1px solid darken($main-color-uigray, 10%);
+    z-index: 100;
+    opacity: 0;
+    @include border-radius(3px);
+    @include unselectable();
+    
+    > a.item {
+    
+        display: block;
+        padding: 13px 30px 12px 20px;
+        color: $content-font-color;
+        border-bottom: 1px solid darken($main-color-background, 5%);
+        font-size: 0.9em;
+        line-height: 1.0em;
+        text-decoration: none;
+        cursor: pointer;
+        
+        &:focus,
+        &:hover {
+        
+            background-color: lighten($main-color-background, 1%);
+            color: $main-font-color;
+            
+        }
+        
+        &:active {
+        
+            background-color: lighten($main-color-background, 1%);
+            color: $field-placeholder-color;
+            
+        }
+        
+        &:first-child {
+            padding-top: 15px;
+        }
+        
+        &:last-child {
+        
+            padding-bottom: 14px;
+            border-bottom: none;
+            
+        }
+        
+    }
+    
+    &.is-visible {
+    
+        visibility: visible;
+        max-height: none;
+        opacity: 1.0;
+        @include transition(opacity 0.15s ease); 
+        
+    }    
+    
+}

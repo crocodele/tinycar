@@ -10,6 +10,27 @@
 	{
 
 
+	    /**
+	     * Get actions data
+	     * @return array list of actions and their properties
+	     */
+	    private function getActionsList()
+	    {
+	        $result = array();
+
+	        // Pick action properties
+	        foreach ($this->xdata->getNodes('actions/action') as $node)
+	        {
+	            $result[] = array(
+	                'label'        => $this->getStringValue($node->getString('@label')),
+	                'link_service' => $node->getString('link/service'),
+	            );
+	        }
+
+	        return $result;
+	    }
+
+
 		/**
 		 * Get data for columns
 		 * @return array columns data
@@ -164,11 +185,10 @@
 		{
 			$result = parent::onModelAction($params);
 
-			// Link properties
-			$result['link'] = $this->getLinkData();
-
-			// Datagrid columns
+			// Properties
+			$result['link']    = $this->getLinkData();
 			$result['columns'] = $this->getColumnsData();
+			$result['actions'] = $this->getActionsList();
 
 			return $result;
 		}

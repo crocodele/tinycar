@@ -10,6 +10,7 @@ module Tinycar.Ui
 		private handlerList:IHandlerList = {};
 		private htmlRoot:JQuery;
 		private isEnabled:boolean = true;
+	    private Menu:Tinycar.Ui.Menu;
 		private Model:Tinycar.Model.DataItem;
 	
 		// Initiate class
@@ -36,10 +37,10 @@ module Tinycar.Ui
 		}
 		
 		// Call specified handler
-		callHandler(name:string):void
+		callHandler(name:string, data?:any):void
 		{
 			if (this.handlerList.hasOwnProperty(name))
-				this.handlerList[name]();
+				this.handlerList[name](data);
 		}
 		
 		// Build icon
@@ -70,6 +71,31 @@ module Tinycar.Ui
 			this.htmlRoot.addClass((this.Model.has('size') ? 
 				'button-' + this.Model.get('size') : 'button-default'
 			));
+		}
+		
+		// Build menu instance
+		private buildMenu():void
+		{
+		    // Create instance
+		    this.Menu = new Tinycar.Ui.Menu(this.htmlRoot);
+		    
+		    // When selected
+		    this.Menu.setHandler('select', (item:Object) =>
+		    {
+		        this.callHandler('option', item);
+		    });
+		    
+		    // When shown
+		    this.Menu.setHandler('show', () =>
+		    {
+		        this.htmlRoot.addClass('is-open');
+		    });
+		    
+            // When hidden
+            this.Menu.setHandler('hide', () =>
+            {
+                this.htmlRoot.removeClass('is-open');
+            });
 		}
 		
 		// Build root container
@@ -112,8 +138,12 @@ module Tinycar.Ui
 				    // Must be enabled
 					if (this.isEnabled === true)
 					{
+					    // We have optoins to display
+					    if (this.handlerList.hasOwnProperty('options'))
+					        this.showMenu();
+					    
     					// Open static URL
-    					if (typeof linkTarget === 'string')
+					    else if (typeof linkTarget === 'string')
     						Tinycar.Url.openUrl(linkTarget);
     					
     					// Call custom handler
@@ -124,7 +154,7 @@ module Tinycar.Ui
 				}, 100);
 			});
 		}
-
+		
 		// Set button as enabled or disabled
 		setAsEnabled(status:boolean):void
 		{
@@ -150,6 +180,23 @@ module Tinycar.Ui
 		setLink(link:Object):void
 		{
 		    this.Model.set('link', link);
+		}
+		
+		// Show options menu
+		private showMenu():void
+		{
+		    // Build menu instance once
+		    if (!(this.Menu instanceof Tinycar.Ui.Menu))
+		        this.buildMenu();
+		    
+ 		    // Add menu items using custom handler
+   		    this.callHandler('options', this.Menu);
+    		    
+   		    // Update visible options
+   		    this.Menu.update();
+    		    
+   		    // Show options
+   		    this.Menu.show();
 		}
 	}
 }
