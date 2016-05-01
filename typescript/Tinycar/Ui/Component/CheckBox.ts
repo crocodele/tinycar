@@ -4,8 +4,8 @@ module Tinycar.Ui.Component
 	{
 		private htmlField:JQuery;
 		private fldInput:JQuery;
-	
-	
+
+
 		// Build content
 		buildContent()
 		{
@@ -14,12 +14,12 @@ module Tinycar.Ui.Component
 			this.buildField();
 			this.buildInput();
 			this.buildLabel();
-			
+
 			// Build  help text
 			if (this.Model.hasString('type_help'))
 				this.buildHelp();
 		}
-		
+
 		// Build field container
 		private buildField():void
 		{
@@ -27,14 +27,14 @@ module Tinycar.Ui.Component
 				attr('class', 'field').
 				appendTo(this.htmlContent);
 		}
-		
+
 		// Build field help
 		private buildHelp():void
 		{
 			let help = new Tinycar.Ui.Main.Help(this.Model.get('type_help'));
 			this.htmlField.append(help.build());
 		}
-		
+
 		// Build input field
 		private buildInput():void
 		{
@@ -43,11 +43,11 @@ module Tinycar.Ui.Component
 				attr('id', this.getFieldId()).
 				attr('type', 'checkbox').
 				appendTo(this.htmlField);
-			
+
 			// Initial value is checked
 			if (this.getDataValue() === true)
 				this.fldInput.prop('checked', true);
-			
+
 			// When field value is changed
 			this.fldInput.change((e:Event) =>
 			{
@@ -55,7 +55,7 @@ module Tinycar.Ui.Component
 				this.setDataValue(this.fldInput.prop('checked'));
 			});
 		}
-		
+
 		// Build label
 		private buildLabel():void
 		{
@@ -63,24 +63,24 @@ module Tinycar.Ui.Component
 			let container = $('<label>').
 				attr('for', this.getFieldId()).
 				appendTo(this.htmlField);
-			
+
 			// Add mark container
 			let mark = $('<span>').
 				attr('class', 'mark').
 				appendTo(container);
-			
+
 			// Add mark icon
 			$('<span>').
 				attr('class', 'icon icon-lite icon-tiny icon-check').
 				appendTo(mark);
-			
+
 			// Add label
 			$('<span>').
 				attr('class', 'label').
 				text(this.Model.get('label')).
 				appendTo(container);
 		}
-		
+
 		// @see Tinycar.Main.Field.focus()
 		focus():void
 		{

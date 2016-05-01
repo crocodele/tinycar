@@ -18,6 +18,7 @@ $content-font-lineheight: 1.5em;
 $field-label-color: #535353;
 $field-instructions-color: #333333;
 $field-border-color: #dcdddf;
+$field-outline-color: #999999;
 $field-placeholder-color: #666666;
 
 
@@ -47,7 +48,7 @@ $view-tablet-width: 800px;
 /** Mixins **/
 
 @mixin appearance($value) {
-	
+
  	appearance: $value;
 	-moz-appearance: $value;
 	-webkit-appearance:$value;
@@ -60,7 +61,7 @@ $view-tablet-width: 800px;
 	-moz-border-radius: $value;
 	-ms-border-radius: $value;
 	-webkit-border-radius: $value;
-     
+
 }
 
 @mixin box-shadow($value) {
@@ -69,16 +70,16 @@ $view-tablet-width: 800px;
 	-moz-box-shadow: $value;
 	-ms-box-shadow: $value;
 	-webkit-box-shadow: $value;
-     
+
 }
 
 @mixin box-shadow-none() {
-    
+
     box-shadow: none;
     -moz-box-shadow: none;
     -ms-box-shadow: none;
     -webkit-box-shadow: none;
-    
+
 }
 
 @mixin transform($value) {
@@ -87,7 +88,7 @@ $view-tablet-width: 800px;
 	-moz-transform: $value;
 	-ms-transform: $value;
 	-webkit-transform: $value;
-     
+
 }
 
 @mixin transition($values...) {
@@ -96,7 +97,7 @@ $view-tablet-width: 800px;
 	-moz-transition: $values;
 	-ms-transition: $values;
 	-webkit-transition: $values;
-     
+
 }
 
 @mixin transition-attr($value) {
@@ -105,7 +106,7 @@ $view-tablet-width: 800px;
 	-moz-transition: -moz-$value;
 	-ms-transition: -ms-$value;
 	-webkit-transition: -webkit-$value;
-     
+
 }
 
 @mixin unselectable() {
@@ -114,7 +115,13 @@ $view-tablet-width: 800px;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	-webkit-user-select: none;
-     
+
+}
+
+@mixin outline() {
+
+	outline: $field-outline-color dotted 1px;
+
 }
 
 
@@ -168,4 +175,3 @@ $view-tablet-width: 800px;
 @import "Tinycar/Ui/Main/ResizeGap.scss";
 @import "Tinycar/View/Heading.scss";
 @import "Tinycar/View/Tabs.scss";
-
