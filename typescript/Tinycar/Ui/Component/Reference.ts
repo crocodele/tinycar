@@ -103,17 +103,6 @@ module Tinycar.Ui.Component
 
 			});
 
-			// When key is pressed
-			instance.setHandler('keydown', (e:JQueryKeyEventObject) =>
-			{
-				// Open dialog when space bar or Enter is pressed
-				if (e.which === 32 || e.which === 13)
-				{
-					e.preventDefault();
-					instance.callHandler('click');
-				}
-			});
-
 			// Add to content
 			this.htmlContent.append(instance.build());
 		}

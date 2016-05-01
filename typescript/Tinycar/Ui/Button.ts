@@ -163,8 +163,12 @@ module Tinycar.Ui
 			// When key is pressed
 			this.htmlRoot.keydown((e:JQueryKeyEventObject) =>
 			{
-				// Call custom handler
-				this.callHandler('keydown', e);
+				// Trigger button action when space bar or Enter is pressed
+				if (e.which === 32 || e.which === 13)
+				{
+					e.preventDefault();
+					this.callHandler('click');
+				}
 			});
 		}
 
