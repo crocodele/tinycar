@@ -39,28 +39,55 @@ module Tinycar.Ui.Component
 		// Build menu action
 		private buildMenuAction():void
 		{
-			// Build container
-			let container = $('<a>').
-				attr('class', 'search').
-				appendTo(this.htmlListTable);
-			
-			// Add icon
-			$('<span>').
-				attr('class', 'icon icon-small icon-menu-vertical').
-				appendTo(container);
-			
-			// When clicked
-			container.click((e:Event) => 
-			{
-				e.preventDefault();
-				
-				// Delay to display UI effect
-				window.setTimeout((e:Event) =>
-				{
-					this.showSearch(!this.isSearchVisible, true);
-					
-				}, 200);
-			});
+		    // Create menu button
+		    let button = new Tinycar.Ui.Button({
+		        style : 'dark-icon',
+		        icon  : 'menu-vertical',
+		        size  : 'small'
+		    });
+		    
+		    // When option is selected
+		    button.setHandler('option', (model:Tinycar.Model.DataItem) =>
+		    {
+		        // Flip search
+		        if (model.get('name') === 'search')
+		            this.showSearch(!this.isSearchVisible, true);
+		        
+		        // Refresh datagrid
+		        else if (model.get('name') === 'refresh')
+		            this.refresh();
+		        
+		        // Link to service
+		        else if (model.hasString('link_service'))
+		        {
+		            Tinycar.Url.openUrl(Tinycar.Api.getServiceLink(
+		                model.get('link_service')
+		            ));
+		        }
+		    });
+		    
+		    // When options are provided
+		    button.setHandler('options', (menu:Tinycar.Ui.Menu) =>
+		    {
+		        // Add custom items
+	            this.Model.getList('actions').forEach((item:Object) =>
+	            {
+	                menu.addItem('default', item);
+	            });
+	            
+	            // Toggle search
+	            menu.addItem('search', {
+	                label: Tinycar.Locale.getText('action_search')
+	            });
+	            
+	            // Refresh
+	            menu.addItem('refresh', {
+	                label : Tinycar.Locale.getText('action_refresh')
+	            });
+		    });
+		    
+		    // Add to container
+		    this.htmlListTable.append(button.build());
 		}
 	
 		// Build content

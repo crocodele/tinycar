@@ -25,11 +25,12 @@ Tinycar is an application to run multiple administration user interfaces that ar
 - TypeScript
 
 ### Included integrations
-- RequireJS, MIT-license, http://requirejs.org/
 - jQuery, MIT-license, https://jquery.com/
+- jQuery File Upload Plugin, MIT-license, https://github.com/blueimp/jQuery-File-Upload
 - jQueryUI, MIT-license, http://jqueryui.com/
-- Trumbowyg, MIT-license, https://alex-d.github.io/Trumbowyg/
+- RequireJS, MIT-license, http://requirejs.org/
 - Simple Excel, MIT-license, https://github.com/faisalman/simple-excel-php
+- Trumbowyg, MIT-license, https://alex-d.github.io/Trumbowyg/
 
 ### License
 Tinycar uses the MIT-license.

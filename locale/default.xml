@@ -16,7 +16,9 @@
 	<text name="action_list">List</text>
 	<text name="action_logout">Logout</text>
 	<text name="action_ok">OK</text>
+	<text name="action_refresh">Refresh</text>
 	<text name="action_remove">Remove</text>
+	<text name="action_search">Search</text>
 	<text name="action_select">Select</text>
     <text name="action_sidelist">List</text>
 	<text name="action_save">Save</text>

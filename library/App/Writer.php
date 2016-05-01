@@ -9,6 +9,7 @@
     {
         private $body = '';
         private $headers = array();
+        private $status_code;
 
 
         /**
@@ -80,11 +81,24 @@
         }
 
 
+       /**
+        * Set custom response status code
+        * @param int|null $code new code or null for default
+        */
+        public function setStatusCode($code)
+        {
+            $this->status_code = $code;
+        }
+
         /**
          * Output writer contents to browser
          */
         public function output()
         {
+            // Set custom status code
+            if (is_int($this->status_code))
+                http_response_code($this->status_code);
+
             // Send custom headers
             foreach ($this->headers as $name => $value)
                 header($name.': '.$value);
