@@ -30,27 +30,25 @@ module Tinycar
 					// We have a successfull response
 					if (response.hasOwnProperty('result'))
 						request['success'](response['result']);
-					
-					// We have have an error
-					else if (response.hasOwnProperty('error'))
-					{
-						Tinycar.System.Toast.setMessage({
-							type : 'failure',
-							vars : response['error']['message'],
-							text : Tinycar.Locale.getText(
-								'toast_' + response['error']['code']
-							)
-						});
-						
-						Tinycar.System.Toast.show();
-					}
 				},
 				error       : (error:Object) =>
 				{
-					console.log(error);
+				    // Show error from repsonse
+				    this.showApiError(error);
 				}
 			});
 		}
+		
+        // Get API URL to specified upload preview image
+        export function getPreviewLink(name:string):string
+        {
+            return this.apiUrl + '?' + jQuery.param({
+                api_service : 'application.servicelink',
+                service     : 'upload.image',
+                url         : Tinycar.Url.getParams(),
+                data        : {name:name}
+            });
+        }
 		
 		// Get API URL to specified service
 		export function getServiceLink(service:string):string
@@ -66,6 +64,33 @@ module Tinycar
 		export function setApiUrl(url:string):void
 		{
 			this.apiUrl = url;
+		}
+		
+		// Show error from JSON response
+		export function showApiError(data:Object):boolean
+		{
+		    // No JSON response
+		    if (!data.hasOwnProperty('responseJSON'))
+		        return false;
+
+            // No error data
+            if (!data['responseJSON'].hasOwnProperty('error'))
+                return false;
+            
+            // Error properties
+            let error = data['responseJSON']['error'];
+
+            // Set toast message
+            Tinycar.System.Toast.setMessage({
+                type : 'failure',
+                vars : error['message'],
+                text : Tinycar.Locale.getText('toast_' + error['code'])
+            });
+            
+            // Show toast 
+            Tinycar.System.Toast.show();
+            
+            return true;
 		}
 	}
 }

@@ -11,6 +11,16 @@
         private $request_id;
         private $result;
 
+        // JSON-RPC 1.2 status codes
+        private $status_codes = array(
+            -32700             => 500,   // Parse error
+            -32600             => 400,   // Invalid Request
+            -32601             => 404,   // Method not found
+            -32602             => 500,   // Invalid params
+            -32700             => 500,   // Internal error
+            // -32099.. -32000 => 500    // Server error
+        );
+
 
         /**
          * Set response error
@@ -20,11 +30,20 @@
          */
         public function setError($id, $code, array $data)
         {
+            // Remember error response
             $this->error = array(
                 'id'      => $id,
                 'code'    => $code,
                 'message' => $data,
             );
+
+            // Response error status code
+            $code = (array_key_exists($id, $this->status_codes) ?
+                $this->status_codes[$id] : 500
+            );
+
+            // Set custom status code
+            $this->setStatusCode($code);
         }
 
 
@@ -82,7 +101,7 @@
                 'Content-Length' => $this->getBodyLength(),
             ));
 
-           // Output writer contents
+            // Output writer contents
             parent::output();
         }
     }

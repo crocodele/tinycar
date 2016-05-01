@@ -2,6 +2,7 @@ module Tinycar.Ui.Component
 {
 	export class Password extends Tinycar.Main.Field
 	{
+	    private fldDummy:JQuery;
 		private fldInput:JQuery;
 	
 	
@@ -19,6 +20,16 @@ module Tinycar.Ui.Component
 		// Build input field
 		private buildInput():void
 		{
+            // We have an custom string value to prefill, add
+		    // a dummy field for the browser to autofill
+		    if (this.Model.isString('data_value'))
+		    {
+		        $('<input>').
+                    attr('type', 'password').
+                    css('display', 'none').
+                    appendTo(this.htmlContent);
+		    }
+            
 			// Create field
 			this.fldInput = $('<input>').
 				attr('id', this.getFieldId()).
@@ -63,27 +74,6 @@ module Tinycar.Ui.Component
 					
 				}, 300);
 			});			
-		}
-		
-		// @see Tinycar.Main.Field.start()
-		start():void
-		{
-		    super.start();
-		    
-		    // We have an custom string value to prefill, set it
-		    // later because the browser migth have set it's own
-		    // credentials - sometimes however Password is used for 
-		    // other purposes other than logging in
-		    
-		    if (this.Model.isString('data_value'))
-		    {
-		        // We need to wait a second for rendering
-                window.setTimeout(() =>
-                {
-                    this.fldInput.val(this.Model.get('data_value'));
-                    
-                }, 100);
-		    }
 		}
 	}
 }

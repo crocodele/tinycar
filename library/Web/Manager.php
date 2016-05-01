@@ -79,7 +79,7 @@
 
     		// Locale translations
     		$result['text'] = $locale->getTextsByPattern(
-  				"'^(colorpicker|commentslist|datagrid|info|toast|calendar|view)_'m"
+  				"'^(action|colorpicker|commentslist|datagrid|info|toast|calendar|view)_'m"
 			);
 
     		return $result;
