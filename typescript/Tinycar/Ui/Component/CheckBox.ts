@@ -67,7 +67,6 @@ module Tinycar.Ui.Component
 			// Add mark container
 			let mark = $('<span>').
 				attr('class', 'mark').
-				attr('tabindex', 0).
 				appendTo(container);
 
 			// Add mark icon
@@ -80,17 +79,6 @@ module Tinycar.Ui.Component
 				attr('class', 'label').
 				text(this.Model.get('label')).
 				appendTo(container);
-
-			// When key is pressed
-			mark.keydown((e:JQueryKeyEventObject) =>
-			{
-				// Toggle checkbox value when space bar is pressed
-				if (e.which === 32)
-				{
-					e.preventDefault();
-					container.trigger('click');
-				}
-			});
 		}
 
 		// @see Tinycar.Main.Field.focus()
