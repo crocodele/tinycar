@@ -47,6 +47,7 @@ span.icon.icon-tiny {
     &.icon-lock            { background-position: -540px 0px; }
     &.icon-key             { background-position: -560px 0px; }
     &.icon-not-allowed     { background-position: -580px 0px; }
+    &.icon-loading         { background-position: -600px 0px; }
 	
 }
 
@@ -87,6 +88,7 @@ span.icon.icon-small {
 	&.icon-lock            { background-position: -810px 0px; }
 	&.icon-key             { background-position: -840px 0px; }
 	&.icon-not-allowed     { background-position: -870px 0px; }
+	&.icon-loading         { background-position: -900px 0px; }
 	
 }
 
@@ -127,5 +129,6 @@ span.icon.icon-medium {
 	&.icon-lock            { background-position: -1350px 0px; }
 	&.icon-key             { background-position: -1400px 0px; }
 	&.icon-not-allowed     { background-position: -1450px 0px; }
+	&.icon-loading         { background-position: -1500px 0px; }
 	
 }

@@ -9,6 +9,10 @@ a.tinycar-ui-button {
 	   outline: none;
 	}
 	
+	> span.icon-loading {
+        display: none;
+	}
+	
 	&.background-icon {
 	
         padding: 2px 2px 2px 2px;
@@ -181,6 +185,43 @@ a.tinycar-ui-button {
 		padding: 4px 5px 4px 5px;
 		@include border-radius(2px);
 		
+	}
+	
+    &.theme-button.is-loading,
+    &.theme-icon.is-loading {
+	
+        position: relative;
+	
+	    > span.icon {
+	    
+	        position: relative;
+	        visibility: hidden;
+	        
+	    }
+	    
+        > span.label {
+        
+            position: relative;
+            visibility: hidden;
+            
+        }
+	
+        > span.icon-loading {
+        
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            visibility: visible;
+            display: block;
+            margin: -15px 0px 0px -15px;
+            @include animation(spin 1s linear infinite);
+                
+        }
+        
+        @include keyframes(spin) {
+            100% { @include transform(rotate(360deg)); }
+        } 
+        
 	}
 	
 }

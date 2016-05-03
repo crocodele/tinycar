@@ -47,29 +47,37 @@ $view-tablet-width: 800px;
 
 /** Mixins **/
 
+@mixin animation($line) {
+            
+    animation: $line;
+    -moz-animation: $line;
+    -webkit-animation: $line;
+    
+}
+
 @mixin appearance($value) {
 
- 	appearance: $value;
-	-moz-appearance: $value;
-	-webkit-appearance:$value;
+     appearance: $value;
+    -moz-appearance: $value;
+    -webkit-appearance:$value;
 
 }
 
 @mixin border-radius($value) {
 
-	border-radius: $value;
-	-moz-border-radius: $value;
-	-ms-border-radius: $value;
-	-webkit-border-radius: $value;
+    border-radius: $value;
+    -moz-border-radius: $value;
+    -ms-border-radius: $value;
+    -webkit-border-radius: $value;
 
 }
 
 @mixin box-shadow($value) {
 
-	box-shadow: $value;
-	-moz-box-shadow: $value;
-	-ms-box-shadow: $value;
-	-webkit-box-shadow: $value;
+    box-shadow: $value;
+    -moz-box-shadow: $value;
+    -ms-box-shadow: $value;
+    -webkit-box-shadow: $value;
 
 }
 
@@ -82,45 +90,64 @@ $view-tablet-width: 800px;
 
 }
 
+@mixin keyframes($name) {
+    
+    @keyframes #{$name} {
+        @content;
+    }
+    
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    
+    @-o-keyframes #{$name} {
+        @content;
+    }
+    
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+}
+
 @mixin transform($value) {
 
-	transform: $value;
-	-moz-transform: $value;
-	-ms-transform: $value;
-	-webkit-transform: $value;
+    transform: $value;
+    -moz-transform: $value;
+    -ms-transform: $value;
+    -webkit-transform: $value;
 
 }
 
 @mixin transition($values...) {
 
-	transition: $values;
-	-moz-transition: $values;
-	-ms-transition: $values;
-	-webkit-transition: $values;
+    transition: $values;
+    -moz-transition: $values;
+    -ms-transition: $values;
+    -webkit-transition: $values;
 
 }
 
 @mixin transition-attr($value) {
 
-	transition: $value;
-	-moz-transition: -moz-$value;
-	-ms-transition: -ms-$value;
-	-webkit-transition: -webkit-$value;
+    transition: $value;
+    -moz-transition: -moz-$value;
+    -ms-transition: -ms-$value;
+    -webkit-transition: -webkit-$value;
 
 }
 
 @mixin unselectable() {
 
-	user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-webkit-user-select: none;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
 
 }
 
 @mixin outline() {
 
-	outline: $field-outline-color dotted 1px;
+    outline: $field-outline-color dotted 1px;
 
 }
 

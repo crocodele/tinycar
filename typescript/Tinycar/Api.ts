@@ -27,12 +27,18 @@ module Tinycar
 				contentType : 'application/json; charset=utf-8',
 				success     : (response:Object) =>
 				{
+				    // Reset action node
+				    Tinycar.Page.setActionNode(null);
+				    
 					// We have a successfull response
 					if (response.hasOwnProperty('result'))
 						request['success'](response['result']);
 				},
 				error       : (error:Object) =>
 				{
+                    // Reset action node
+                    Tinycar.Page.setActionNode(null);
+                    
 				    // Show error from repsonse
 				    this.showApiError(error);
 				}
