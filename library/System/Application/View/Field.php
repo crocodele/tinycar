@@ -34,7 +34,7 @@
 
 			// Field properties
 			$result['type_label']        = $this->getTypeLabel();
-			$result['type_enabled']      = $this->getNodeString('enabled');
+			$result['type_enabled']      = $this->getNodeBoolean('enabled', true);
 			$result['type_help']         = $this->getNodeString('help');
 			$result['type_instructions'] = $this->getNodeString('instructions');
 
