@@ -17,6 +17,7 @@ module Tinycar.Main
 		protected fieldMap:IFieldMap = {};
 		
 		App:Tinycar.Ui.Application;
+		Bind:Tinycar.Model.DataItem;
 		Model:Tinycar.Model.DataItem;
 	
 		// Initiate class
@@ -24,6 +25,11 @@ module Tinycar.Main
 		{
 			this.App = app;
 			this.Model = new Tinycar.Model.DataItem(model);
+			
+			// Binding values as a model instance
+			this.Bind = new Tinycar.Model.DataItem(
+			    this.Model.getObject('bind_values')
+			);
 		}
 		
 		
@@ -165,14 +171,24 @@ module Tinycar.Main
 				Tinycar.System.Toast.show();
 		}
 		
-	    // Trigger all bind rules for speciifed source
-	    triggerBindSource(field:Tinycar.Main.Field):void
+		// Trigger bindings only for specified property
+		triggerBinding(name:string):void
+		{
+            this.componentList.forEach((item:Tinycar.Main.Component) =>
+            {
+                // This component has a binding to target property
+                if (item.hasBindProperty(name))
+                    item.processBindRule(name);                    
+            });
+		}
+		
+	    // Trigger all bindings for all registered components
+	    triggerBindings():void
 	    {
-	        this.componentList.forEach((item:Tinycar.Main.Component) =>
-	        {
-	            if (item.hasBindSource(field))
-	                item.processBindField(field);
-	        });
+            this.componentList.forEach((item:Tinycar.Main.Component) =>
+            {
+                item.processBindRules();
+            });
 	    }
 	}
 }

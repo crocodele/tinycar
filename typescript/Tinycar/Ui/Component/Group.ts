@@ -85,6 +85,7 @@ module Tinycar.Ui.Component
 				let item = $('<div>').
 					addClass('tinycar-main-component').
 					addClass('tinycar-main-field').
+					addClass('is-visible').
 					appendTo(container);
 				
 				// Label

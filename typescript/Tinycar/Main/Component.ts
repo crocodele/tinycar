@@ -83,12 +83,10 @@ module Tinycar.Main
 			return this.Model.get('tab_name');
 		}
 		
-        // Check if component has bindings for specified source field
-        hasBindSource(field:Tinycar.Main.Field):boolean
+        // Check if component has bindings for specified property
+        hasBindProperty(name:string):boolean
         {
             let rules = this.Model.getObject('bind_rules');
-            let name = field.getDataName();
-            
             return rules.hasOwnProperty(name);
         }
 		
@@ -98,24 +96,34 @@ module Tinycar.Main
 			return this.isCmpVisible;
 		}
 		
-	    // Process bind rules for specified source name 
-		processBindField(field:Tinycar.Main.Field):void
-	    {
-		    // Component binding rules
+        // Process bind proerties for specified property name
+        processBindRules():void
+        {
+            // Component binding rules
+            let rules = this.Model.getObject('bind_rules');
+
+            // Process all rules
+            for (let name in rules)
+                this.processBindRule(name);
+        }
+		
+        // Process bind rules for specified property name
+        processBindRule(name:string):void
+        {
+            // Component binding rules
             let rules = this.Model.getObject('bind_rules');
             
-            // Source field name and value
-            let name  = field.getDataName();
-            let value = field.getDataValue();
-            
+            // Current value
+            var value = this.View.Bind.get(name);
+
             // Process rules
             rules[name].forEach((item:Object) =>
-	        {
-	            // Update visibility
-	            if (item['type'] === 'visible')
+            {
+                // Update visibility
+                if (item['type'] === 'visible')
                     this.setAsVisible((item['value'] === value));
-	        });
-	    }
+            });
+        }
 		
 		// Refresh component
 		refresh():void
