@@ -13,6 +13,7 @@
 	class Component
 	{
 		protected $app;
+		protected $bind_rules;
 		protected $data_default = false;
 		protected $data_name = false;
 		protected $data_value;
@@ -96,13 +97,17 @@
 
 
 		/**
-		 * Get binding properties
+		 * Get binding rules for this component
 		 * @return array map of binding lists by source names
 		 *         - string      type   bind type
 		 *         - string|null value  target value
 		 */
-		protected function getBindRules()
+		public function getBindRules()
 		{
+		    // Already resolved
+		    if (is_array($this->bind_rules))
+		        return $this->bind_rules;
+
 		    $result = array();
 
 		    foreach ($this->xdata->getNodes('bind') as $node)
@@ -117,11 +122,13 @@
 		        // Add to list
 		        $result[$source][] = array(
 		            'type' => $node->getString('@type'),
-		            'value'=> $node->getString('@value'),
+		            'value'=> $node->getNative('@value'),
 		        );
 		    }
 
-		    return $result;
+		    // Remember
+		    $this->bind_rules = $result;
+		    return $this->bind_rules;
 		}
 
 
@@ -129,7 +136,7 @@
 		 * Get data default value
 		 * @return mixed|null default value or null on failure
 		 */
-		protected function getDataDefault()
+		public function getDataDefault()
 		{
 			// Already resolved
 			if (!is_bool($this->data_default))
@@ -277,6 +284,30 @@
 
 
 		/**
+		 * Get boolean value from specified node path, and process it
+		 * @param string $path target node path
+		 * @param bool [$default] target node value if none exists
+		 * @return bool|null processed value or null on failure
+		 */
+		public function getNodeBoolean($path, $default = null)
+		{
+		    // Get evaluated node value
+		    $value = $this->getNodeString($path);
+
+		    // No value is available, use default
+		    if (is_null($value))
+		        $value = $default;
+
+		    // Process string value into boolean
+		    if (is_string($value))
+		        $value = (strcasecmp($value, 'true') === 0);
+
+		    // Process value
+		    return $value;
+		}
+
+
+		/**
 		 * Get string value from specified node path, and process it
 		 * @param string $path target node path
 		 * @param string [$default] target node value if none exists
@@ -410,11 +441,11 @@
 		public function onModelAction(Params $params)
 		{
 			return array(
-				'id'            => $this->getId(),
-				'type_name'     => $this->getTypeName(),
-			    'bind_rules'    => $this->getBindRules(),
-				'data_value'    => $this->getDataValue($this->getDataDefault()),
-				'tab_name'      => $this->getTabName(),
+				'id'         => $this->getId(),
+				'type_name'  => $this->getTypeName(),
+			    'bind_rules' => $this->getBindRules(),
+				'data_value' => $this->getDataValue($this->getDataDefault()),
+				'tab_name'   => $this->getTabName(),
 			);
 		}
 
