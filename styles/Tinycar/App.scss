@@ -56,6 +56,10 @@ select {
 	
 }
 
+select[disabled] {
+    color: $main-color-info;
+}
+
 input[type=text],
 input[type=password],
 textarea {

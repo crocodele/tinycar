@@ -15,6 +15,7 @@ div.tinycar-ui-component-selectlist {
 				right: 6px;
 				top: 4px;
 				z-index: 1;
+				opacity: 0.4;
 				
 			}
 			
@@ -33,6 +34,49 @@ div.tinycar-ui-component-selectlist {
 	
 	}
 	
+	&.is-enabled {
+	
+        > div.type-content {
+        
+            > div.list {
+            
+                > span.icon {
+                    opacity: 1.0;
+                }
+                
+            }
+        
+        }
+	
+	}
+	
+}
+
+div.tinycar-ui-component-group.layout-table {
+    
+    div.tinycar-ui-component-selectlist {
+            
+        > div.type-content {
+        
+            > div.list {
+            
+                > span.icon {
+                    top: -3px;
+                }
+            
+                > select {
+                
+                    padding: 0px 37px 0px 0px;
+                    border-color: transparent;
+                    
+                }
+                
+            }
+                
+        }
+            
+    }
+            
 }
 
 div.tinycar-ui-component-group {
