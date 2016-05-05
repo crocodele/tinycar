@@ -53,6 +53,32 @@
 
 
 		/**
+		 * Get map of values that are used for binding in this vaiew
+		 * @return array map of values as key-property values
+		 */
+		public function getBindValues()
+		{
+		    // Default values
+		    $result = array(
+		        'id' => '$data.id',
+		    );
+
+		    // Study all components from application level
+		    foreach ($this->app->getComponents() as $item)
+		    {
+		        foreach ($item->getBindRules() as $name => $rules)
+		            $result[$name] = '$data.'.$name;
+		    }
+
+		    // Translate to initial values
+		    foreach ($result as $name => $value)
+		        $result[$name] = $this->getStringValue($value);
+
+		    return $result;
+		}
+
+
+		/**
 		 * Get view details line string
 		 * @return string|null details line or null on failure
 		 */

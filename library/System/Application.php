@@ -370,6 +370,16 @@
 
 
 		/**
+		 * Get all registered component instances
+		 * @return array list of Tinycar\System\Application\Component instances
+		 */
+		public function getComponents()
+		{
+		    return $this->component_list;
+		}
+
+
+		/**
 		 * Get specified data property value
 		 * @param string $name target property name
 		 * @return mixed|null property value or null on failure

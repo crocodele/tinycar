@@ -330,6 +330,7 @@
 		    'has_sidelist'  => $instance->hasSideList(),
 			'heading'       => $view->getHeading(),
 		    'details_line'  => $view->getDetailsLine(),
+		    'bind_values'   => array(),
 			'tabs'          => array(),
 			'actions'       => array(),
 			'components'    => array(),
@@ -356,6 +357,10 @@
 		// Add view components
 		foreach ($view->getComponents() as $item)
 			$result['view']['components'][] = $item->callAction('model');
+
+		// Add bining values from components properties after
+		// all of them have been initialized (e.g. grouped components)
+		$result['view']['bind_values'] = $view->getBindValues();
 
 		return $result;
 	});
