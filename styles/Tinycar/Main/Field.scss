@@ -64,6 +64,24 @@ body.layout-main {
 	
 }
 
+div#tinycar-ui-dialog {
+    
+    div.tinycar-main-field {
+    
+        padding: 0px 0px 5px 0px;
+        
+        > div.type-label > label {
+            color: $main-font-color;
+        }
+        
+        > div.type-content > div.type-instructions {
+            color: $main-color-details;
+        }
+    
+    }
+    
+}
+
 @media (min-width: $view-tablet-width)
 {
 	
