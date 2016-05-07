@@ -140,7 +140,7 @@
                 	'link_path'    => $node->getAttributes('link'),
                     'link_service' => $node->getString('link/service'),
                     'link_target'  => $node->getString('link/service'),
-                    'dialog'       => null,
+                    'dialog'       => $node->getString('@dialog'),
                 	'service'      => $this->getStringValue($node->getString('@service')),
                 	'toast'        => null,
                 );
