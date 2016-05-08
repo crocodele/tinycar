@@ -86,5 +86,17 @@ module Tinycar.Ui.Component
 		{
 			this.fldInput.focus();
 		}
+
+		// @see Tinycar.Main.Field.setAsEnabled()
+		setAsEnabled(status:boolean):boolean
+		{
+			// State did not change
+			if (!super.setAsEnabled(status))
+				return false;
+
+			// Update field status
+			this.fldInput.prop('disabled', !status);
+			return true;
+		}
 	}
 }

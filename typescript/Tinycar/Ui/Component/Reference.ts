@@ -7,6 +7,7 @@ module Tinycar.Ui.Component
 
 	export class Reference extends Tinycar.Main.Field
 	{
+		private Button:Tinycar.Ui.Button;
 		private htmlItems:IItems = {};
 		private htmlList:JQuery;
 
@@ -35,6 +36,11 @@ module Tinycar.Ui.Component
 				click((e:Event) =>
 				{
 					e.preventDefault();
+
+					// Don't do anything field is disabled
+					if (!this.isFieldEnabled())
+						return;
+
 					this.clearListItem(id);
 				}).
 				keydown((e:JQueryKeyEventObject) =>
@@ -61,14 +67,14 @@ module Tinycar.Ui.Component
 		private buildButton():void
 		{
 			// Create button instance
-			let instance = new Tinycar.Ui.Button({
+			this.Button = new Tinycar.Ui.Button({
 				style : 'theme-icon',
 				icon  : 'menu-horizontal',
 				size  : 'tiny'
 			});
 
 			// When clicked
-			instance.setHandler('click', () =>
+			this.Button.setHandler('click', () =>
 			{
 				// Open target dialog
 				let dialog = this.App.openDialog(
@@ -92,19 +98,19 @@ module Tinycar.Ui.Component
 				{
 					this.setDataValue(list);
 					this.updateListItems();
-					instance.focus();
+					this.Button.focus();
 				});
 
 				// When dialog is closed
 				dialog.setHandler('close', () =>
 				{
-					instance.focus();
+					this.Button.focus();
 				});
 
 			});
 
 			// Add to content
-			this.htmlContent.append(instance.build());
+			this.htmlContent.append(this.Button.build());
 		}
 
 		// Build content
@@ -158,6 +164,18 @@ module Tinycar.Ui.Component
 		getDataValue():Array<number>
 		{
 			return this.Model.getList('data_value');
+		}
+
+		// @see Tinycar.Main.Field.setAsEnabled()
+		setAsEnabled(status:boolean):boolean
+		{
+			// State did not change
+			if (!super.setAsEnabled(status))
+				return false;
+
+			// Update field status
+			this.Button.setAsEnabled(status);
+			return true;
 		}
 
 		// @see Tinycar.Main.Field.setDataValue()

@@ -6,9 +6,10 @@ module Tinycar.Ui.Component
 		private htmlField:JQuery;
 		private htmlPalette:JQuery;
 		private htmlSample:JQuery;
+		private ToggleButton:Tinycar.Ui.Button;
 		private visibleState:boolean = false;
-	
-	
+
+
 		// Build content
 		buildContent()
 		{
@@ -18,11 +19,11 @@ module Tinycar.Ui.Component
 			this.buildSample();
 			this.buildInput();
 			this.buildToggle();
-			
+
 			// Initiate event listeners
 			this.initListeners();
 		}
-		
+
 		// Build field container
 		private buildField():void
 		{
@@ -31,7 +32,7 @@ module Tinycar.Ui.Component
 				attr('class', 'field').
 				appendTo(this.htmlContent);
 		}
-		
+
 		// Build input field
 		private buildInput():void
 		{
@@ -39,7 +40,7 @@ module Tinycar.Ui.Component
 			let placeholder = Tinycar.Locale.getText(
 				'colorpicker_color'
 			);
-			
+
 			// Add input field
 			this.fldInput = $('<input>').
 				attr('type', 'text').
@@ -48,7 +49,7 @@ module Tinycar.Ui.Component
 				prop('value', this.getDataValue()).
 				appendTo(this.htmlField);
 		}
-		
+
 		// Build palette colors
 		private buildPalette():boolean
 		{
@@ -56,7 +57,7 @@ module Tinycar.Ui.Component
 			this.htmlPalette = $('<div>').
 				attr('class', 'tinycar-ui-component-colorpicker-palette').
 				appendTo($('body:first'));
-			
+
 			// Build colors
 			this.Model.get('colors').forEach((color:string) =>
 			{
@@ -64,20 +65,20 @@ module Tinycar.Ui.Component
 					this.buildPaletteColor(color)
 				);
 			});
-			
+
 			// Initially hide palette
 			this.htmlPalette.hide();
-			
+
 			// When resized
 			Tinycar.System.addEvent('resize', () =>
 			{
 				if (this.visibleState === true)
 					this.hidePalette();
 			});
-			
+
 			return true;
 		}
-		
+
 		// Build single color to palette
 		private buildPaletteColor(color:string):JQuery
 		{
@@ -87,11 +88,11 @@ module Tinycar.Ui.Component
 				attr('data-color', color).
 				css('background-color', color).
 				appendTo(this.htmlPalette);
-			
+
 			// Add content
 			$('<span>').
 			    appendTo(container);
-			
+
 			// When clicked
 			container.click((e:Event) =>
 			{
@@ -99,10 +100,10 @@ module Tinycar.Ui.Component
 				this.fldInput.val(color);
 				this.updateSample(color);
 			});
-			
+
 			return container;
 		}
-		
+
 		// Build sample spot
 		private buildSample():void
 		{
@@ -110,7 +111,7 @@ module Tinycar.Ui.Component
 			this.htmlSample = $('<span>').
 				attr('class', 'sample').
 				appendTo(this.htmlField);
-			
+
 			// Set initial color
 			if (this.getDataValue() !== null)
 			{
@@ -119,100 +120,113 @@ module Tinycar.Ui.Component
 				);
 			}
 		}
-		
+
 		// Build toggle button
 		private buildToggle():void
 		{
 			// Create new instance
-			let instance = new Tinycar.Ui.Button({
+			this.ToggleButton = new Tinycar.Ui.Button({
 				style : 'field-icon',
 				icon  : 'menu-horizontal'
 			});
-			
+
 			// When clicked
-			instance.setHandler('click', () =>
+			this.ToggleButton.setHandler('click', () =>
 			{
 				if (this.visibleState === true)
 					this.hidePalette();
 				else
 					this.showPalette();
 			});
-			
+
 			// Add to content
-			this.htmlField.append(instance.build());
+			this.htmlField.append(this.ToggleButton.build());
 		}
-		
+
 		// @see Tinycar.Main.Field.focus()
 		focus():void
 		{
 			this.fldInput.focus();
 		}
-		
+
 		// Hide palette
 		private hidePalette():boolean
 		{
 			// Update state
 			this.visibleState = false;
-			
+
 			// Show palette
 			this.htmlPalette.stop().fadeOut(100);
-			
+
 			return true;
 		}
-		
+
 		// Initiate event listeners
 		private initListeners():void
 		{
 			var timer = null;
-				
+
 			// Change value is changed
 			this.fldInput.change((e:Event) =>
 			{
 				this.updateSample(this.fldInput.val());
 			});
-				
+
 			// When is typed
 			this.fldInput.keyup((e:Event) =>
 			{
 				// Clear old timer
 				if (timer)
 					window.clearTimeout(timer);
-				
+
 				// Update with a delay
 				timer = window.setTimeout(() =>
 				{
 					timer = null;
 					this.fldInput.trigger('change');
-					
+
 				}, 300);
 			});
-			
+
 			// When blured
 			this.fldInput.blur((e:Event) =>
 			{
 				// Get field value
 				let value = this.fldInput.val();
-				
+
 				// Add hash to value
 				if (value.length === 6 && value.indexOf('#') === -1)
 					this.fldInput.val('#' + value);
 			});
 		}
-		
+
+		// @see Tinycar.Main.Field.setAsEnabled()
+		setAsEnabled(status:boolean):boolean
+		{
+			// State did not change
+			if (!super.setAsEnabled(status))
+				return false;
+
+			// Update field status
+			this.fldInput.prop('disabled', !status);
+			this.ToggleButton.setAsEnabled(status);
+			return true;
+		}
+
 		// Show palette
 		private showPalette():boolean
 		{
 			// Already visible
 			if (this.visibleState === true)
 				return false;
-			
+
 			// Build once
 			if (!this.hasOwnProperty('htmlPalette'))
 				this.buildPalette();
-			
+
 			// Update state
 			this.visibleState = true;
-			
+
 			// Unselect previous color
 			this.htmlPalette.
 				children('a.is-selected:first').
@@ -225,20 +239,20 @@ module Tinycar.Ui.Component
 					children('a[data-color="' + this.getDataValue() + '"]:first').
 					addClass('is-selected');
 			}
-			
+
 			// Current field position
 			let pos = this.fldInput.offset();
-			
+
 			// Align palette
 			this.htmlPalette.css({
 				left : pos.left,
 				top  : pos.top + 40
 			});
-			
+
 			// Show palette
 			this.htmlPalette.stop().fadeIn(100);
-			
-			// When clicked anywhere after this 
+
+			// When clicked anywhere after this
 			// click event has passed
 			window.setTimeout(() =>
 			{
@@ -246,12 +260,12 @@ module Tinycar.Ui.Component
 				{
 					this.hidePalette();
 				});
-				
+
 			}, 10);
-			
+
 			return true;
 		}
-		
+
 		// Update current sample color
 		private updateSample(value:string):void
 		{
@@ -259,7 +273,7 @@ module Tinycar.Ui.Component
 			value = '#' + jQuery.trim(
 				value.toLowerCase().split('#').join('')
 			);
-			
+
 			// Valid length
 			if (value.length === 7)
 			{

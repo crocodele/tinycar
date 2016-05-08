@@ -2,24 +2,27 @@ module Tinycar.Ui.Component
 {
 	export class Button extends Tinycar.Main.Field
 	{
+		private Button:Tinycar.Ui.Button;
+
+
 		// Build button
 		private buildButton():void
 		{
 			// Create button instance
-			let instance = new Tinycar.Ui.Button(
+			this.Button = new Tinycar.Ui.Button(
 				this.getButtonProperties()
 			);
 
 			// When clicked
-			instance.setHandler('click', () =>
+			this.Button.setHandler('click', () =>
 			{
 				this.execute();
 			});
-		
+
 			// Add to content
-			this.htmlContent.append(instance.build());
+			this.htmlContent.append(this.Button.build());
 		}
-	
+
 		// Build content
 		buildContent()
 		{
@@ -27,7 +30,7 @@ module Tinycar.Ui.Component
 			super.buildContent();
 			this.buildButton();
 		}
-		
+
 		// Execute button action
 		private execute():void
 		{
@@ -47,18 +50,18 @@ module Tinycar.Ui.Component
 						value : value,
 						toast : this.Model.get('button_toast')
 					}));
-					
+
 					// Refresh visible components
 					this.View.refreshComponents();
 				});
 			}
 		}
-		
+
 		// Get properties for button
 		private getButtonProperties():Object
 		{
 			let result = {};
-			
+
 			// We have a custom icon
 			if (this.Model.hasString('button_icon'))
 			{
@@ -76,13 +79,25 @@ module Tinycar.Ui.Component
 					size  : 'small',
 					label : this.Model.get('button_label')
 				};
-				
+
 				// Add postfix to label when opening a dialog
 				if (this.Model.hasString('button_dialog'))
 					result['label'] += '...';
 			}
-			
+
 			return result;
+		}
+
+		// @see Tinycar.Main.Field.setAsEnabled()
+		setAsEnabled(status:boolean):boolean
+		{
+			// State did not change
+			if (!super.setAsEnabled(status))
+				return false;
+
+			// Update field status
+			this.Button.setAsEnabled(status);
+			return true;
 		}
 	}
 }

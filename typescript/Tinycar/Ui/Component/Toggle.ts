@@ -50,6 +50,10 @@ module Tinycar.Ui.Component
 			{
 				e.preventDefault();
 
+				// Don't do anything field is disabled
+				if (!this.isFieldEnabled())
+					return;
+
 				// Change value when clicked if field is enabled
 				if (this.isTypeEnabled() == true)
 				{

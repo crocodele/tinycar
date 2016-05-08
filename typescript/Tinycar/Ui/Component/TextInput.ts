@@ -13,7 +13,7 @@ module Tinycar.Ui.Component
 		{
 			// Build elements
 			super.buildContent();
-			
+
 			// Build textarea when we have multiple rows
 			if (this.Model.get('rows') > 0)
 				this.buildArea();
@@ -31,7 +31,7 @@ module Tinycar.Ui.Component
 		{
 			// Remember type
 			this.isArea = true;
-			
+
 			// Create field
 			this.fldInput = $('<textarea>').
 				attr('id', this.getFieldId()).
@@ -39,15 +39,15 @@ module Tinycar.Ui.Component
 				prop('spellcheck', false).
 				prop('value', this.getDataValue()).
 				appendTo(this.htmlContent);
-			
+
 			// Add maxlength restriction
 			if (this.Model.get('maxlength') > 0)
 				this.fldInput.prop('maxlength', this.Model.get('maxlength'));
-			
+
 			// Add width restriction
 			if (this.Model.get('width') > 0)
 			    this.fldInput.css('max-width', this.Model.get('width'));
-			
+
 			// Minimum area height based on row amount
             this.minAreaHeight = this.Model.getNumber('rows') * 23;
 		}
@@ -58,7 +58,7 @@ module Tinycar.Ui.Component
 		{
 			// Remember type
 			this.isArea = false;
-			
+
 			// Create field
 			this.fldInput = $('<input>').
 				attr('id', this.getFieldId()).
@@ -71,7 +71,7 @@ module Tinycar.Ui.Component
 			// Add maxlength restriction
 			if (this.Model.get('maxlength') > 0)
 				this.fldInput.prop('maxlength', this.Model.get('maxlength'));
-			
+
             // Add width restriction
             if (this.Model.get('width') > 0)
                 this.fldInput.css('max-width', this.Model.get('width'));
@@ -92,10 +92,10 @@ module Tinycar.Ui.Component
 		{
 			// First set to natural height to allow shrinking when user removes text
 			this.fldInput.css('height', 'auto');
-			
+
 			// Take as much vertical space as needed to fit content perfectly
 			this.fldInput.height(Math.max(
-		          this.minAreaHeight, 
+		          this.minAreaHeight,
 		          this.fldInput.prop('scrollHeight') - padding
 		    ));
 		}
@@ -125,6 +125,18 @@ module Tinycar.Ui.Component
 				if (this.isArea)
 					this.fitHeightToContent(padding);
 			});
+		}
+
+		// @see Tinycar.Main.Field.setAsEnabled()
+		setAsEnabled(status:boolean):boolean
+		{
+			// State did not change
+			if (!super.setAsEnabled(status))
+				return false;
+
+			// Update field status
+			this.fldInput.prop('disabled', !status);
+			return true;
 		}
 
 		// @see Tinycar.Main.Field.setDataValue()
