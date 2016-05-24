@@ -72,6 +72,7 @@
 	<text name="name">Name</text>
 	<text name="no">No</text>
 	<text name="none">None</text>
+	<text name="paymentmethod_paypal">PayPal</text>
     <text name="phone">Phone</text>
 	<text name="properties">Properties</text>
 	<text name="status">Status</text>

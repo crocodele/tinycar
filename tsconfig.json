@@ -52,6 +52,7 @@
         "typescript/Tinycar/Ui/Component/ListWidget.ts",
         "typescript/Tinycar/Ui/Component/NavigationList.ts",
         "typescript/Tinycar/Ui/Component/NumbersWidget.ts",
+        "typescript/Tinycar/Ui/Component/PaymentMethod.ts",
         "typescript/Tinycar/Ui/Component/Password.ts",
         "typescript/Tinycar/Ui/Component/RadioList.ts",
         "typescript/Tinycar/Ui/Component/Reference.ts",

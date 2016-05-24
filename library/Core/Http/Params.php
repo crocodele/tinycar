@@ -4,7 +4,7 @@
 
     class Params
     {
-        private $data = array();
+        protected $data = array();
 
 
         /**
