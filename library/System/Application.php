@@ -8,6 +8,7 @@
     use Tinycar\App\Locale;
     use Tinycar\App\Manager;
     use Tinycar\App\Services;
+    use Tinycar\App\Url;
     use Tinycar\Core\Http\Params;
     use Tinycar\Core\Xml\Data;
     use Tinycar\System\Application\Component;
@@ -854,7 +855,7 @@
 
 		/**
 		 * Get URL params instance
-		 * @return object Tinycar\Core\Http\Params instance
+		 * @return object Tinycar\App\Url instance
 		 */
 		public function getUrlParams()
 		{
@@ -863,7 +864,7 @@
 				return $this->url_params;
 
 			// Remember empty instance
-			$this->url_params = new Params(array());
+			$this->url_params = new Url(array());
 			return $this->url_params;
 		}
 
@@ -1128,6 +1129,6 @@
 		 */
 		public function setUrlParams(array $params)
 		{
-			$this->url_params = new Params($params);
+			$this->url_params = new Url($params);
 		}
     }
