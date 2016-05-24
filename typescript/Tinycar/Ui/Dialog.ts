@@ -133,6 +133,12 @@ module Tinycar.Ui
                 // Add to list of components
                 this.addComponent(instance);
             });
+            
+            // Start fields
+            this.fieldList.forEach((field:Tinycar.Main.Field) =>
+            {
+                field.start();
+            });
         }
 
         // Build content container
