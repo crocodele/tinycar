@@ -1,40 +1,40 @@
 div.tinycar-ui-component-imageupload {
-    
+
     > div.type-content {
-    
+
         > div.previews {
-        
+
             overflow: hidden;
-        
+
             > div.image {
-            
+
                 position: relative;
                 display: block;
                 float: left;
                 padding: 0px 36px 0px 0px;
-                
+
                 > span.image {
-                
+
                     display: block;
                     width: 90px;
                     height: 90px;
                     background-repeat: no-repeat;
                     background-position: center center;
                     background-size: contain;
-                    
+
                 }
-                
+
                 > a.tinycar-ui-button {
-                
+
                     position: absolute;
                     right: 0px;
                     top: 0px;
-                    
+
                 }
-                
+
             }
         }
-        
+
         > div.button {
 
             position: relative;
@@ -44,20 +44,20 @@ div.tinycar-ui-component-imageupload {
             background-color: #ffffff;
             cursor: pointer;
             overflow: hidden;
-    
+
             > span.icon {
-                
+
                 position: absolute;
                 left: 50%;
                 top: 50%;
                 margin: -15px 0px 0px -15px;
                 opacity: 0.3;
                 z-index: 1;
-                    
+
             }
-                
+
             > input {
-                
+
                 position: absolute;
                 right: 0px;
                 top: 0px;
@@ -67,42 +67,42 @@ div.tinycar-ui-component-imageupload {
                 direction: ltr;
                 cursor: pointer;
                 z-index: 2;
-                    
+
             }
-                
+
             &:hover {
-                
+
                 background-color: lighten($main-color-background, 5%);
-                    
+
                 > span.icon {
-                    
+
                     opacity: 0.6;
                     @include transition(opacity 0.5s ease);
-                        
+
                 }
-                    
+
             }
-                
+
             &:active {
-                
+
                 background-color: lighten($main-color-background, 5%);
-                    
+
                 > span.icon {
                     opacity: 0.3;
                 }
-                
+
             }
-            
+
         }
-        
+
     }
-    
+
     &.is-single-upload.has-images {
-    
+
         > div.type-content > div.button {
             display: none;
         }
-        
+
     }
 
 }

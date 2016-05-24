@@ -1,44 +1,44 @@
 span.icon {
 
-	display: block;
-	background-image: url(../images/iconmap.svg);
-	background-repeat: no-repeat;
-	
+    display: block;
+    background-image: url(../images/iconmap.svg);
+    background-repeat: no-repeat;
+
 }
 
 span.icon-lite {
-	background-image: url(../images/iconmap-lite.svg);
+    background-image: url(../images/iconmap-lite.svg);
 }
 
 span.icon.icon-tiny {
-	
-	width: 20px;
-	height: 20px;
-	background-size: auto 20px;
-	background-position: 20px 20px;
-		
-	&.icon-list            { background-position: 0px 0px; }
-	&.icon-home            { background-position: -20px 0px; }
-	&.icon-apps            { background-position: -40px 0px; }
-	&.icon-add             { background-position: -60px 0px; }
-	&.icon-save            { background-position: -80px 0px; }
-	&.icon-remove          { background-position: -100px 0px; }
-	&.icon-back            { background-position: -120px 0px; }
-	&.icon-close           { background-position: -140px 0px; }
-	&.icon-sort-down       { background-position: -160px 0px; }
-	&.icon-sort-up         { background-position: -180px 0px; }
-	&.icon-search          { background-position: -200px 0px; }
-	&.icon-menu-horizontal { background-position: -220px 0px; }
-	&.icon-menu-vertical   { background-position: -240px 0px; }
-	&.icon-check           { background-position: -260px 0px; }
-	&.icon-help            { background-position: -280px 0px; }
-	&.icon-handle          { background-position: -300px 0px; }
-	&.icon-date            { background-position: -320px 0px; }
-	&.icon-folder          { background-position: -340px 0px; }
-	&.icon-arrow-left      { background-position: -360px 0px; }
-	&.icon-arrow-right     { background-position: -380px 0px; }
-	&.icon-user            { background-position: -400px 0px; }
-	&.icon-refresh         { background-position: -420px 0px; }
+
+    width: 20px;
+    height: 20px;
+    background-size: auto 20px;
+    background-position: 20px 20px;
+
+    &.icon-list            { background-position: 0px 0px; }
+    &.icon-home            { background-position: -20px 0px; }
+    &.icon-apps            { background-position: -40px 0px; }
+    &.icon-add             { background-position: -60px 0px; }
+    &.icon-save            { background-position: -80px 0px; }
+    &.icon-remove          { background-position: -100px 0px; }
+    &.icon-back            { background-position: -120px 0px; }
+    &.icon-close           { background-position: -140px 0px; }
+    &.icon-sort-down       { background-position: -160px 0px; }
+    &.icon-sort-up         { background-position: -180px 0px; }
+    &.icon-search          { background-position: -200px 0px; }
+    &.icon-menu-horizontal { background-position: -220px 0px; }
+    &.icon-menu-vertical   { background-position: -240px 0px; }
+    &.icon-check           { background-position: -260px 0px; }
+    &.icon-help            { background-position: -280px 0px; }
+    &.icon-handle          { background-position: -300px 0px; }
+    &.icon-date            { background-position: -320px 0px; }
+    &.icon-folder          { background-position: -340px 0px; }
+    &.icon-arrow-left      { background-position: -360px 0px; }
+    &.icon-arrow-right     { background-position: -380px 0px; }
+    &.icon-user            { background-position: -400px 0px; }
+    &.icon-refresh         { background-position: -420px 0px; }
     &.icon-talk            { background-position: -440px 0px; }
     &.icon-mail            { background-position: -460px 0px; }
     &.icon-logout          { background-position: -480px 0px; }
@@ -48,87 +48,87 @@ span.icon.icon-tiny {
     &.icon-key             { background-position: -560px 0px; }
     &.icon-not-allowed     { background-position: -580px 0px; }
     &.icon-loading         { background-position: -600px 0px; }
-	
+
 }
 
 span.icon.icon-small {
-	
-	width: 30px;
-	height: 30px;
-	background-size: auto 30px;
-	background-position: 30px 30px;
-		
-	&.icon-list            { background-position: 0px 0px; }
-	&.icon-home            { background-position: -30px 0px; }
-	&.icon-apps            { background-position: -60px 0px; }
-	&.icon-add             { background-position: -90px 0px; }
-	&.icon-save            { background-position: -120px 0px; }
-	&.icon-remove          { background-position: -150px 0px; }
-	&.icon-back            { background-position: -180px 0px; }
-	&.icon-close           { background-position: -210px 0px; }
-	&.icon-sort-down       { background-position: -240px 0px; }
-	&.icon-sort-up         { background-position: -270px 0px; }
-	&.icon-search          { background-position: -300px 0px; }
-	&.icon-menu-horizontal { background-position: -330px 0px; }
-	&.icon-menu-vertical   { background-position: -360px 0px; }
-	&.icon-check           { background-position: -390px 0px; }
-	&.icon-help            { background-position: -420px 0px; }
-	&.icon-handle          { background-position: -450px 0px; }
-	&.icon-date            { background-position: -480px 0px; }
-	&.icon-folder          { background-position: -510px 0px; }
-	&.icon-arrow-left      { background-position: -540px 0px; }
-	&.icon-arrow-right     { background-position: -570px 0px; }
-	&.icon-user            { background-position: -600px 0px; }
-	&.icon-refresh         { background-position: -630px 0px; }
-	&.icon-talk            { background-position: -660px 0px; }
-	&.icon-mail            { background-position: -690px 0px; }
-	&.icon-logout          { background-position: -720px 0px; }
-	&.icon-settings        { background-position: -750px 0px; }
-	&.icon-customer        { background-position: -780px 0px; }
-	&.icon-lock            { background-position: -810px 0px; }
-	&.icon-key             { background-position: -840px 0px; }
-	&.icon-not-allowed     { background-position: -870px 0px; }
-	&.icon-loading         { background-position: -900px 0px; }
-	
+
+    width: 30px;
+    height: 30px;
+    background-size: auto 30px;
+    background-position: 30px 30px;
+
+    &.icon-list            { background-position: 0px 0px; }
+    &.icon-home            { background-position: -30px 0px; }
+    &.icon-apps            { background-position: -60px 0px; }
+    &.icon-add             { background-position: -90px 0px; }
+    &.icon-save            { background-position: -120px 0px; }
+    &.icon-remove          { background-position: -150px 0px; }
+    &.icon-back            { background-position: -180px 0px; }
+    &.icon-close           { background-position: -210px 0px; }
+    &.icon-sort-down       { background-position: -240px 0px; }
+    &.icon-sort-up         { background-position: -270px 0px; }
+    &.icon-search          { background-position: -300px 0px; }
+    &.icon-menu-horizontal { background-position: -330px 0px; }
+    &.icon-menu-vertical   { background-position: -360px 0px; }
+    &.icon-check           { background-position: -390px 0px; }
+    &.icon-help            { background-position: -420px 0px; }
+    &.icon-handle          { background-position: -450px 0px; }
+    &.icon-date            { background-position: -480px 0px; }
+    &.icon-folder          { background-position: -510px 0px; }
+    &.icon-arrow-left      { background-position: -540px 0px; }
+    &.icon-arrow-right     { background-position: -570px 0px; }
+    &.icon-user            { background-position: -600px 0px; }
+    &.icon-refresh         { background-position: -630px 0px; }
+    &.icon-talk            { background-position: -660px 0px; }
+    &.icon-mail            { background-position: -690px 0px; }
+    &.icon-logout          { background-position: -720px 0px; }
+    &.icon-settings        { background-position: -750px 0px; }
+    &.icon-customer        { background-position: -780px 0px; }
+    &.icon-lock            { background-position: -810px 0px; }
+    &.icon-key             { background-position: -840px 0px; }
+    &.icon-not-allowed     { background-position: -870px 0px; }
+    &.icon-loading         { background-position: -900px 0px; }
+
 }
 
 span.icon.icon-medium {
-	
-	width: 50px;
-	height: 50px;
-	background-size: auto 50px;
-	background-position: 50px 50px;
-		
-	&.icon-list            { background-position: 0px 0px; }
-	&.icon-home            { background-position: -50px 0px; }
-	&.icon-apps            { background-position: -100px 0px; }
-	&.icon-add             { background-position: -150px 0px; }
-	&.icon-save            { background-position: -200px 0px; }
-	&.icon-remove          { background-position: -250px 0px; }
-	&.icon-back            { background-position: -300px 0px; }
-	&.icon-close           { background-position: -350px 0px; }
-	&.icon-sort-down       { background-position: -400px 0px; }
-	&.icon-sort-up         { background-position: -450px 0px; }
-	&.icon-search          { background-position: -500px 0px; }
-	&.icon-menu-horizontal { background-position: -550px 0px; }
-	&.icon-menu-vertical   { background-position: -600px 0px; }
-	&.icon-check           { background-position: -650px 0px; }
-	&.icon-help            { background-position: -700px 0px; }
-	&.icon-handle          { background-position: -750px 0px; }
-	&.icon-date            { background-position: -800px 0px; }
-	&.icon-folder          { background-position: -850px 0px; }
-	&.icon-arrow-left      { background-position: -900px 0px; }
-	&.icon-arrow-right     { background-position: -950px 0px; }
-	&.icon-user            { background-position: -1000px 0px; }
-	&.icon-refresh         { background-position: -1050px 0px; }
-	&.icon-talk            { background-position: -1100px 0px; }
-	&.icon-mail            { background-position: -1150px 0px; }
-	&.icon-logout          { background-position: -1200px 0px; }
-	&.icon-settings        { background-position: -1250px 0px; }
-	&.icon-customer        { background-position: -1300px 0px; }
-	&.icon-lock            { background-position: -1350px 0px; }
-	&.icon-key             { background-position: -1400px 0px; }
-	&.icon-not-allowed     { background-position: -1450px 0px; }
-	&.icon-loading         { background-position: -1500px 0px; }
-	
+
+    width: 50px;
+    height: 50px;
+    background-size: auto 50px;
+    background-position: 50px 50px;
+
+    &.icon-list            { background-position: 0px 0px; }
+    &.icon-home            { background-position: -50px 0px; }
+    &.icon-apps            { background-position: -100px 0px; }
+    &.icon-add             { background-position: -150px 0px; }
+    &.icon-save            { background-position: -200px 0px; }
+    &.icon-remove          { background-position: -250px 0px; }
+    &.icon-back            { background-position: -300px 0px; }
+    &.icon-close           { background-position: -350px 0px; }
+    &.icon-sort-down       { background-position: -400px 0px; }
+    &.icon-sort-up         { background-position: -450px 0px; }
+    &.icon-search          { background-position: -500px 0px; }
+    &.icon-menu-horizontal { background-position: -550px 0px; }
+    &.icon-menu-vertical   { background-position: -600px 0px; }
+    &.icon-check           { background-position: -650px 0px; }
+    &.icon-help            { background-position: -700px 0px; }
+    &.icon-handle          { background-position: -750px 0px; }
+    &.icon-date            { background-position: -800px 0px; }
+    &.icon-folder          { background-position: -850px 0px; }
+    &.icon-arrow-left      { background-position: -900px 0px; }
+    &.icon-arrow-right     { background-position: -950px 0px; }
+    &.icon-user            { background-position: -1000px 0px; }
+    &.icon-refresh         { background-position: -1050px 0px; }
+    &.icon-talk            { background-position: -1100px 0px; }
+    &.icon-mail            { background-position: -1150px 0px; }
+    &.icon-logout          { background-position: -1200px 0px; }
+    &.icon-settings        { background-position: -1250px 0px; }
+    &.icon-customer        { background-position: -1300px 0px; }
+    &.icon-lock            { background-position: -1350px 0px; }
+    &.icon-key             { background-position: -1400px 0px; }
+    &.icon-not-allowed     { background-position: -1450px 0px; }
+    &.icon-loading         { background-position: -1500px 0px; }
+
 }

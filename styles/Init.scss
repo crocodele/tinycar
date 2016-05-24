@@ -48,11 +48,11 @@ $view-tablet-width: 800px;
 /** Mixins **/
 
 @mixin animation($line) {
-            
+
     animation: $line;
     -moz-animation: $line;
     -webkit-animation: $line;
-    
+
 }
 
 @mixin appearance($value) {
@@ -91,19 +91,19 @@ $view-tablet-width: 800px;
 }
 
 @mixin keyframes($name) {
-    
+
     @keyframes #{$name} {
         @content;
     }
-    
+
     @-moz-keyframes #{$name} {
         @content;
     }
-    
+
     @-o-keyframes #{$name} {
         @content;
     }
-    
+
     @-webkit-keyframes #{$name} {
         @content;
     }

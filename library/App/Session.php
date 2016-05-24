@@ -1,177 +1,177 @@
 <?php
 
-	namespace Tinycar\App;
+namespace Tinycar\App;
 
-	use Tinycar\App\Config;
-	use Tinycar\App\User;
+use Tinycar\App\Config;
+use Tinycar\App\User;
 
-	class Session
-	{
-		private $user;
-
-
-		/**
-		 * Initiate class
-		 */
-        public function __construct()
-		{
-			session_start();
-		}
+class Session
+{
+    private $user;
 
 
-		/**
-		 * Clear specified property value
-		 * @param string $name target property name
-		 */
-		public function clear($name)
-		{
-		    if (array_key_exists($name, $_SESSION))
-		        unset($_SESSION[$name]);
-		}
+    /**
+     * Initiate class
+     */
+    public function __construct()
+    {
+        session_start();
+    }
 
 
-		/**
-		 * Destroy current session
-		 */
-		public function destroy()
-		{
-			// Remove session coookie
-			if (ini_get('session.use_cookies'))
-			{
-				$name   = session_name();
-				$params = session_get_cookie_params();
-
-				// Remove cookie reference
-				if (array_key_exists($name, $_COOKIE))
-					unset($_COOKIE[$name]);
-
-				// Remove cookie
-				setcookie(
-					$name, '', time() - 42000,
-					$params['path'], $params['domain'],
-					$params['secure'], $params['httponly']
-				);
-			}
-
-			// Reset local data
-			$this->user = null;
-
-			// Reset global data
-			$_SESSION = array();
-
-			// Destroy server data
-			session_destroy();
-		}
+    /**
+     * Clear specified property value
+     * @param string $name target property name
+     */
+    public function clear($name)
+    {
+        if (array_key_exists($name, $_SESSION))
+            unset($_SESSION[$name]);
+    }
 
 
-		/**
-		 * Get specified property value
-		 * @param string $name target property name
-		 * @return mixed|null property value or null on failure
-		 */
-		public function get($name)
-		{
-			return (array_key_exists($name, $_SESSION) ?
-				$_SESSION[$name] : null
-			);
-		}
+    /**
+     * Destroy current session
+     */
+    public function destroy()
+    {
+        // Remove session coookie
+        if (ini_get('session.use_cookies'))
+        {
+            $name   = session_name();
+            $params = session_get_cookie_params();
+
+            // Remove cookie reference
+            if (array_key_exists($name, $_COOKIE))
+                unset($_COOKIE[$name]);
+
+            // Remove cookie
+            setcookie(
+                $name, '', time() - 42000,
+                $params['path'], $params['domain'],
+                $params['secure'], $params['httponly']
+            );
+        }
+
+        // Reset local data
+        $this->user = null;
+
+        // Reset global data
+        $_SESSION = array();
+
+        // Destroy server data
+        session_destroy();
+    }
 
 
-		/**
-		 * Get current locale value
-		 * @return string locale value
-		 */
-		public function getLocale()
-		{
-			// Get local property
-			$name = $this->get('locale');
-
-			// We have a custom locale
-			if (is_string($name))
-				return $name;
-
-			// Revert to system defualt
-			return Config::get('SYSTEM_LOCALE');
-		}
+    /**
+     * Get specified property value
+     * @param string $name target property name
+     * @return mixed|null property value or null on failure
+     */
+    public function get($name)
+    {
+        return (array_key_exists($name, $_SESSION) ?
+            $_SESSION[$name] : null
+        );
+    }
 
 
-		/**
-		 * Get current user instance
-		 * @return object Tinycar\App\User instance
-		 */
-		public function getUser()
-		{
-			// Already resolved
-			if (is_object($this->user))
-				return $this->user;
+    /**
+     * Get current locale value
+     * @return string locale value
+     */
+    public function getLocale()
+    {
+        // Get local property
+        $name = $this->get('locale');
 
-			// Get user data
-			$data = $this->get('user');
-			$data = is_array($data) ? $data : array();
+        // We have a custom locale
+        if (is_string($name))
+            return $name;
 
-			// Create new instance
-			$result = new User($data);
-
-			// Remember
-			$this->user = $result;
-			return $this->user;
-		}
+        // Revert to system defualt
+        return Config::get('SYSTEM_LOCALE');
+    }
 
 
-		/**
-		 * Check if session has specified property
-		 * @param string $name target property name
-		 */
-		public function has($name)
-		{
-		    return array_key_exists($name, $_SESSION);
-		}
+    /**
+     * Get current user instance
+     * @return object Tinycar\App\User instance
+     */
+    public function getUser()
+    {
+        // Already resolved
+        if (is_object($this->user))
+            return $this->user;
+
+        // Get user data
+        $data = $this->get('user');
+        $data = is_array($data) ? $data : array();
+
+        // Create new instance
+        $result = new User($data);
+
+        // Remember
+        $this->user = $result;
+        return $this->user;
+    }
 
 
-		/**
-		 * Set specified property value
-		 * @param string $name target property name
-		 * @param mixed $value new property value
-		 */
-		public function set($name, $value)
-		{
-			$_SESSION[$name] = $value;
-		}
+    /**
+     * Check if session has specified property
+     * @param string $name target property name
+     */
+    public function has($name)
+    {
+        return array_key_exists($name, $_SESSION);
+    }
 
 
-		/**
-		 * Set new locale value
-		 * @param string $name new locale name
-		 */
-		public function setLocale($name)
-		{
-			$this->set('locale', $name);
-		}
+    /**
+     * Set specified property value
+     * @param string $name target property name
+     * @param mixed $value new property value
+     */
+    public function set($name, $value)
+    {
+        $_SESSION[$name] = $value;
+    }
 
 
-		/**
-		 * Set new user data to session
-		 * @param object $user target Tinycar\App\User instance
-		 */
-		public function setUser(User $user)
-		{
-			// Rememeber existing session data
-			$session = $_SESSION;
+    /**
+     * Set new locale value
+     * @param string $name new locale name
+     */
+    public function setLocale($name)
+    {
+        $this->set('locale', $name);
+    }
 
-			// Remove any existing session data, cookies etc.
-			$this->destroy();
 
-			// Start new session with new id
-			session_start();
-			session_regenerate_id(true);
+    /**
+     * Set new user data to session
+     * @param object $user target Tinycar\App\User instance
+     */
+    public function setUser(User $user)
+    {
+        // Rememeber existing session data
+        $session = $_SESSION;
 
-			// Restore initial session data
-			$_SESSION = $session;
+        // Remove any existing session data, cookies etc.
+        $this->destroy();
 
-			// Remember user data
-			$this->set('user', $user->getAll());
+        // Start new session with new id
+        session_start();
+        session_regenerate_id(true);
 
-			// Remember user instance
-			$this->user = $user;
-		}
-	}
+        // Restore initial session data
+        $_SESSION = $session;
+
+        // Remember user data
+        $this->set('user', $user->getAll());
+
+        // Remember user instance
+        $this->user = $user;
+    }
+}

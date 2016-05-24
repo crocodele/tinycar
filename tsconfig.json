@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-        
+
         "target": "es5",
         "module": "amd",
         "sourceMap" : true,
         "outFile" : "common.min.js"
-        
+
     },
-    
+
     "files": [
         "typescript/Typed/jquery/jquery.d.ts",
         "typescript/Typed/jqueryui/jqueryui.d.ts",
@@ -67,8 +67,8 @@
         "typescript/Tinycar/Ui/Main/Help.ts",
         "typescript/Tinycar/Ui/Main/Icon.ts",
         "typescript/Tinycar/Ui/Main/ResizeGap.ts",
-		"typescript/Tinycar/View/Heading.ts",
-		"typescript/Tinycar/View/Tabs.ts"
+        "typescript/Tinycar/View/Heading.ts",
+        "typescript/Tinycar/View/Tabs.ts"
     ]
     
 }

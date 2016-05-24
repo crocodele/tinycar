@@ -1,59 +1,59 @@
 div#tinycar-main-toast {
-	
-	position: fixed;
-	right: 20px;
-	top: 40px;
-	display: none;
-	padding: 20px 50px 30px 30px;
-	width: 300px;
-	min-height: 100px;
-	background-color: $main-color-uigray;
-	line-height: 1.4em;
-	box-sizing: border-box;
-	cursor: default;
-	z-index: 100000;
-	
-	> a.close {
-	
-		position: absolute;
-		right: 10px;
-		top: 10px;
-		display: block;
-		cursor: pointer;
-		opacity: 0.5;
-		@include unselectable();
-		
-		&:hover {
-			opacity: 1.0;
-		}
-		
-		&:active,
-		&:focus {
-			opacity: 0.2;
-		}
-		
-	}
-	
-	&.type-failure {
-	
-		background-color: $main-failure-background;
-		color: $main-failure-color;
-		
-	}
-	
-	&.type-success {
-	
-		background-color: $main-success-background;
-		color: $main-success-color;
-		
-	}
-	
-	&.is-visible {
-		display: block;
-	}
-	
-	&.is-hidden {
-		display: none;
-	}
-	
+
+    position: fixed;
+    right: 20px;
+    top: 40px;
+    display: none;
+    padding: 20px 50px 30px 30px;
+    width: 300px;
+    min-height: 100px;
+    background-color: $main-color-uigray;
+    line-height: 1.4em;
+    box-sizing: border-box;
+    cursor: default;
+    z-index: 100000;
+
+    > a.close {
+
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        display: block;
+        cursor: pointer;
+        opacity: 0.5;
+        @include unselectable();
+
+        &:hover {
+            opacity: 1.0;
+        }
+
+        &:active,
+        &:focus {
+            opacity: 0.2;
+        }
+
+    }
+
+    &.type-failure {
+
+        background-color: $main-failure-background;
+        color: $main-failure-color;
+
+    }
+
+    &.type-success {
+
+        background-color: $main-success-background;
+        color: $main-success-color;
+
+    }
+
+    &.is-visible {
+        display: block;
+    }
+
+    &.is-hidden {
+        display: none;
+    }
+
 }

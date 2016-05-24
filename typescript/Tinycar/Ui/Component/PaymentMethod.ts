@@ -2,7 +2,7 @@ module Tinycar.Ui.Component
 {
     export class PaymentMethod extends Tinycar.Main.Field
     {
-    
+
         // @see Tinycar.Main.Field.buildContent()
         buildContent()
         {
@@ -11,7 +11,7 @@ module Tinycar.Ui.Component
             this.buildMessage();
             this.buildMethods();
         }
-        
+
         // Build visible message, if any
         private buildMessage():void
         {
@@ -24,7 +24,7 @@ module Tinycar.Ui.Component
                     appendTo(this.htmlContent);
             });
         }
-        
+
         // Build single method item
         private buildMethod(model:Tinycar.Model.DataItem):JQuery
         {
@@ -33,34 +33,34 @@ module Tinycar.Ui.Component
                 attr('tabindex', 0).
                 addClass('item').
                 addClass('item-' + model.getString('type').toLowerCase());
-            
+
             // When clicked
             container.click((e:Event) =>
             {
                 // Prevent default
                 e.preventDefault();
-                
+
                 // Remove rectangle focus
                 container.blur();
-                
+
                 // Select method after a small delay
                 window.setTimeout(() =>
                 {
                     this.selectMethod(model);
-                    
+
                 }, 200);
             });
-            
+
             // Add image
             $('<img>').
                 attr('src', 'assets/base/images/paymentmethod-paypal.png').
                 attr('class', 'image').
                 attr('alt', model.get('title')).
                 appendTo(container);
-                
+
             return container;
         }
-        
+
         // Build method
         private buildMethods():void
         {
@@ -77,7 +77,7 @@ module Tinycar.Ui.Component
                 ));
             });
         }
-        
+
         // Select specified method
         private selectMethod(model:Tinycar.Model.DataItem):void
         {

@@ -10,31 +10,31 @@ div.tinycar-ui-sidelist {
     background-color: lighten($main-color-background, 2%);
     overflow: auto;
     z-index: 1;
-    
+
 }
 
 body.has-sidelist.sidelist-visible {
-    
+
     div.tinycar-ui-sidelist {
         display: block;
     }
-        
+
 }
 
 @media (min-width: $view-tablet-width)
 {
     body.has-sidelist.sidelist-visible {
-    
+
         padding-left: 334px;
-    
+
         div.tinycar-ui-sidelist {
             width: 270px;
         }
-        
+
         form.tinycar-ui-view {
             padding-left: 300px;
         }
-        
+
     }
 
 }

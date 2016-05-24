@@ -1,96 +1,96 @@
 div.tinycar-main-field {
-	
-	padding: 15px 0px 20px 0px;
-	overflow: hidden;
-	
-	> div.type-label {
-	
-		display: block;
-		overflow: hidden;
-        white-space: nowrap;
-	
-		> label {
 
-			display: inline-block;
-			padding: 0px 1px 12px 1px;
-			cursor: default;
-			color: $field-label-color;
-			line-height: 1.5em;
-			
-			> span.required {
-			
-				display: inline-block;
-				margin: 2px 0px 0px 5px;
-				width: 4px;
-				height: 4px;
-				vertical-align: top;
-				@include border-radius(2px);
-				
-			}
-			
-			&:hover {
-				color: #000000;
-			}
-			
-		}
-		
-		> span.tinycar-ui-main-help {
-			margin: 1px 0px 0px 6px;
-		}
-		
-	}
-	
-	> div.type-content {
-	
-		> div.type-instructions {
-			
-			clear: both;
-			padding: 10px 0px 0px 1px;
-			color: $field-instructions-color;
-			font-size: 0.9em;
-			line-height: 1.4em;
-				
-		}
-		
-	}
-	
+    padding: 15px 0px 20px 0px;
+    overflow: hidden;
+
+    > div.type-label {
+
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+
+        > label {
+
+            display: inline-block;
+            padding: 0px 1px 12px 1px;
+            cursor: default;
+            color: $field-label-color;
+            line-height: 1.5em;
+
+            > span.required {
+
+                display: inline-block;
+                margin: 2px 0px 0px 5px;
+                width: 4px;
+                height: 4px;
+                vertical-align: top;
+                @include border-radius(2px);
+
+            }
+
+            &:hover {
+                color: #000000;
+            }
+
+        }
+
+        > span.tinycar-ui-main-help {
+            margin: 1px 0px 0px 6px;
+        }
+
+    }
+
+    > div.type-content {
+
+        > div.type-instructions {
+
+            clear: both;
+            padding: 10px 0px 0px 1px;
+            color: $field-instructions-color;
+            font-size: 0.9em;
+            line-height: 1.4em;
+
+        }
+
+    }
+
 }
 
 body.layout-main {
-	
-	div.tinycar-main-field {
-		padding: 25px 0px 30px 0px;
-	}
-	
+
+    div.tinycar-main-field {
+        padding: 25px 0px 30px 0px;
+    }
+
 }
 
 div#tinycar-ui-dialog {
-    
+
     div.tinycar-main-field {
-    
+
         padding: 0px 0px 5px 0px;
-        
+
         > div.type-label > label {
             color: $main-font-color;
         }
-        
+
         > div.type-content > div.type-instructions {
             color: $main-color-details;
         }
-    
+
     }
-    
+
 }
 
 @media (min-width: $view-tablet-width)
 {
-	
-	div.tinycar-main-field {
-		
-		> div.type-content > div.type-instructions {
-			padding-right: 30px;
-		}
-		
-	}
+
+    div.tinycar-main-field {
+
+        > div.type-content > div.type-instructions {
+            padding-right: 30px;
+        }
+
+    }
 
 }

@@ -1,260 +1,260 @@
 <?php
 
-	namespace Tinycar\System;
+namespace Tinycar\System;
 
-	use Tinycar\App\Config;
-	use Tinycar\App\Manager;
-	use Tinycar\Core\Exception;
-	use Tinycar\Core\Storage\Query;
+use Tinycar\App\Config;
+use Tinycar\App\Manager;
+use Tinycar\Core\Exception;
+use Tinycar\Core\Storage\Query;
 
-	class Storage
-	{
-		private $system;
-		private $query;
-
-
-		/**
-		 * Initiate class
-		 * @param object $system Tinycar\App\Manager instance
-		 */
-		public function __construct(Manager $system)
-		{
-			$this->system = $system;
-		}
+class Storage
+{
+    private $system;
+    private $query;
 
 
-		/**
-		 * Delete specified application
-		 * @param object $app target Tinycar\System\Application instance
-		 * @return bool operation outcome
-		 */
-		public function deleteApplication(Application $app)
-		{
-			// Get query to storage
-			$db = $this->getQuery();
-
-			// Bind variables
-			$db->bind('id:string', $app->getId());
-
-			// Delete from dateabase
-			$db->query('
-				DELETE
-				FROM apps
-				WHERE id=:id
-			');
-
-			// Failed to delete
-			if ($db->getAffectedRows() === 0)
-				return false;
-
-			// Remove application storage
-			$storage = $app->getStorage();
-			$storage->delete();
-
-			return true;
-		}
+    /**
+     * Initiate class
+     * @param object $system Tinycar\App\Manager instance
+     */
+    public function __construct(Manager $system)
+    {
+        $this->system = $system;
+    }
 
 
-		/**
-		 * Get specified application from storage
-		 * @param string $id target application id
-		 * @return object Tinycar\System\Application instance
-		 * @throws Tinycar\Core\Exception
-		 */
-		public function getApplicationById($id)
-		{
-			// Get query to storage
-			$db = $this->getQuery();
+    /**
+     * Delete specified application
+     * @param object $app target Tinycar\System\Application instance
+     * @return bool operation outcome
+     */
+    public function deleteApplication(Application $app)
+    {
+        // Get query to storage
+        $db = $this->getQuery();
 
-			// Bind variables
-			$db->bind('id:string', $id);
+        // Bind variables
+        $db->bind('id:string', $app->getId());
 
-			// Try to get data
-			$data = $db->getOne('
-				SELECT id, enabled, devmode, manifest
-				FROM apps
-				WHERE id=:id
-			');
+        // Delete from dateabase
+        $db->query('
+            DELETE
+            FROM apps
+            WHERE id=:id
+        ');
 
-			// No application found
-			if (is_null($data))
-			{
-				throw new Exception('app_id_invalid', array(
-					'id' => $id,
-				));
-			}
+        // Failed to delete
+        if ($db->getAffectedRows() === 0)
+            return false;
 
-			// Create new instance
-			$result = Application::loadFromStorage(
-				$this->system, $data
-			);
+        // Remove application storage
+        $storage = $app->getStorage();
+        $storage->delete();
 
-			// Initialize
-			$result->init();
-
-			return $result;
-		}
+        return true;
+    }
 
 
-		/**
-		 * Get applications from storage
-		 * @param bool $all all applications, regardless of enabled state
-		 * @return array list of Tinycar\System\Application instances
-		 */
-		public function getApplications($all = false)
-		{
-			// Get query to storage
-			$db = $this->getQuery();
+    /**
+     * Get specified application from storage
+     * @param string $id target application id
+     * @return object Tinycar\System\Application instance
+     * @throws Tinycar\Core\Exception
+     */
+    public function getApplicationById($id)
+    {
+        // Get query to storage
+        $db = $this->getQuery();
 
-			// Get only enabled applications
-			$sql = '
-				SELECT id, enabled, devmode, manifest
-				FROM apps
-				WHERE enabled=1
-				ORDER BY id
-			';
+        // Bind variables
+        $db->bind('id:string', $id);
 
-			// Get all only applications
-			if ($all === true)
-			{
-				$sql = '
-					SELECT id, enabled, devmode, manifest
-					FROM apps
-					ORDER BY id
-				';
-			}
+        // Try to get data
+        $data = $db->getOne('
+            SELECT id, enabled, devmode, manifest
+            FROM apps
+            WHERE id=:id
+        ');
 
-			// Try to get data
-			$data = $db->getAll($sql);
+        // No application found
+        if (is_null($data))
+        {
+            throw new Exception('app_id_invalid', array(
+                'id' => $id,
+            ));
+        }
 
-			$result = array();
+        // Create new instance
+        $result = Application::loadFromStorage(
+            $this->system, $data
+        );
 
-			// Create instances
-			foreach ($data as $item)
-			{
-				$result[] = Application::loadFromStorage(
-					$this->system, $item
-				);
-			}
+        // Initialize
+        $result->init();
 
-			return $result;
-		}
+        return $result;
+    }
 
 
-		/**
-		 * Get query instance to application storage
-		 * @return object Tinycar\Db\Query instance
-		 */
-		private function getQuery()
-		{
-			// Already resolved
-			if (!is_null($this->query))
-				return $this->query;
+    /**
+     * Get applications from storage
+     * @param bool $all all applications, regardless of enabled state
+     * @return array list of Tinycar\System\Application instances
+     */
+    public function getApplications($all = false)
+    {
+        // Get query to storage
+        $db = $this->getQuery();
 
-			// Create instance
-			$instance = new Query(Config::getPath('STORAGE_FOLDER',
-				'/database/system.db'
-			));
+        // Get only enabled applications
+        $sql = '
+            SELECT id, enabled, devmode, manifest
+            FROM apps
+            WHERE enabled=1
+            ORDER BY id
+        ';
 
-			// Remember
-			$this->query = $instance;
-			return $this->query;
-		}
+        // Get all only applications
+        if ($all === true)
+        {
+            $sql = '
+                SELECT id, enabled, devmode, manifest
+                FROM apps
+                ORDER BY id
+            ';
+        }
 
+        // Try to get data
+        $data = $db->getAll($sql);
 
-		/**
-		 * Insert specified application to storage
-		 * @param object $app target Tinycar\System\Application instance
-		 * @return bool operation outcome
-		 * @throws Tinycar\Core\Exception
-		 */
-		public function insertApplication(Application $app)
-		{
-			// Try to setup application storage
-			$storage = $app->getStorage();
-			$storage->setup();
+        $result = array();
 
-			// Get query to storage
-			$db = $this->getQuery();
+        // Create instances
+        foreach ($data as $item)
+        {
+            $result[] = Application::loadFromStorage(
+                $this->system, $item
+            );
+        }
 
-			// Get manifest instance
-			$manifest = $app->getManifest();
-
-			// Bind variables
-			$db->keys('id');
-			$db->bind('id:string', $app->getId());
-			$db->bind('enabled:bool', $app->isEnabled());
-			$db->bind('devmode:bool', $app->isInDevmode());
-			$db->bind('manifest:string', $manifest->getAsXml());
-
-			// Try to insert
-			$db->insert('apps');
-
-			return true;
-		}
+        return $result;
+    }
 
 
-		/**
-		 * Check to see if system storage has been installed
-		 * @return bool is installed
-		 */
-		public function isInstalled()
-		{
-			// Check if database file exists
-			return file_exists(Config::getPath('STORAGE_FOLDER',
-				'/database/system.db'
-			));
-		}
+    /**
+     * Get query instance to application storage
+     * @return object Tinycar\Db\Query instance
+     */
+    private function getQuery()
+    {
+        // Already resolved
+        if (!is_null($this->query))
+            return $this->query;
+
+        // Create instance
+        $instance = new Query(Config::getPath('STORAGE_FOLDER',
+            '/database/system.db'
+        ));
+
+        // Remember
+        $this->query = $instance;
+        return $this->query;
+    }
 
 
-		/**
-		 * Setup storage
-		 * @return bool operation otucome
-		 */
-		public function setup()
-		{
-			// Get query to storage
-			$db = $this->getQuery();
+    /**
+     * Insert specified application to storage
+     * @param object $app target Tinycar\System\Application instance
+     * @return bool operation outcome
+     * @throws Tinycar\Core\Exception
+     */
+    public function insertApplication(Application $app)
+    {
+        // Try to setup application storage
+        $storage = $app->getStorage();
+        $storage->setup();
 
-			// Create applications table
-			$db->query('
-				CREATE TABLE IF NOT EXISTS apps (
-					id TEXT,
-					enabled INTEGER DEFAULT 0,
-					devmode INTEGER DEFAULT 0,
-					manifest TEXT,
-					PRIMARY KEY (id)
-				)
-			');
+        // Get query to storage
+        $db = $this->getQuery();
 
-			return true;
-		}
+        // Get manifest instance
+        $manifest = $app->getManifest();
+
+        // Bind variables
+        $db->keys('id');
+        $db->bind('id:string', $app->getId());
+        $db->bind('enabled:bool', $app->isEnabled());
+        $db->bind('devmode:bool', $app->isInDevmode());
+        $db->bind('manifest:string', $manifest->getAsXml());
+
+        // Try to insert
+        $db->insert('apps');
+
+        return true;
+    }
 
 
-		/**
-		 * Update specified application's properties
-		 * @param object $app target Tinycar\System\Application instance
-		 * @return bool operation outcome
-		 * @throws Tinycar\Core\Exception
-		 */
-		public function updateApplication(Application $app)
-		{
-			// Get query to storage
-			$db = $this->getQuery();
+    /**
+     * Check to see if system storage has been installed
+     * @return bool is installed
+     */
+    public function isInstalled()
+    {
+        // Check if database file exists
+        return file_exists(Config::getPath('STORAGE_FOLDER',
+            '/database/system.db'
+        ));
+    }
 
-			// Get manifest instance
-			$manifest = $app->getManifest();
 
-			// Bind variables
-			$db->keys('id');
-			$db->bind('id:string', $app->getId());
-			$db->bind('enabled:bool', $app->isEnabled());
-			$db->bind('devmode:bool', $app->isInDevmode());
-			$db->bind('manifest:string', $manifest->getAsXml());
+    /**
+     * Setup storage
+     * @return bool operation otucome
+     */
+    public function setup()
+    {
+        // Get query to storage
+        $db = $this->getQuery();
 
-			// Try to update
-			$db->update('apps');
+        // Create applications table
+        $db->query('
+            CREATE TABLE IF NOT EXISTS apps (
+                id TEXT,
+                enabled INTEGER DEFAULT 0,
+                devmode INTEGER DEFAULT 0,
+                manifest TEXT,
+                PRIMARY KEY (id)
+            )
+        ');
 
-			return true;
-		}
-	}
+        return true;
+    }
+
+
+    /**
+     * Update specified application's properties
+     * @param object $app target Tinycar\System\Application instance
+     * @return bool operation outcome
+     * @throws Tinycar\Core\Exception
+     */
+    public function updateApplication(Application $app)
+    {
+        // Get query to storage
+        $db = $this->getQuery();
+
+        // Get manifest instance
+        $manifest = $app->getManifest();
+
+        // Bind variables
+        $db->keys('id');
+        $db->bind('id:string', $app->getId());
+        $db->bind('enabled:bool', $app->isEnabled());
+        $db->bind('devmode:bool', $app->isInDevmode());
+        $db->bind('manifest:string', $manifest->getAsXml());
+
+        // Try to update
+        $db->update('apps');
+
+        return true;
+    }
+}

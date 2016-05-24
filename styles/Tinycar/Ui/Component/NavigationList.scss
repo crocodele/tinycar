@@ -1,13 +1,13 @@
 div.tinycar-ui-component-navigationlist {
-    
+
     padding-top: 15px;
-	
-	> div.list {
-	
+
+    > div.list {
+
         border-top: 1px solid lighten($main-color-uigray, 5%);
-	
+
         > a.item {
-        
+
             display: block;
             padding: 16px 15px 16px 15px;
             border-bottom: 1px solid lighten($main-color-uigray, 5%);
@@ -15,28 +15,28 @@ div.tinycar-ui-component-navigationlist {
             cursor: pointer;
             outline: none;
             @include unselectable();
-            
+
             &:focus,
             &:hover {
-            
+
                 color: #000000;
                 text-decoration: none;
-               
+
             }
-            
+
             &:active {
-                color: $main-color-details;                
+                color: $main-color-details;
             }
-            
+
             &.is-active {
-            
+
                 color: #000000;
                 background-color: darken($main-color-background, 1%);
-                
+
             }
-            
-	    }
-	    
+
+        }
+
     }
-    
+
 }

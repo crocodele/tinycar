@@ -1,44 +1,44 @@
 div.tinycar-ui-component-image {
-    
+
     > img {
 
-        display: block;    
+        display: block;
         margin: 0px;
         max-width: 100%;
         border: none;
-        
+
     }
-    
+
     &.with-mobile-image {
-    
+
         > img.image-screen {
             display: none;
         }
-        
+
         > img.image-mobile {
             display: block;
         }
-        
+
     }
-        
+
 }
 
 @media (min-width: $view-tablet-width) {
-    
+
     div.tinycar-ui-component-image {
-    
+
         &.with-mobile-image {
-        
+
             > img.image-screen {
                 display: block;
             }
-            
+
             > img.image-mobile {
                 display: none;
             }
-            
+
         }
-        
+
     }
-    
+
 }

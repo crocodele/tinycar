@@ -1,8 +1,8 @@
 {
     "name": "antlau/tinycar",
-	"description": "Platform for running small admin user interfaces",
-	"type": "project",
-	"homepage": "https://github.com/antlau/tinycar.git",
+    "description": "Platform for running small admin user interfaces",
+    "type": "project",
+    "homepage": "https://github.com/antlau/tinycar.git",
     "license": "MIT",
     
     "autoload": {
@@ -22,8 +22,8 @@
     ],
     
     "support" : {
-    	"source" : "https://github.com/antlau/tinycar.git",
-    	"docs" : "http://github.com/antlau/tinycar/wiki",
-    	"issues" : "http://github.com/antlau/tinycar/issues"
+        "source" : "https://github.com/antlau/tinycar.git",
+        "docs" : "http://github.com/antlau/tinycar/wiki",
+        "issues" : "http://github.com/antlau/tinycar/issues"
     }
 }

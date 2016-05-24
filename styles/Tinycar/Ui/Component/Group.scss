@@ -1,60 +1,60 @@
 div.tinycar-ui-component-group {
-    
+
     > div.type-content {
-    
+
         > div.tinycar-main-field {
-    
+
             padding: 0px;
-            
+
             > div.type-label {
-            
+
                 position: relative;
                 padding: 4px 0px 0px 0px;
                 float: left;
                 z-index: 2;
-                
+
                 > label {
-                
+
                     padding-top: 0px;
                     padding-bottom: 0px;
                     line-height: 1.0em;
-                    
+
                 }
-                
+
             }
-            
+
             > div.type-content {
-    
+
                 position: relative;
                 padding: 0px;
                 z-index: 1;
-                
+
             }
-                
+
         }
     }
 
 }
 
 div.tinycar-ui-component-group.layout-table {
-        
+
     > div.type-content {
 
         padding: 0px;
         border: 1px solid $main-color-uigray;
         border-top: none;
         background-color: #ffffff;
-        
+
         > div.row {
-        
+
             > div.tinycar-main-component {
-            
+
                 position: relative;
                 padding: 10px 0px 10px 20px;
                 border-top: 1px solid $main-color-uigray;
-                
+
                 > div.type-label {
-                                
+
                     position: absolute;
                     left: -1px;
                     top: -1px;
@@ -65,84 +65,84 @@ div.tinycar-ui-component-group.layout-table {
                     box-sizing: border-box;
                     background-color: $main-color-background;
                     white-space: normal;
-                                    
+
                 }
-                
+
                 > div.type-content {
                     padding-left: 35%;
                 }
-                    
+
             }
-            
+
         }
-                        
+
     }
-    
+
 }
 
 @media (min-width: $view-tablet-width)
 {
 
     body.layout-main {
-    
+
         form.tinycar-ui-view {
-        
+
             > div.components {
-            
+
                 > div.tinycar-ui-component-group.layout-table {
-                
+
                     > div.type-label {
                         display: none;
                     }
-        
+
                     > div.type-content {
-                    
+
                         display: table;
                         width: 100%;
                         padding: 0px;
                         box-sizing: border-box;
                         border-collapse: collapse;
-                        
+
                         > div.row {
-                            
+
                             display: table-row;
-                            
+
                             > div.tinycar-main-component.is-visible {
-                            
+
                                 display: table-cell;
                                 border: 1px solid $main-color-uigray;
                                 vertical-align: top;
-                                
+
                             }
-                            
+
                         }
-                        
+
                     }
-                    
+
                 }
-                    
-                    
+
+
                 > div.tinycar-ui-component-group.layout-table.columns-2 {
-        
+
                     > div.type-content {
-                    
+
                         > div.row {
-                            
+
                             > div.tinycar-main-component {
                                 width: 50%;
                             }
-                            
-                            
+
+
                         }
-                        
+
                     }
-                    
+
                 }
-                
+
             }
-            
+
         }
-        
+
     }
-    
+
 }

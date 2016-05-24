@@ -32,7 +32,7 @@ module Tinycar.Ui
             // Add label
             if (this.Model.hasString('label'))
                 this.buildLabel();
-            
+
             // Add loading icon
             this.buildLoading();
 
@@ -71,7 +71,7 @@ module Tinycar.Ui
                 'button-' + this.Model.get('size') : 'button-default'
             ));
         }
-        
+
         // Build loading icon
         private buildLoading():void
         {
@@ -138,11 +138,11 @@ module Tinycar.Ui
             this.htmlRoot.click((e:Event) =>
             {
                 e.preventDefault();
-                
+
                 // Set as action node when we have a click handler
                 if (this.isEnabled && this.handlerList.hasOwnProperty('click'))
                     Tinycar.Page.setActionNode(this.htmlRoot);
-                
+
                 // Small delay for visual effect
                 window.setTimeout(() =>
                 {
@@ -176,7 +176,7 @@ module Tinycar.Ui
                 }
             });
         }
-        
+
         // Call specified handler
         callHandler(name:string, data?:any):void
         {
@@ -204,7 +204,7 @@ module Tinycar.Ui
                 this.htmlRoot.addClass('is-disabled');
             }
         }
-        
+
         // Set custom event hander
         setHandler(name:string, callback:Function):void
         {

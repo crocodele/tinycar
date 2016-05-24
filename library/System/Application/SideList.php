@@ -1,9 +1,9 @@
 <?php
 
-	namespace Tinycar\System\Application;
+namespace Tinycar\System\Application;
 
-	use Tinycar\System\Application\Xml\Section;
+use Tinycar\System\Application\Xml\Section;
 
-	class SideList extends Section
-	{
-	}
+class SideList extends Section
+{
+}

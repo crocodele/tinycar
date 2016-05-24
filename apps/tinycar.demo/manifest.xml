@@ -1,296 +1,296 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-	
-	<app>
-		<name>Demo Application</name>
-		<provider>Tinycar</provider>
-		<description>Demo application for testing different kind of components</description>
-		<color>#9a5eac</color>
-	</app>
-	
-	<locale>
-		<text name="add_new_film">Add new film</text>
-		<text name="categories">Categories</text>
-		<text name="children_allowed">Children allowed</text>
-		<text name="children_are_allowed">Allowed for children</text>
-		<text name="children_not_allowed">Not allowed for children</text>
-		<text name="film">Film</text>
-		<text name="heading">Demo Application</text>
-		<text name="lorem_instructions">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</text>
-		<text name="miniseries">Miniseries</text>
-		<text name="new_film">New film</text>
-		<text name="other">Other</text>
-		<text name="publish_year">Publish year</text>
-		<text name="rating">Rating</text>
-		<text name="sequel_film">Sequel film</text>
-		<text name="stars_1">1 star</text>
-		<text name="stars_2">2 stars</text>
-		<text name="stars_3">3 stars</text>
-		<text name="stars_4">4 stars</text>
-		<text name="stars_5">5 stars</text>
-		<text name="summary">Summary</text>
-		<text name="tv_show">TV show</text>
-		<text name="visibility_time">Visibility time</text>
-		<text name="year">Year</text>
-	</locale>
-	
-	<model>
-		<property name="name" required="true" />
-		<property name="start_time" type="epoch" />
-		<property name="stop_time" type="epoch" />
-		<property name="publish_year" type="int" />
-		<property name="genre_type" type="string" />
-		<property name="rating" type="int" />
-		<property name="children_allowed" />
-		<property name="summary" />
-		<property name="content" />
-		<property name="release_confirmed" type="bool" />
-		<property name="available" type="bool" />
-		<property name="enabled" type="bool" />
-		<property name="visible" type="bool" />
-		<property name="video_on_demand" type="bool" />
-		<property name="tags" type="list" />
-		<property name="sequel_film" type="list" />
-		<property name="author" />
-	</model>
-	
-	<view>
-	
-		<heading>$app.name</heading>
-		
-		<actions>
-			<action type="add" label="$locale.add_new_film">
-				<link view="edit" />
-			</action>
-		</actions>
-		
-		<component type="DataGrid">
-			<data service="storage.rows" />
-			<link view="edit" id="$model.id" />
-			<columns>
-				<column name="$model.publish_year" label="$locale.year" width="100" />
-				<column name="$model.name" />
-				<column name="$model.created_time" label="$locale.modified" format="$format.date" width="200" />
-			</columns>
-		</component>
-		
-	</view>
-	
-	<view name="edit" data="$url.id">
-	
-		<data>
-			<property name="$model.name" value="$locale.new_film" />
-			<property name="$model.publish_year" value="2016" />
-		</data>
-	
+    
+    <app>
+        <name>Demo Application</name>
+        <provider>Tinycar</provider>
+        <description>Demo application for testing different kind of components</description>
+        <color>#9a5eac</color>
+    </app>
+    
+    <locale>
+        <text name="add_new_film">Add new film</text>
+        <text name="categories">Categories</text>
+        <text name="children_allowed">Children allowed</text>
+        <text name="children_are_allowed">Allowed for children</text>
+        <text name="children_not_allowed">Not allowed for children</text>
+        <text name="film">Film</text>
+        <text name="heading">Demo Application</text>
+        <text name="lorem_instructions">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</text>
+        <text name="miniseries">Miniseries</text>
+        <text name="new_film">New film</text>
+        <text name="other">Other</text>
+        <text name="publish_year">Publish year</text>
+        <text name="rating">Rating</text>
+        <text name="sequel_film">Sequel film</text>
+        <text name="stars_1">1 star</text>
+        <text name="stars_2">2 stars</text>
+        <text name="stars_3">3 stars</text>
+        <text name="stars_4">4 stars</text>
+        <text name="stars_5">5 stars</text>
+        <text name="summary">Summary</text>
+        <text name="tv_show">TV show</text>
+        <text name="visibility_time">Visibility time</text>
+        <text name="year">Year</text>
+    </locale>
+    
+    <model>
+        <property name="name" required="true" />
+        <property name="start_time" type="epoch" />
+        <property name="stop_time" type="epoch" />
+        <property name="publish_year" type="int" />
+        <property name="genre_type" type="string" />
+        <property name="rating" type="int" />
+        <property name="children_allowed" />
+        <property name="summary" />
+        <property name="content" />
+        <property name="release_confirmed" type="bool" />
+        <property name="available" type="bool" />
+        <property name="enabled" type="bool" />
+        <property name="visible" type="bool" />
+        <property name="video_on_demand" type="bool" />
+        <property name="tags" type="list" />
+        <property name="sequel_film" type="list" />
+        <property name="author" />
+    </model>
+    
+    <view>
+    
+        <heading>$app.name</heading>
+    
+        <actions>
+            <action type="add" label="$locale.add_new_film">
+                <link view="edit" />
+            </action>
+        </actions>
+    
+        <component type="DataGrid">
+            <data service="storage.rows" />
+            <link view="edit" id="$model.id" />
+            <columns>
+                <column name="$model.publish_year" label="$locale.year" width="100" />
+                <column name="$model.name" />
+                <column name="$model.created_time" label="$locale.modified" format="$format.date" width="200" />
+            </columns>
+        </component>
+    
+    </view>
+    
+    <view name="edit" data="$url.id">
+    
+        <data>
+            <property name="$model.name" value="$locale.new_film" />
+            <property name="$model.publish_year" value="2016" />
+        </data>
+    
         <layout>fieldlist</layout>
-		<heading>$data.name</heading>
-		
-		<tabs>
-			<tab name="properties" label="$locale.properties" />
-			<tab name="categories" label="$locale.categories" />
-			<tab name="content" label="$locale.content" />
-		</tabs>
-		
-		<actions>
-			<action type="save">
-				<link view="edit" id="$model.id" />
-			</action>
-			<action type="remove" dialog="remove" />
-		</actions>
-		
-		<component type="TextInput" tab="properties">
-			<label>$locale.name</label>
-			<data name="$model.name" />
-			<help>You might not understand this if you do not read the instructions first</help>
-			<instructions>$locale.lorem_instructions</instructions>
-		</component>
-		
-		<component type="Group" tab="properties">
-		
-			<label>$locale.visibility_time</label>
-		
-			<component type="DateTime">
-				<data name="$model.start_time" default="$date.time" />
-			</component>
-			
-			<component type="DateTime">
-				<data name="$model.stop_time" />
-			</component>
-			
-		</component>
-		
-		<component type="Toggle" tab="properties">
-			<data name="$model.available" />
-			<label>Available</label>
-			<help>You might not understand this if you do not read the instructions first</help>
-			<instructions>$locale.lorem_instructions</instructions>
-		</component>
-		
-		<component type="TextInput" tab="properties">
-			<label>$locale.publish_year</label>
-			<data name="$model.publish_year" />
-			<maxlength>4</maxlength>
-		</component>
-		
-		<component type="Reference" tab="properties">
-			<label>$locale.sequel_film</label>
-			<item>name</item>
-			<data name="$model.sequel_film" limit="1" dialog="tinycar.demo:parent" />
-			<instructions>$locale.lorem_instructions</instructions>
-		</component>
-		
-		<component type="CheckBox" tab="properties">
-			<data name="$model.release_confirmed" />
-			<label>Release confirmed</label>
-			<help>You might not understand this if you do not read the instructions first</help>
-			<instructions>$locale.lorem_instructions</instructions>
-		</component>
-
-		<component type="RadioList" tab="categories">
-			<label>$locale.children_allowed</label>
-			<data name="$model.children_allowed" default="3" />
-			<options>
-				<option name="yes" label="$locale.children_are_allowed">
-					<help>You might not understand this if you do not read the instructions first</help>
-					<instructions>$locale.lorem_instructions</instructions>
-				</option>
-				<option name="no" label="$locale.children_not_allowed">
-					<help>You might not understand this if you do not read the instructions first</help>
-					<instructions>$locale.lorem_instructions</instructions>
-				</option>
-			</options>
-		</component>
-		
-		<component type="Group" tab="categories">
-		
-			<label>Properties</label>
-		
-			<component type="Toggle">
-				<data name="$model.enabled" />
-				<label>Enabled</label>
-				<help>You might not understand this if you do not read the instructions first</help>
-			</component>
-			
-			<component type="Toggle">
-				<data name="$model.visible" />
-				<label>Visible</label>
-			</component>
-			
-			<component type="CheckBox">
-				<data name="$model.video_on_demand" />
-				<label>Video-on-demand</label>
-				<instructions>$locale.lorem_instructions</instructions>
-			</component>		
-		
-		</component>
-		
-		<component type="SelectList"  tab="categories">
-			<label>$locale.type</label>
-			<data name="$model.genre_type" default="tvshow" />
-			<options>
-				<option name="film" label="$locale.film" />
-				<option name="tvshow" label="$locale.tv_show" />
-				<option name="miniseries" label="$locale.miniseries" />
-				<option name="other" label="$locale.other" />
-			</options>
-		</component>
-		
-		<component type="RadioList" tab="categories">
-			<label>$locale.rating</label>
-			<data name="$model.rating" default="3" />
-			<layout>horizontal</layout>
-			<options>
-				<option name="1" label="$locale.stars_1" />
-				<option name="2" label="$locale.stars_2">
-					<help>You might not understand this if you do not read the instructions first</help>
-				</option>
-				<option name="3" label="$locale.stars_3" />
-				<option name="4" label="$locale.stars_4" />
-				<option name="5" label="$locale.stars_5" />
-			</options>
-		</component>
-		
-		<component type="TagsList" tab="categories">
-			<label>Tags</label>
-			<data name="$model.tags" />
-			<placeholder>Write a tag...</placeholder>
-			<instructions>$locale.lorem_instructions</instructions>
-		</component>
-		
-		<component type="TextInput" tab="content">
-			<label>$locale.summary</label>
-			<data name="$model.summary" />
-			<placeholder>Short summary about the film</placeholder>
-			<rows>2</rows>
-		</component>
-		
-		<component type="RichText" tab="content">
-			<label>$locale.content</label>
-			<data name="$model.content" />
-			<placeholder>Film plotline</placeholder>
-		</component>
-		
-	</view>
-	
-	<dialog name="remove" data="$url.id">
-	
-		<heading>$locale.dialog_confirm</heading>
-		
-		<component type="TextContent">
-			<var name="name">$model.name</var>
-			<text>Are you sure you want to remove item called $name?</text>	
-		</component>
-		
-		<actions>
-			<action type="ok" service="storage.remove">
-				<link view="default" />
-			</action>
-			<action type="cancel" />
-		</actions>
-	
-	</dialog>
-	
-	
-	<dialog name="parent" data="$url.id">
-	
-		<heading>Select film</heading>
-		
-		<component type="DataGrid">
-			<data service="storage.rows" />
-			<columns>
-				<column name="$model.publish_year" label="$locale.year" width="100" />
-				<column name="$model.name" />
-			</columns>
-		</component>
-		
-		<actions>
-			<action type="select" label="$locale.action_ok">
-				<link view="default" />
-			</action>
-			<action type="cancel" />
-		</actions>
-	
-	</dialog>
-
-	<!--	
-	
-	<webhook action="storage.rows">
-		<url>http://..</url>
-	</webhook>
-	
-	<webhook action="storage.insert">
-		<url>http://..</url>
-	</webhook>
-	
-	<webhook action="storage.update">
-		<url>http://..</url>
-	</webhook>
-	
-	<webhook action="storage.remove">
-		<url>http://..</url>
-	</webhook>
-	
-	-->
-	
+        <heading>$data.name</heading>
+    
+        <tabs>
+            <tab name="properties" label="$locale.properties" />
+            <tab name="categories" label="$locale.categories" />
+            <tab name="content" label="$locale.content" />
+        </tabs>
+    
+        <actions>
+            <action type="save">
+                <link view="edit" id="$model.id" />
+            </action>
+            <action type="remove" dialog="remove" />
+        </actions>
+    
+        <component type="TextInput" tab="properties">
+            <label>$locale.name</label>
+            <data name="$model.name" />
+            <help>You might not understand this if you do not read the instructions first</help>
+            <instructions>$locale.lorem_instructions</instructions>
+        </component>
+    
+        <component type="Group" tab="properties">
+    
+            <label>$locale.visibility_time</label>
+    
+            <component type="DateTime">
+                <data name="$model.start_time" default="$date.time" />
+            </component>
+    
+            <component type="DateTime">
+                <data name="$model.stop_time" />
+            </component>
+    
+        </component>
+    
+        <component type="Toggle" tab="properties">
+            <data name="$model.available" />
+            <label>Available</label>
+            <help>You might not understand this if you do not read the instructions first</help>
+            <instructions>$locale.lorem_instructions</instructions>
+        </component>
+    
+        <component type="TextInput" tab="properties">
+            <label>$locale.publish_year</label>
+            <data name="$model.publish_year" />
+            <maxlength>4</maxlength>
+        </component>
+    
+        <component type="Reference" tab="properties">
+            <label>$locale.sequel_film</label>
+            <item>name</item>
+            <data name="$model.sequel_film" limit="1" dialog="tinycar.demo:parent" />
+            <instructions>$locale.lorem_instructions</instructions>
+        </component>
+    
+        <component type="CheckBox" tab="properties">
+            <data name="$model.release_confirmed" />
+            <label>Release confirmed</label>
+            <help>You might not understand this if you do not read the instructions first</help>
+            <instructions>$locale.lorem_instructions</instructions>
+        </component>
+    
+        <component type="RadioList" tab="categories">
+            <label>$locale.children_allowed</label>
+            <data name="$model.children_allowed" default="3" />
+            <options>
+                <option name="yes" label="$locale.children_are_allowed">
+                    <help>You might not understand this if you do not read the instructions first</help>
+                    <instructions>$locale.lorem_instructions</instructions>
+                </option>
+                <option name="no" label="$locale.children_not_allowed">
+                    <help>You might not understand this if you do not read the instructions first</help>
+                    <instructions>$locale.lorem_instructions</instructions>
+                </option>
+            </options>
+        </component>
+    
+        <component type="Group" tab="categories">
+    
+            <label>Properties</label>
+    
+            <component type="Toggle">
+                <data name="$model.enabled" />
+                <label>Enabled</label>
+                <help>You might not understand this if you do not read the instructions first</help>
+            </component>
+    
+            <component type="Toggle">
+                <data name="$model.visible" />
+                <label>Visible</label>
+            </component>
+    
+            <component type="CheckBox">
+                <data name="$model.video_on_demand" />
+                <label>Video-on-demand</label>
+                <instructions>$locale.lorem_instructions</instructions>
+            </component>
+    
+        </component>
+    
+        <component type="SelectList"  tab="categories">
+            <label>$locale.type</label>
+            <data name="$model.genre_type" default="tvshow" />
+            <options>
+                <option name="film" label="$locale.film" />
+                <option name="tvshow" label="$locale.tv_show" />
+                <option name="miniseries" label="$locale.miniseries" />
+                <option name="other" label="$locale.other" />
+            </options>
+        </component>
+    
+        <component type="RadioList" tab="categories">
+            <label>$locale.rating</label>
+            <data name="$model.rating" default="3" />
+            <layout>horizontal</layout>
+            <options>
+                <option name="1" label="$locale.stars_1" />
+                <option name="2" label="$locale.stars_2">
+                    <help>You might not understand this if you do not read the instructions first</help>
+                </option>
+                <option name="3" label="$locale.stars_3" />
+                <option name="4" label="$locale.stars_4" />
+                <option name="5" label="$locale.stars_5" />
+            </options>
+        </component>
+    
+        <component type="TagsList" tab="categories">
+            <label>Tags</label>
+            <data name="$model.tags" />
+            <placeholder>Write a tag...</placeholder>
+            <instructions>$locale.lorem_instructions</instructions>
+        </component>
+    
+        <component type="TextInput" tab="content">
+            <label>$locale.summary</label>
+            <data name="$model.summary" />
+            <placeholder>Short summary about the film</placeholder>
+            <rows>2</rows>
+        </component>
+    
+        <component type="RichText" tab="content">
+            <label>$locale.content</label>
+            <data name="$model.content" />
+            <placeholder>Film plotline</placeholder>
+        </component>
+    
+    </view>
+    
+    <dialog name="remove" data="$url.id">
+    
+        <heading>$locale.dialog_confirm</heading>
+    
+        <component type="TextContent">
+            <var name="name">$model.name</var>
+            <text>Are you sure you want to remove item called $name?</text>
+        </component>
+    
+        <actions>
+            <action type="ok" service="storage.remove">
+                <link view="default" />
+            </action>
+            <action type="cancel" />
+        </actions>
+    
+    </dialog>
+    
+    
+    <dialog name="parent" data="$url.id">
+    
+        <heading>Select film</heading>
+    
+        <component type="DataGrid">
+            <data service="storage.rows" />
+            <columns>
+                <column name="$model.publish_year" label="$locale.year" width="100" />
+                <column name="$model.name" />
+            </columns>
+        </component>
+    
+        <actions>
+            <action type="select" label="$locale.action_ok">
+                <link view="default" />
+            </action>
+            <action type="cancel" />
+        </actions>
+    
+    </dialog>
+    
+    <!--
+    
+    <webhook action="storage.rows">
+        <url>http://..</url>
+    </webhook>
+    
+    <webhook action="storage.insert">
+        <url>http://..</url>
+    </webhook>
+    
+    <webhook action="storage.update">
+        <url>http://..</url>
+    </webhook>
+    
+    <webhook action="storage.remove">
+        <url>http://..</url>
+    </webhook>
+    
+-->
+    
 </manifest>

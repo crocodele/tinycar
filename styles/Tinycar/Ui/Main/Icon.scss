@@ -1,65 +1,65 @@
 a.tinycar-ui-main-icon {
-	
-	display: block;
-	float: left;
-	padding: 20px 20px 20px 20px;
-	width: 120px;
-	height: 140px;
-	color: $main-font-color;
-	text-align: center;
-	overflow: hidden;
-	cursor: pointer;
-	outline: none;
-	box-sizing: border-box;
-	@include unselectable();
-	
-	> span.icon {
-	
-		display: block;
-		margin: 0px auto 0px auto;
-		width: 60px;
-		height: 60px;
-		border: 1px solid rgba(0, 0, 0, 0.2);
-		background-color: $main-color-uigray;
-		background-repeat: no-repeat;
-		background-position: center center;
-		background-size: contain;
-		@include border-radius(3px);
-	 
-	}
-	
-	> span.label {
-	
-		display: inline-block;
-		margin: 5px 0px 0px 0px;
-		padding: 3px 6px 5px 6px;
-		overflow: hidden;
-		line-height: 1.25em;
-		@include border-radius(2px);
-		
-	}
-	
-	&:hover {
-	
-		> span.label {
-		
-			background-color: $main-hover-background;
-			color: $main-font-color;
-			
-		}
-		
-	}
-	
-	&:active,
-	&:focus {
-	
-		> span.label {
-		
-			background-color: $main-active-background;
-			color: $main-font-color;
-			
-		}
 
-	}
-	
+    display: block;
+    float: left;
+    padding: 20px 20px 20px 20px;
+    width: 120px;
+    height: 140px;
+    color: $main-font-color;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    @include unselectable();
+
+    > span.icon {
+
+        display: block;
+        margin: 0px auto 0px auto;
+        width: 60px;
+        height: 60px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        background-color: $main-color-uigray;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        @include border-radius(3px);
+
+    }
+
+    > span.label {
+
+        display: inline-block;
+        margin: 5px 0px 0px 0px;
+        padding: 3px 6px 5px 6px;
+        overflow: hidden;
+        line-height: 1.25em;
+        @include border-radius(2px);
+
+    }
+
+    &:hover {
+
+        > span.label {
+
+            background-color: $main-hover-background;
+            color: $main-font-color;
+
+        }
+
+    }
+
+    &:active,
+    &:focus {
+
+        > span.label {
+
+            background-color: $main-active-background;
+            color: $main-font-color;
+
+        }
+
+    }
+
 }

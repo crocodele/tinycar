@@ -1,9 +1,9 @@
 <?php
 
-	namespace Tinycar\System\Application;
+namespace Tinycar\System\Application;
 
-	use Tinycar\System\Application\View;
+use Tinycar\System\Application\View;
 
-	class Dialog extends View
-	{
-	}
+class Dialog extends View
+{
+}

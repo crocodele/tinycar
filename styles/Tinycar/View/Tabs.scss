@@ -1,11 +1,11 @@
 div.tinycar-view-tabs {
-    
+
     position: relative;
     margin: 0px 0px 30px 0px;
     min-height: 2px;
-        
+
     > a.item {
-    
+
         position: relative;
         display: inline-block;
         margin: 0px 10px 0px 0px;
@@ -15,24 +15,24 @@ div.tinycar-view-tabs {
         cursor: pointer;
         z-index: 2;
         @include unselectable();
-        
+
         &:focus,
         &:hover {
             color: $main-font-color;
         }
-        
+
         &:active {
             outline: 0;
         }
-        
+
         &.is-active {
             text-decoration: none;
         }
-        
+
     }
-    
+
     > span.line {
-    
+
         position: absolute;
         left: 0px;
         bottom: 0px;
@@ -40,7 +40,7 @@ div.tinycar-view-tabs {
         height: 2px;
         background-color: $main-color-uigray;
         z-index: 2;
-            
+
     }
 
 }

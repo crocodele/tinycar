@@ -1,127 +1,127 @@
 div.tinycar-ui-component-checkbox {
 
-	> div.type-content {
+    > div.type-content {
 
-		> div.field {
+        > div.field {
 
-			position: relative;
-			padding: 0px 20px 0px 0px;
+            position: relative;
+            padding: 0px 20px 0px 0px;
 
-			> input {
+            > input {
 
-				position: absolute;
-				left: 6px;
-				top: 6px;
-				display: block;
-				margin: 0px;
-				padding: 0px;
+                position: absolute;
+                left: 6px;
+                top: 6px;
+                display: block;
+                margin: 0px;
+                padding: 0px;
 
-			}
+            }
 
-			> label {
+            > label {
 
-				position: relative;
-				display: inline-block;
-				padding: 3px 5px 3px 30px;
-				cursor: pointer;
-				vertical-align: top;
-				@include unselectable();
+                position: relative;
+                display: inline-block;
+                padding: 3px 5px 3px 30px;
+                cursor: pointer;
+                vertical-align: top;
+                @include unselectable();
 
-			}
+            }
 
-			> span.tinycar-ui-main-help {
-				margin: 3px 0px 0px 6px;
-			}
+            > span.tinycar-ui-main-help {
+                margin: 3px 0px 0px 6px;
+            }
 
-		}
+        }
 
-		> div.type-instructions {
-			padding: 0px 0px 0px 35px;
-		}
+        > div.type-instructions {
+            padding: 0px 0px 0px 35px;
+        }
 
-	}
+    }
 
 }
 
 div.tinycar-ui-component-checkbox:not(old) {
 
-	> div.type-content {
+    > div.type-content {
 
-		> div.field {
+        > div.field {
 
-			padding: 5px 20px 5px 5px;
+            padding: 5px 20px 5px 5px;
 
-			> input {
-				opacity: 0;
-			}
+            > input {
+                opacity: 0;
+            }
 
-			> label {
+            > label {
 
-				> span.mark {
+                > span.mark {
 
-					position: absolute;
-					left: 0px;
-					top: 2px;
-					display: block;
-					width: 16px;
-					height: 16px;
-					border: 1px solid darken($field-border-color, 20%);
-					background-color: #ffffff;
-					overflow: hidden;
-					@include border-radius(2px);
+                    position: absolute;
+                    left: 0px;
+                    top: 2px;
+                    display: block;
+                    width: 16px;
+                    height: 16px;
+                    border: 1px solid darken($field-border-color, 20%);
+                    background-color: #ffffff;
+                    overflow: hidden;
+                    @include border-radius(2px);
 
-					> span.icon {
+                    > span.icon {
 
-						position: absolute;
-						left: -2px;
-						top: -2px;
-						display: block;
-						@include transform(scale(0));
-						@include transition-attr(transform 0.1s ease 0.1s);
+                        position: absolute;
+                        left: -2px;
+                        top: -2px;
+                        display: block;
+                        @include transform(scale(0));
+                        @include transition-attr(transform 0.1s ease 0.1s);
 
-					}
+                    }
 
-				}
+                }
 
-			}
+            }
 
-			> input:focus + label > span.mark {
-				@include outline();
-			}
+            > input:focus + label > span.mark {
+                @include outline();
+            }
 
-			> input:checked + label > span.mark > span.icon {
-				@include transform(scale(1.0));
-			}
+            > input:checked + label > span.mark > span.icon {
+                @include transform(scale(1.0));
+            }
 
-		}
+        }
 
-	}
+    }
 
 }
 
 div.tinycar-ui-component-group {
 
-	> div.type-content {
+    > div.type-content {
 
-		> div.tinycar-ui-component-checkbox {
+        > div.tinycar-ui-component-checkbox {
 
-			padding: 6px 15px 6px 15px;
-			border-bottom: 1px solid $main-color-uigray;
+            padding: 6px 15px 6px 15px;
+            border-bottom: 1px solid $main-color-uigray;
 
-			> div.type-content > div.type-instructions {
-				padding-bottom: 10px;
-			}
+            > div.type-content > div.type-instructions {
+                padding-bottom: 10px;
+            }
 
-			&:first-child {
-				border-top: 1px solid $main-color-uigray;
-			}
+            &:first-child {
+                border-top: 1px solid $main-color-uigray;
+            }
 
-			&:nth-child(odd) {
-				background-color: darken($main-color-background, 3%);
-			}
+            &:nth-child(odd) {
+                background-color: darken($main-color-background, 3%);
+            }
 
-		}
+        }
 
-	}
+    }
 
 }

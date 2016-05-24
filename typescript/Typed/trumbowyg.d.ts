@@ -1,5 +1,4 @@
-
 interface JQuery
 {
-	trumbowyg(config?:Object): any;
+    trumbowyg(config?:Object): any;
 }

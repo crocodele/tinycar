@@ -1,40 +1,40 @@
 div.tinycar-ui-component-textcontent {
-	
-	> div.text {
-	
-		padding-right: 30px;
-		line-height: 1.6em;
-		color: $field-instructions-color;
-		
-		> span.var {
-			text-decoration: underline;
-		}
-	
-	    &.align-center {
-	    
-	        padding-left: 30px;
-	        text-align: center;
-	        
+
+    > div.text {
+
+        padding-right: 30px;
+        line-height: 1.6em;
+        color: $field-instructions-color;
+
+        > span.var {
+            text-decoration: underline;
         }
-	}
-	
+
+        &.align-center {
+
+            padding-left: 30px;
+            text-align: center;
+
+        }
+    }
+
 }
 
 body.layout-modal {
-    
+
     div.tinycar-ui-component-textcontent {
-    
+
         padding-top: 15px;
         padding-bottom: 15px;
-        
+
     }
-    
+
 }
 
 div#tinycar-ui-dialog {
-    
+
     div.tinycar-ui-component-textcontent {
         padding-bottom: 20px;
     }
-    
+
 }

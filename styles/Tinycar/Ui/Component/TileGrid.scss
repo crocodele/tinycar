@@ -1,111 +1,111 @@
 div.tinycar-ui-component-tilegrid {
-	
-	> div.table {
-	
-		overflow: hidden;
-		border-top: 1px solid $main-color-uigray;
-		
-		> a.item {
-		
-			position: relative;
-			display: block;
-			padding: 15px 10px 15px 75px;
-			min-height: 75px;
-			border-bottom: 1px solid $main-color-uigray;
-			color: $main-font-color;
-			box-sizing: border-box;
-			cursor: pointer;
-			text-decoration: none;
-			outline: none;
-			overflow: hidden;
-			@include unselectable();
-			
-			> span.image {
-			
-				position: absolute;
-				left: 20px;
-				top: 15px;
-				width: 40px;
-				height: 40px;
-				border: 1px solid rgba(0, 0, 0, 0.2);
-				background-repeat: no-repeat;
-				background-position: center center;
-				background-size: contain;
-				@include border-radius(3px);
-				
-			}
-			
-			> span.label {
-			
-				display: block;
-				line-height: 1.3em;
-				
-			}
-			
-			> span.description {
-			
-				display: block;
-				padding: 3px 0px 3px 0px;
-				color: $main-color-details;
-				font-size: 0.9em;
-				
-			}
-			
-			> span.status {
-			
-				position: absolute;
-				right: 20px;
-				top: 20px;
-				padding: 2px 1px 0px 1px;
-				border-top: 2px solid lighten($main-color-uigray, 10%);
-				font-size: 0.85em;
-				
-				&.status-installed {
-					border-color: $main-success-background;
-				}
-				
-				&.status-devmode {
-					border-color: $main-failure-background;
-				}
-				
-				&.status-disabled {
-					border-color: $main-color-uigray;
-				}
-				
-			}
-			
-			&:hover {
-				background-color: #ffffff;
-			}
-			
-			&:active {
-				background-color: darken($main-color-background, 3%);				
-			}
-			
-		}
-		
-	}
-	
+
+    > div.table {
+
+        overflow: hidden;
+        border-top: 1px solid $main-color-uigray;
+
+        > a.item {
+
+            position: relative;
+            display: block;
+            padding: 15px 10px 15px 75px;
+            min-height: 75px;
+            border-bottom: 1px solid $main-color-uigray;
+            color: $main-font-color;
+            box-sizing: border-box;
+            cursor: pointer;
+            text-decoration: none;
+            outline: none;
+            overflow: hidden;
+            @include unselectable();
+
+            > span.image {
+
+                position: absolute;
+                left: 20px;
+                top: 15px;
+                width: 40px;
+                height: 40px;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: contain;
+                @include border-radius(3px);
+
+            }
+
+            > span.label {
+
+                display: block;
+                line-height: 1.3em;
+
+            }
+
+            > span.description {
+
+                display: block;
+                padding: 3px 0px 3px 0px;
+                color: $main-color-details;
+                font-size: 0.9em;
+
+            }
+
+            > span.status {
+
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                padding: 2px 1px 0px 1px;
+                border-top: 2px solid lighten($main-color-uigray, 10%);
+                font-size: 0.85em;
+
+                &.status-installed {
+                    border-color: $main-success-background;
+                }
+
+                &.status-devmode {
+                    border-color: $main-failure-background;
+                }
+
+                &.status-disabled {
+                    border-color: $main-color-uigray;
+                }
+
+            }
+
+            &:hover {
+                background-color: #ffffff;
+            }
+
+            &:active {
+                background-color: darken($main-color-background, 3%);
+            }
+
+        }
+
+    }
+
 }
 
 @media (min-width: $view-tablet-width)
 {
-	div.tinycar-ui-component-tilegrid {
-		
-		> div.table {
-		
-			> a.item {
-			
-				float: left;
-				width: 50%;
-				
-				&:nth-child(odd) {
-					border-right: 1px solid $main-color-uigray;
-				}
-				
-			}
-			
-		}
-		
-	}
+    div.tinycar-ui-component-tilegrid {
+
+        > div.table {
+
+            > a.item {
+
+                float: left;
+                width: 50%;
+
+                &:nth-child(odd) {
+                    border-right: 1px solid $main-color-uigray;
+                }
+
+            }
+
+        }
+
+    }
 }

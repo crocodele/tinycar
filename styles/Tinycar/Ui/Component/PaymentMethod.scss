@@ -9,7 +9,7 @@ div.tinycar-ui-component-paymentmethod {
             border: 1px solid lighten($main-color-uigray, 5%);
             background-color: lighten($main-color-uigray, 11%);
             @include border-radius(2px);
-            
+
         }
 
         > div.list {
@@ -27,7 +27,7 @@ div.tinycar-ui-component-paymentmethod {
                 background-color: #ffffff;
                 cursor: pointer;
                 @include unselectable();
-                
+
                 > img.image {
 
                     display: block;
@@ -48,13 +48,13 @@ div.tinycar-ui-component-paymentmethod {
 
                     border-color: darken($main-color-uigray, 5%);
                     outline: none;
-                    
+
                 }
 
             }
-            
+
         }
 
     }
-    
+
 }

@@ -1,45 +1,45 @@
 div.tinycar-ui-component-listwidget {
-    
+
     padding: 30px 0px 30px 0px;
-    
+
     > div.heading {
- 
-        padding: 0px 0px 20px 2px;   
+
+        padding: 0px 0px 20px 2px;
         font-size: 1.2em;
-        
+
     }
-    
+
     > div.list {
-    
+
         border: 1px solid $main-color-uigray;
         background-color: #ffffff;
-        
+
         > .item {
-        
+
             display: block;
             padding: 12px 15px 12px 15px;
             color: $main-font-color;
             border-bottom: 1px solid $main-color-uigray;
-            
+
             > span.column {
-                
+
                 display: block;
                 padding: 3px 0px 3px 0px;
-                
+
             }
-            
+
             &:Last-child {
                 border-bottom: none;
-            }            
+            }
         }
-        
-        
+
+
         > a.item {
-        
+
             cursor: pointer;
             outline: none;
             @include unselectable();
-            
+
             &:focus,
             &:hover {
 
@@ -48,43 +48,43 @@ div.tinycar-ui-component-listwidget {
                 text-decoration: none;
 
             }
-            
+
             &:active {
                 background-color: darken($main-color-background, 1%);
             }
 
         }
-        
+
     }
-    
+
 }
 
 @media (min-width: $view-tablet-width)
 {
     div.tinycar-ui-component-listwidget {
-        
+
         > div.list {
-        
+
             display: table;
             width: 100%;
             border-collapse: collapse;
             box-sizing: border-box;
-            
+
             > .item {
-            
+
                 display: table-row;
                 padding: 0px;
-                
+
                 > span.column {
-                
+
                     display: table-cell;
                     padding: 12px 15px 12px 15px;
                     border-bottom: 1px solid $main-color-uigray;
-                    
+
                 }
             }
-            
+
         }
-        
+
     }
 }

@@ -1,345 +1,345 @@
 module Tinycar.Ui
 {
-	interface IComponentData
-	{
-		[key:string]:Object;
-	}
+    interface IComponentData
+    {
+        [key:string]:Object;
+    }
 
-	interface IHandlerList
-	{
-		[key:string]:Function;
-	}
+    interface IHandlerList
+    {
+        [key:string]:Function;
+    }
 
-	export class Dialog extends Tinycar.Main.View
-	{
-		private componentData:IComponentData = {};
-		private contentPadding:number = 0;
-		private handlerList:IHandlerList = {};
-		private htmlContent:JQuery;
-		private htmlComponents:JQuery;
-		private htmlHeading:JQuery;
-		private htmlRoot:JQuery;
-		private escEvent:number;
-		private resizeEvent:number;
-
-
-		// Add data for specified component type
-		addDataForComponentType(type:string, data:Object):void
-		{
-			this.componentData[type] = data;
-		}
+    export class Dialog extends Tinycar.Main.View
+    {
+        private componentData:IComponentData = {};
+        private contentPadding:number = 0;
+        private handlerList:IHandlerList = {};
+        private htmlContent:JQuery;
+        private htmlComponents:JQuery;
+        private htmlHeading:JQuery;
+        private htmlRoot:JQuery;
+        private escEvent:number;
+        private resizeEvent:number;
 
 
-		// Build
-		build():JQuery
-		{
-			this.buildRoot();
-			return this.htmlRoot;
-		}
+        // Add data for specified component type
+        addDataForComponentType(type:string, data:Object):void
+        {
+            this.componentData[type] = data;
+        }
 
-		// Build actions
-		private buildActions():void
-		{
-			// Build actions container
-			let container = $('<div>').
-				attr('class', 'actions').
-				appendTo(this.htmlContent);
 
-			// Build actions
-			this.Model.get('actions').forEach((item:Object, index:number) =>
-			{
-				// Create button instance
-				let button = new Tinycar.Ui.Button({
-					style : (index === 0 ? 'theme-button' : 'secondary-button'),
-					label : item['label']
-				});
+        // Build
+        build():JQuery
+        {
+            this.buildRoot();
+            return this.htmlRoot;
+        }
 
-				// When clicked
-				button.setHandler('click', () =>
-				{
-					// Cancel dialog
-					if (item['type'] === 'cancel')
-						this.onClose();
+        // Build actions
+        private buildActions():void
+        {
+            // Build actions container
+            let container = $('<div>').
+                attr('class', 'actions').
+                appendTo(this.htmlContent);
 
-					// Select dialog
-					else if (item['type'] === 'select')
-						this.onSelect();
+            // Build actions
+            this.Model.get('actions').forEach((item:Object, index:number) =>
+            {
+                // Create button instance
+                let button = new Tinycar.Ui.Button({
+                    style : (index === 0 ? 'theme-button' : 'secondary-button'),
+                    label : item['label']
+                });
 
-					// Other actions
-					else
-						this.onAction(item);
-				});
+                // When clicked
+                button.setHandler('click', () =>
+                {
+                    // Cancel dialog
+                    if (item['type'] === 'cancel')
+                        this.onClose();
 
-				container.append(button.build());
-			});
-		}
+                    // Select dialog
+                    else if (item['type'] === 'select')
+                        this.onSelect();
 
-		// Build close icon
-		private buildClose():void
-		{
-			// Create container
-			let container = $('<a>').
-				attr('class', 'close theme-base-lite').
-				appendTo(this.htmlRoot);
+                    // Other actions
+                    else
+                        this.onAction(item);
+                });
 
-			// Add icon
-			$('<span>').
-				attr('class', 'icon icon-lite icon-medium icon-close').
-				appendTo(container);
+                container.append(button.build());
+            });
+        }
 
-			// When clicked
-			container.click((e:Event) =>
-			{
-				e.preventDefault();
+        // Build close icon
+        private buildClose():void
+        {
+            // Create container
+            let container = $('<a>').
+                attr('class', 'close theme-base-lite').
+                appendTo(this.htmlRoot);
 
-				// Use a small delay to display the interaction
-				window.setTimeout(() =>
-				{
-					this.onClose();
+            // Add icon
+            $('<span>').
+                attr('class', 'icon icon-lite icon-medium icon-close').
+                appendTo(container);
 
-				}, 300);
-			});
-		}
+            // When clicked
+            container.click((e:Event) =>
+            {
+                e.preventDefault();
 
-		// Build components
-		private buildComponents():void
-		{
-			// Create container
-			this.htmlComponents = $('<div>').
-				attr('class', 'components').
-				appendTo(this.htmlContent);
+                // Use a small delay to display the interaction
+                window.setTimeout(() =>
+                {
+                    this.onClose();
 
-			// Create cmponents
-			this.Model.get('components').forEach((item:Object) =>
-			{
-				// Create new model instance
-				let model = new Tinycar.Model.DataItem(item);
+                }, 300);
+            });
+        }
 
-				// Target component type
-				let type = model.get('type_name');
+        // Build components
+        private buildComponents():void
+        {
+            // Create container
+            this.htmlComponents = $('<div>').
+                attr('class', 'components').
+                appendTo(this.htmlContent);
 
-				// Add custom model data
-				if (this.componentData.hasOwnProperty(type))
-					model.addAll(this.componentData[type]);
+            // Create cmponents
+            this.Model.get('components').forEach((item:Object) =>
+            {
+                // Create new model instance
+                let model = new Tinycar.Model.DataItem(item);
 
-				// Create new instance
-				let instance = new Tinycar.Ui.Component[type](
-					this.App, this, model
-				);
+                // Target component type
+                let type = model.get('type_name');
 
-				// Build to container
-				this.htmlComponents.append(instance.build());
+                // Add custom model data
+                if (this.componentData.hasOwnProperty(type))
+                    model.addAll(this.componentData[type]);
 
-				// Add to list of components
-				this.addComponent(instance);
-			});
-		}
+                // Create new instance
+                let instance = new Tinycar.Ui.Component[type](
+                    this.App, this, model
+                );
 
-		// Build content container
-		private buildContent():void
-		{
-			this.htmlContent = $('<div>').
-				attr('class', 'content').
-				appendTo(this.htmlRoot);
-		}
+                // Build to container
+                this.htmlComponents.append(instance.build());
 
-		// Build heading
-		private buildHeading():void
-		{
-			this.htmlHeading = $('<div>').
-				attr('class', 'heading').
-				text(this.Model.get('heading')).
-				appendTo(this.htmlContent);
-		}
+                // Add to list of components
+                this.addComponent(instance);
+            });
+        }
 
-		// Build root container
-		private buildRoot():void
-		{
-			this.htmlRoot = $('<div>').
-				attr('id', 'tinycar-ui-dialog');
-		}
+        // Build content container
+        private buildContent():void
+        {
+            this.htmlContent = $('<div>').
+                attr('class', 'content').
+                appendTo(this.htmlRoot);
+        }
 
-		// Close dialog
-		close():void
-		{
-			// Close dialog
-			this.App.closeDialog();
+        // Build heading
+        private buildHeading():void
+        {
+            this.htmlHeading = $('<div>').
+                attr('class', 'heading').
+                text(this.Model.get('heading')).
+                appendTo(this.htmlContent);
+        }
 
-			// Remove resize event handler
-			Tinycar.System.clearEvent('resize', this.resizeEvent);
+        // Build root container
+        private buildRoot():void
+        {
+            this.htmlRoot = $('<div>').
+                attr('id', 'tinycar-ui-dialog');
+        }
 
-			// Remove Esc key event handler
-			Tinycar.System.clearEvent('esc', this.escEvent);
+        // Close dialog
+        close():void
+        {
+            // Close dialog
+            this.App.closeDialog();
 
-			// Remove root container
-			this.htmlRoot.remove();
-		}
+            // Remove resize event handler
+            Tinycar.System.clearEvent('resize', this.resizeEvent);
 
-		// Load dialog contents
-		load(data:Object):void
-		{
-			// Try to save
-			Tinycar.Api.call({
-				service : 'dialog.view',
-				params  : {
-					app    : this.Model.get('app'),
-					dialog : this.Model.get('name'),
-					url    : Tinycar.Url.getParams(),
-					data   : data
-				},
-				success  : (data:Object) =>
-				{
-					// Add new data to amodel
-					this.Model.addAll(data);
+            // Remove Esc key event handler
+            Tinycar.System.clearEvent('esc', this.escEvent);
 
-					// Build elements
-					this.buildClose();
-					this.buildContent();
-					this.buildHeading();
-					this.buildComponents();
-					this.buildActions();
+            // Remove root container
+            this.htmlRoot.remove();
+        }
 
-					// When window is resized
-					this.resizeEvent = Tinycar.System.addEvent('resize', () =>
-					{
-						this.updateDimensions();
-					});
+        // Load dialog contents
+        load(data:Object):void
+        {
+            // Try to save
+            Tinycar.Api.call({
+                service : 'dialog.view',
+                params  : {
+                    app    : this.Model.get('app'),
+                    dialog : this.Model.get('name'),
+                    url    : Tinycar.Url.getParams(),
+                    data   : data
+                },
+                success  : (data:Object) =>
+                {
+                    // Add new data to amodel
+                    this.Model.addAll(data);
 
-					// When Esc is pressed
-					this.escEvent = Tinycar.System.addEvent('esc', () =>
-					{
-						this.onClose();
-					});
+                    // Build elements
+                    this.buildClose();
+                    this.buildContent();
+                    this.buildHeading();
+                    this.buildComponents();
+                    this.buildActions();
 
-					// Trigger iniitial resize after DOM has rendered
-					window.setTimeout(() =>
-					{
-						this.show();
+                    // When window is resized
+                    this.resizeEvent = Tinycar.System.addEvent('resize', () =>
+                    {
+                        this.updateDimensions();
+                    });
 
-					}, 100);
-				}
-			});
-		}
+                    // When Esc is pressed
+                    this.escEvent = Tinycar.System.addEvent('esc', () =>
+                    {
+                        this.onClose();
+                    });
 
-		// Call specified action
-		onAction(item:Object):void
-		{
-			var params = new Tinycar.Model.DataItem(item);
+                    // Trigger iniitial resize after DOM has rendered
+                    window.setTimeout(() =>
+                    {
+                        this.show();
 
-			Tinycar.Api.call({
-				service : 'dialog.action',
-				params  : {
-					url    : Tinycar.Url.getParams(),
-					app    : this.Model.get('app'),
-					dialog : this.Model.get('name'),
-					action : params.get('type'),
-					data   : this.getComponentsData()
-				},
-				success  : (result:any) =>
-				{
-					// Set returned value
-					params.set('value', result);
+                    }, 100);
+                }
+            });
+        }
 
-					// Show response
-					this.onResponse(params);
+        // Call specified action
+        onAction(item:Object):void
+        {
+            var params = new Tinycar.Model.DataItem(item);
 
-					// Close dialog
-					this.close();
-				}
-			});
-		}
+            Tinycar.Api.call({
+                service : 'dialog.action',
+                params  : {
+                    url    : Tinycar.Url.getParams(),
+                    app    : this.Model.get('app'),
+                    dialog : this.Model.get('name'),
+                    action : params.get('type'),
+                    data   : this.getComponentsData()
+                },
+                success  : (result:any) =>
+                {
+                    // Set returned value
+                    params.set('value', result);
 
-		// @see Tinycar.Main.View.onComponent()
-		onComponent(id:string, name:string, params:Object, callback:Function):void
-		{
-			Tinycar.Api.call({
-				service : 'dialog.component',
-				params  : {
-					app        : this.Model.get('app'),
-					dialog     : this.Model.get('name'),
-					component  : id,
-					action     : name,
-					data       : params
-				},
-				success : callback
-			});
-		}
+                    // Show response
+                    this.onResponse(params);
 
-		// Close callback
-		onClose():void
-		{
-			// Call custom handler
-			if (this.handlerList.hasOwnProperty('close'))
-				this.handlerList['close']();
+                    // Close dialog
+                    this.close();
+                }
+            });
+        }
 
-			// Close dialog
-			this.close();
-		}
+        // @see Tinycar.Main.View.onComponent()
+        onComponent(id:string, name:string, params:Object, callback:Function):void
+        {
+            Tinycar.Api.call({
+                service : 'dialog.component',
+                params  : {
+                    app        : this.Model.get('app'),
+                    dialog     : this.Model.get('name'),
+                    component  : id,
+                    action     : name,
+                    data       : params
+                },
+                success : callback
+            });
+        }
 
-		// Pass on selected data to dialog callback
-		onSelect():void
-		{
-			var list = [];
+        // Close callback
+        onClose():void
+        {
+            // Call custom handler
+            if (this.handlerList.hasOwnProperty('close'))
+                this.handlerList['close']();
 
-			// Get selected items from components
-			this.componentList.forEach((instance:Tinycar.Main.Component) =>
-			{
-				// Get selected items
-				if ('getSelectedItems' in instance)
-					list = list.concat(instance['getSelectedItems']());
-			});
+            // Close dialog
+            this.close();
+        }
 
-			// Pass along to custom handler
-			if (this.handlerList.hasOwnProperty('select'))
-				this.handlerList['select'](list);
+        // Pass on selected data to dialog callback
+        onSelect():void
+        {
+            var list = [];
 
-			// Close dialog
-			this.close();
-		}
+            // Get selected items from components
+            this.componentList.forEach((instance:Tinycar.Main.Component) =>
+            {
+                // Get selected items
+                if ('getSelectedItems' in instance)
+                    list = list.concat(instance['getSelectedItems']());
+            });
 
-		// Set custom handler
-		setHandler(name:string, callback:Function):void
-		{
-			this.handlerList[name] = callback;
-		}
+            // Pass along to custom handler
+            if (this.handlerList.hasOwnProperty('select'))
+                this.handlerList['select'](list);
 
-		// Show dialog
-		private show():void
-		{
-			// Calculate content padding once
-			this.contentPadding = (
-				parseInt(this.htmlContent.css('padding-top')) +
-				parseInt(this.htmlContent.css('padding-bottom')) +
-				10
-			);
+            // Close dialog
+            this.close();
+        }
 
-			// Update root styles
-			this.htmlRoot.addClass('is-visible');
+        // Set custom handler
+        setHandler(name:string, callback:Function):void
+        {
+            this.handlerList[name] = callback;
+        }
 
-			// Update dialog dimensions
-			this.updateDimensions();
-		}
+        // Show dialog
+        private show():void
+        {
+            // Calculate content padding once
+            this.contentPadding = (
+                parseInt(this.htmlContent.css('padding-top')) +
+                parseInt(this.htmlContent.css('padding-bottom')) +
+                10
+            );
 
-		// Update current dialog position
-		private updateDimensions():void
-		{
-			// Current window height
-			let winH = $(window).height();
+            // Update root styles
+            this.htmlRoot.addClass('is-visible');
 
-			// Calculate new dialog height
-			let newH = Math.min(winH, Math.max(
-				this.htmlComponents.outerHeight() + this.contentPadding,
-				this.htmlComponents.get(0).scrollTop + this.htmlComponents.get(0).scrollHeight + this.contentPadding
-			));
+            // Update dialog dimensions
+            this.updateDimensions();
+        }
 
-			// Calculate new top-position based on height
-			let newT = Math.max(0, Math.round((winH - newH) / 2));
+        // Update current dialog position
+        private updateDimensions():void
+        {
+            // Current window height
+            let winH = $(window).height();
 
-			// Update dialog dimensions
-			this.htmlRoot.css({
-				top    : newT,
-				height : newH
-			});
-		}
-	}
+            // Calculate new dialog height
+            let newH = Math.min(winH, Math.max(
+                this.htmlComponents.outerHeight() + this.contentPadding,
+                this.htmlComponents.get(0).scrollTop + this.htmlComponents.get(0).scrollHeight + this.contentPadding
+            ));
+
+            // Calculate new top-position based on height
+            let newT = Math.max(0, Math.round((winH - newH) / 2));
+
+            // Update dialog dimensions
+            this.htmlRoot.css({
+                top    : newT,
+                height : newH
+            });
+        }
+    }
 }

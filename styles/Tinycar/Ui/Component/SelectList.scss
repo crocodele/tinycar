@@ -1,95 +1,95 @@
 div.tinycar-ui-component-selectlist {
-	
-	> div.type-content {
-	
-		> div.list {
-		
-			position: relative;
-			display: block;
-			float: left;
-			background-color: #ffffff;
-			
-			> span.icon {
-			
-				position: absolute;
-				right: 6px;
-				top: 4px;
-				z-index: 1;
-				opacity: 0.4;
-				
-			}
-			
-			> select {
-			
-				position: relative;
-				padding-right: 37px;
-				background-color: transparent;
-				z-index: 2;
-				@include border-radius(3px);
-				@include appearance(none);
-				
-			}
-			
-		}
-	
-	}
-	
-	&.is-enabled {
-	
+
+    > div.type-content {
+
+        > div.list {
+
+            position: relative;
+            display: block;
+            float: left;
+            background-color: #ffffff;
+
+            > span.icon {
+
+                position: absolute;
+                right: 6px;
+                top: 4px;
+                z-index: 1;
+                opacity: 0.4;
+
+            }
+
+            > select {
+
+                position: relative;
+                padding-right: 37px;
+                background-color: transparent;
+                z-index: 2;
+                @include border-radius(3px);
+                @include appearance(none);
+
+            }
+
+        }
+
+    }
+
+    &.is-enabled {
+
         > div.type-content {
-        
+
             > div.list {
-            
+
                 > span.icon {
                     opacity: 1.0;
                 }
-                
+
             }
-        
+
         }
-	
-	}
-	
+
+    }
+
 }
 
 div.tinycar-ui-component-group.layout-table {
-    
+
     div.tinycar-ui-component-selectlist {
-            
+
         > div.type-content {
-        
+
             > div.list {
-            
+
                 > span.icon {
                     top: -3px;
                 }
-            
+
                 > select {
-                
+
                     padding: 0px 37px 0px 0px;
                     border-color: transparent;
-                    
+
                 }
-                
+
             }
-                
+
         }
-            
+
     }
-            
+
 }
 
 div.tinycar-ui-component-group {
 
     > div.type-content {
-    
+
         > div.tinycar-ui-component-selectlist {
-        
+
             float: left;
             padding: 0px 15px 0px 0px;
-            
+
         }
-        
+
     }
-    
+
 }

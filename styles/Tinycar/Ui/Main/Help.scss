@@ -1,65 +1,65 @@
 span.tinycar-ui-main-help {
-	
-	display: inline-block;
-	vertical-align: top;
-	
-	> a.link {
-	
-		position: relative;
-		display: inline-block;
-		width: 16px;
-		height: 16px;
-		background-color: $main-color-uigray;
-		cursor: default;
-		overflow: hidden;
-		outline: none;
-		@include border-radius(2px);
-		@include unselectable();
-		@include transition(background-color 0.1s ease);
-			
-		> span.icon {
-		
-			position: absolute;
-			left: -2px;
-			top: -3px;
-			opacity: 0.4;
-			
-		}
-		
-		&:hover,
-		&:focus {
-			background-color: lighten($main-color-uigray, 2%);
-		}
-		
-	}
-	
-	&.is-open {
-	
-		> a.link {
-			background-color: darken($main-color-uigray, 2%);
-		}
-		
-	}
-	
+
+    display: inline-block;
+    vertical-align: top;
+
+    > a.link {
+
+        position: relative;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-color: $main-color-uigray;
+        cursor: default;
+        overflow: hidden;
+        outline: none;
+        @include border-radius(2px);
+        @include unselectable();
+        @include transition(background-color 0.1s ease);
+
+        > span.icon {
+
+            position: absolute;
+            left: -2px;
+            top: -3px;
+            opacity: 0.4;
+
+        }
+
+        &:hover,
+        &:focus {
+            background-color: lighten($main-color-uigray, 2%);
+        }
+
+    }
+
+    &.is-open {
+
+        > a.link {
+            background-color: darken($main-color-uigray, 2%);
+        }
+
+    }
+
 }
 
 div.tinycar-ui-main-help-content {
 
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	display: none;
-	margin: -3px 0px 0px 26px;
-	padding: 12px 27px 12px 17px;
-	max-width: 300px;
-  	border: 1px solid darken($main-color-uigray, 10%);
-  	background-color: #ffffff;
-  	color: $main-font-color;
-  	font-size: 0.9em;
-  	line-height: 1.6em;
-  	overflow: hidden;
-  	cursor: default;
-  	z-index: 10;
-  	@include border-radius(3px);
-		
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: none;
+    margin: -3px 0px 0px 26px;
+    padding: 12px 27px 12px 17px;
+    max-width: 300px;
+      border: 1px solid darken($main-color-uigray, 10%);
+      background-color: #ffffff;
+      color: $main-font-color;
+      font-size: 0.9em;
+      line-height: 1.6em;
+      overflow: hidden;
+      cursor: default;
+      z-index: 10;
+      @include border-radius(3px);
+
 }

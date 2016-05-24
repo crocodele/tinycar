@@ -1,144 +1,144 @@
 div.tinycar-ui-component-toggle {
 
-	> div.type-content {
+    > div.type-content {
 
-		position: relative;
-		padding-bottom: 25px;
+        position: relative;
+        padding-bottom: 25px;
 
-		> a.toggle {
+        > a.toggle {
 
-			position: relative;
-			display: block;
-			float: left;
-			margin: 5px 1px 0px 1px;
-			width: 60px;
-			height: 22px;
-			border: 1px solid darken($main-color-uigray, 10%);
-			background-color: darken($main-color-uigray, 10%);
-			outline: none;
-			cursor: default;
-			overflow: hidden;
-			@include border-radius(3px);
-			@include unselectable();
+            position: relative;
+            display: block;
+            float: left;
+            margin: 5px 1px 0px 1px;
+            width: 60px;
+            height: 22px;
+            border: 1px solid darken($main-color-uigray, 10%);
+            background-color: darken($main-color-uigray, 10%);
+            outline: none;
+            cursor: default;
+            overflow: hidden;
+            @include border-radius(3px);
+            @include unselectable();
 
-			> span.icon {
+            > span.icon {
 
-				position: absolute;
-				left: 5px;
-				top: 1px;
+                position: absolute;
+                left: 5px;
+                top: 1px;
 
-			}
+            }
 
-			> span.handle {
+            > span.handle {
 
-				position: absolute;
-				left: 0%;
-				top: 0px;
-				display: block;
-				float: left;
-				width: 50%;
-				height: 100%;
-				background-color: #ffffff;
-				box-sizing: border-box;
-				overflow: hidden;
-				@include box-shadow(0px 0px 1px rgba(0, 0, 0, 0.3));
+                position: absolute;
+                left: 0%;
+                top: 0px;
+                display: block;
+                float: left;
+                width: 50%;
+                height: 100%;
+                background-color: #ffffff;
+                box-sizing: border-box;
+                overflow: hidden;
+                @include box-shadow(0px 0px 1px rgba(0, 0, 0, 0.3));
 
-				> span.icon {
+                > span.icon {
 
-					position: absolute;
-					left: 5px;
-					top: 1px;
-					opacity: 0.5;
+                    position: absolute;
+                    left: 5px;
+                    top: 1px;
+                    opacity: 0.5;
 
-				}
+                }
 
-			}
+            }
 
-			&.is-active {
+            &.is-active {
 
-				> span.handle {
-					left: 50%;
-				}
+                > span.handle {
+                    left: 50%;
+                }
 
-			}
+            }
 
-			&:focus {
+            &:focus {
 
-				@include outline();
+                @include outline();
 
-			}
+            }
 
-		}
+        }
 
-	}
+    }
 
 }
 
 div.tinycar-ui-component-toggle.is-enabled {
 
-	> div.type-content {
+    > div.type-content {
 
-		> a.toggle {
+        > a.toggle {
 
-			cursor: pointer;
-			@include transition(background-color 0.1s ease);
+            cursor: pointer;
+            @include transition(background-color 0.1s ease);
 
-			> span.handle {
-				@include transition(left 0.1s ease);
-			}
+            > span.handle {
+                @include transition(left 0.1s ease);
+            }
 
-			&:focus,
-			&:hover {
+            &:focus,
+            &:hover {
 
-				background-color: darken($main-color-uigray, 2%);
+                background-color: darken($main-color-uigray, 2%);
 
-				> span.handle > span.icon {
-					opacity: 0.8;
-				}
+                > span.handle > span.icon {
+                    opacity: 0.8;
+                }
 
-			}
+            }
 
 
-		}
+        }
 
-	}
+    }
 
 }
 
 div.tinycar-ui-component-group {
 
-	> div.type-content {
+    > div.type-content {
 
-		div.tinycar-ui-component-toggle {
+        div.tinycar-ui-component-toggle {
 
-			padding: 10px 15px 10px 15px;
-			border-bottom: 1px solid $main-color-uigray;
+            padding: 10px 15px 10px 15px;
+            border-bottom: 1px solid $main-color-uigray;
 
-			> div.type-content {
+            > div.type-content {
 
-				> a.toggle {
+                > a.toggle {
 
-					float: right;
-					margin: 0px;
+                    float: right;
+                    margin: 0px;
 
-				}
+                }
 
-				> div.type-instructions {
-					padding: 0px 50px 10px 0px;
-				}
+                > div.type-instructions {
+                    padding: 0px 50px 10px 0px;
+                }
 
-			}
+            }
 
-			&:first-child {
-				border-top: 1px solid $main-color-uigray;
-			}
+            &:first-child {
+                border-top: 1px solid $main-color-uigray;
+            }
 
-			&:nth-child(odd) {
-				background-color: darken($main-color-background, 3%);
-			}
+            &:nth-child(odd) {
+                background-color: darken($main-color-background, 3%);
+            }
 
-		}
+        }
 
-	}
+    }
 
 }

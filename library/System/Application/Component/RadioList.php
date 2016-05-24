@@ -1,66 +1,66 @@
 <?php
 
-    namespace Tinycar\System\Application\Component;
+namespace Tinycar\System\Application\Component;
 
-    use Tinycar\Core\Http\Params;
-    use Tinycar\System\Application\View\Field;
+use Tinycar\Core\Http\Params;
+use Tinycar\System\Application\View\Field;
 
-    class RadioList extends Field
+class RadioList extends Field
+{
+
+    /**
+     * Get select list options data
+     * @return array options data
+     */
+    private function getOptionsData()
     {
+        $result = array();
 
-        /**
-         * Get select list options data
-         * @return array options data
-         */
-        private function getOptionsData()
+        // Go trough options
+        foreach ($this->xdata->getNodes('options/option') as $node)
         {
-            $result = array();
+            // Ddefaults
+            $item = array(
+                'name'         => $node->getString('@name'),
+                'label'        => $node->getString('@label'),
+                'help'         => $node->getString('help'),
+                'instructions' => $node->getString('instructions'),
+            );
 
-            // Go trough options
-            foreach ($this->xdata->getNodes('options/option') as $node)
-            {
-                // Ddefaults
-                $item = array(
-                    'name'         => $node->getString('@name'),
-                    'label'        => $node->getString('@label'),
-                    'help'         => $node->getString('help'),
-                    'instructions' => $node->getString('instructions'),
-                );
+            // Translate label
+            $item['label'] = $this->getStringValue(
+                $item['label']
+            );
 
-                // Translate label
-                $item['label'] = $this->getStringValue(
-                    $item['label']
-                );
+            // Translate help
+            $item['help'] = $this->getStringValue(
+                $item['help']
+            );
 
-                // Translate help
-                $item['help'] = $this->getStringValue(
-                    $item['help']
-                );
+            // Translate instructions
+            $item['instructions'] = $this->getStringValue(
+                $item['instructions']
+            );
 
-                // Translate instructions
-                $item['instructions'] = $this->getStringValue(
-                    $item['instructions']
-                );
-
-                // Add to list
-                $result[] = $item;
-            }
-
-            return $result;
+            // Add to list
+            $result[] = $item;
         }
 
-
-        /**
-         * @see Tinycar\System\Application\View\Field::onModelAction()
-         */
-        public function onModelAction(Params $params)
-        {
-            $result = parent::onModelAction($params);
-
-            // Add properties
-            $result['layout']  = $this->getNodeString('layout');
-            $result['options'] = $this->getOptionsData();
-
-            return $result;
-        }
+        return $result;
     }
+
+
+    /**
+     * @see Tinycar\System\Application\View\Field::onModelAction()
+     */
+    public function onModelAction(Params $params)
+    {
+        $result = parent::onModelAction($params);
+
+        // Add properties
+        $result['layout']  = $this->getNodeString('layout');
+        $result['options'] = $this->getOptionsData();
+
+        return $result;
+    }
+}

@@ -1,60 +1,60 @@
 div#tinycar-main-sidebar {
-	
-	position: fixed;
-	left: 0px;
-	top: 0px;
-	display: block;
-	width: 0px;
-	height: 100%;
-	z-index: 20;
-	
-	> div.components {
-	
+
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    display: block;
+    width: 0px;
+    height: 100%;
+    z-index: 20;
+
+    > div.components {
+
         > div.tinycar-ui-component-image {
 
             padding: 2px 2px 2px 2px;
             background-color: rgba(0, 0, 0, 0.3);
             cursor: default;
-            
+
             > img {
-            
+
                 margin: 0px auto 0px auto;
                 max-height: 60px;
-                
+
             }
-            
+
             &.with-mobile-image {
-            
+
                 > img.image-screen {
                     display: none;
                 }
-                
+
                 > img.image-mobile {
                     display: block;
                 }
-                
+
             }
-            
+
         }
-        
+
         > div.tinycar-ui-component-actionlist {
-        
+
             position: relative;
             z-index: 1;
-            
+
         }
-        
+
         > div.tinycar-ui-component-actionlist:last-child {
 
             position: absolute;
             width: 100%;
             left: 0px;
             bottom: 0px;
-        
+
         }
-	   
-	}
-	
+
+    }
+
 }
 
 @media (max-width: $view-tablet-width)
@@ -67,29 +67,29 @@ div#tinycar-main-sidebar {
 @media (min-width: $view-tablet-width)
 {
     div#tinycar-main-sidebar.width-expanded {
-    
+
         > div.components {
-        
+
             overflow: hidden;
-            
+
              > div.tinycar-ui-component-image {
-    
+
                 &.with-mobile-image {
-                
+
                     > img.image-screen {
                         display: block;
                     }
-                    
+
                     > img.image-mobile {
                         display: none;
                     }
-                    
+
                 }
-                
+
             }
-                   
+
         }
 
     }
-    
+
 }

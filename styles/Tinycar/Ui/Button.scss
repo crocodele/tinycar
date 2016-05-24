@@ -1,213 +1,213 @@
 a.tinycar-ui-button {
-	
-	display: inline-block;
-	cursor: pointer;
-	overflow: hidden;
-	@include unselectable();
-	
-	&:active {
-	   outline: none;
-	}
-	
-	> span.icon-loading {
+
+    display: inline-block;
+    cursor: pointer;
+    overflow: hidden;
+    @include unselectable();
+
+    &:active {
+       outline: none;
+    }
+
+    > span.icon-loading {
         display: none;
-	}
-	
-	&.background-icon {
-	
+    }
+
+    &.background-icon {
+
         padding: 2px 2px 2px 2px;
         background-color: darken($main-color-background, 5%);
         cursor: pointer;
         @include border-radius(2px);
-                    
+
         > span.icon {
             opacity: 0.5;
         }
-                    
+
         &:focus,
         &:hover {
-                    
+
             background-color: darken($main-color-background, 10%);
-                    
+
             > span.icon {
                 opacity: 0.8;
             }
-                        
+
         }
-                    
+
         &:active {
-                    
+
             background-color: darken($main-color-background, 5%);
 
             > span.icon {
                 opacity: 0.5;
             }
-                        
+
         }
-                
-	}
-	
+
+    }
+
     &.dark-icon {
-    
+
         border: 1px solid transparent;
-    
+
         > span.icon {
-        
+
             opacity: 0.5;
             @include transition(opacity 0.1s ease);
-            
+
         }
-        
+
         &:hover,
         &:focus {
-        
+
             > span.icon {
                 opacity: 0.8;
             }
-            
+
         }
-                    
+
         &:active {
-                
+
             > span.icon {
                 opacity: 0.5;
             }
-                
+
         }
-        
+
         &.is-open {
-        
+
             border: 1px solid darken($main-color-uigray, 10%);
             background-color: #ffffff;
             @include border-radius(2px);
-            
+
             > span.icon {
                 opacity: 1.0;
             }
-            
+
         }
-        
+
     }
-	
-	&.field-icon {
-	
-		background-color: #ffffff;
-		box-sizing: border-box;
-		@include transition(background-color 0.2s ease);
-	
-		> span.icon {
-				
-			opacity: 0.5;
-			@include transition(opacity 0.1s ease);
-			
-		}
-		
-		&:hover,
-		&:focus {
-				
-			background-color: lighten($field-border-color, 12%);
-					
-			> span.icon {
-				opacity: 0.8;
-			}
-			
-		}
-					
-		&:active {
-				
-			background-color: #ffffff;
-			
-			> span.icon {
-				opacity: 0.5;
-			}
-				
-		}
-		
-	}
-	
-	&.secondary-button,
-	&.theme-button {
-	
-		padding: 7px 25px 7px 25px;
-		min-width: 50px;
-		line-height: 1.7em;
-		text-align: center;
-		
-		&.button-small {
-		
+
+    &.field-icon {
+
+        background-color: #ffffff;
+        box-sizing: border-box;
+        @include transition(background-color 0.2s ease);
+
+        > span.icon {
+
+            opacity: 0.5;
+            @include transition(opacity 0.1s ease);
+
+        }
+
+        &:hover,
+        &:focus {
+
+            background-color: lighten($field-border-color, 12%);
+
+            > span.icon {
+                opacity: 0.8;
+            }
+
+        }
+
+        &:active {
+
+            background-color: #ffffff;
+
+            > span.icon {
+                opacity: 0.5;
+            }
+
+        }
+
+    }
+
+    &.secondary-button,
+    &.theme-button {
+
+        padding: 7px 25px 7px 25px;
+        min-width: 50px;
+        line-height: 1.7em;
+        text-align: center;
+
+        &.button-small {
+
             padding: 3px 12px 4px 12px;
             font-size: 0.9em;
             min-width: 0px;
-            
-		}
-		
-	}
-	
-	&.secondary-button {
+
+        }
+
+    }
+
+    &.secondary-button {
 
         border-color: $main-color-uigray;
-		color: $main-font-color;
-	
-		&:focus,
-		&:hover {
-		
-		    border-color: darken($main-color-uigray, 10%);
-			color: $main-font-color;
-			
-		}
-	
-		&:active {
-		
+        color: $main-font-color;
+
+        &:focus,
+        &:hover {
+
+            border-color: darken($main-color-uigray, 10%);
+            color: $main-font-color;
+
+        }
+
+        &:active {
+
             border-color: darken($main-color-uigray, 20%);
-			color: #000000;
-		}
-	
-	}
-	
-	&.theme-button {
-	
-		color: #ffffff;
+            color: #000000;
+        }
+
+    }
+
+    &.theme-button {
+
+        color: #ffffff;
         text-decoration: none;
-		@include border-radius(1px);
-		@include transition(background-color 0.2s ease);
-	
-		&:hover {
-			color: #ffffff;
-		}
-		
+        @include border-radius(1px);
+        @include transition(background-color 0.2s ease);
+
+        &:hover {
+            color: #ffffff;
+        }
+
         &.is-disabled {
         }
-	
-	}
-	
-	&.theme-icon {
-	
-		padding: 4px 5px 4px 5px;
-		@include border-radius(2px);
-		
-	}
-	
+
+    }
+
+    &.theme-icon {
+
+        padding: 4px 5px 4px 5px;
+        @include border-radius(2px);
+
+    }
+
     &.theme-button.is-loading,
     &.theme-icon.is-loading {
-	
+
         position: relative;
-	
-	    > span.icon {
-	    
-	        position: relative;
-	        visibility: hidden;
-	        
-	    }
-	    
-        > span.label {
-        
+
+        > span.icon {
+
             position: relative;
             visibility: hidden;
-            
+
         }
-	
+
+        > span.label {
+
+            position: relative;
+            visibility: hidden;
+
+        }
+
         > span.icon-loading {
-        
+
             position: absolute;
             left: 50%;
             top: 50%;
@@ -215,26 +215,26 @@ a.tinycar-ui-button {
             display: block;
             margin: -15px 0px 0px -15px;
             @include animation(spin 1s linear infinite);
-                
+
         }
-        
+
         @include keyframes(spin) {
             100% { @include transform(rotate(360deg)); }
-        } 
-        
-	}
-	
+        }
+
+    }
+
 }
 
 body.layout-modal {
-    
+
     a.tinycar-ui-button.secondary-button {
-    
+
         padding: 6px 24px 6px 24px;
         border-style: solid;
         border-width: 1px;
         text-decoration: none;
-        
-    }   
+
+    }
 
 }

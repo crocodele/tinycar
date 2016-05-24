@@ -58,7 +58,7 @@ module Tinycar.View
                 attr('tabindex', 0).
                 text(item['label']).
                 appendTo(this.htmlRoot);
-            
+
             // When clicked
             container.click((e:Event) =>
             {

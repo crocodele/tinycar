@@ -23,7 +23,7 @@ module Tinycar
         export var Mask:Tinycar.Main.Mask;
         export var Toast:Tinycar.Main.Toast;
 
-      
+
         // Add event listener
         export function addEvent(name:string, callback:Function):number
         {
@@ -61,7 +61,7 @@ module Tinycar
             this.htmlRoot = $('<div>').
                 attr('id', 'tinycar-root');
         }
-            
+
         // Call specified event
         export function callEvent(name:string, e:Event):boolean
         {
@@ -82,13 +82,13 @@ module Tinycar
                 Tinycar.User.hasAuthenticated() === false
             );
         }
-            
+
         // Load configuration data
         export function load(config:IConfig):void
         {
             // Load configuration
             Tinycar.Config.load(config.config);
-          
+
             // Configure URL
             Tinycar.Url.load(config.params);
 
@@ -100,7 +100,7 @@ module Tinycar
             // Load locale
             Tinycar.Locale.loadCalendar(config.calendar);
             Tinycar.Locale.loadText(config.text);
-          
+
             // Load user
             Tinycar.User.load(config.user);
         }

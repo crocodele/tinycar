@@ -1,19 +1,19 @@
 <?php
 
-	namespace Tinycar\System\Application\Component;
+namespace Tinycar\System\Application\Component;
 
-	use Tinycar\System\Application\View\Field;
+use Tinycar\System\Application\View\Field;
 
-	class Toggle extends Field
-	{
+class Toggle extends Field
+{
 
 
-		/**
-		 * @see Tinycar\System\Application\View\Field::getDataValue()
-		 */
-		public function getDataValue($default = null)
-		{
-			$result = parent::getDataValue($default);
-			return (is_bool($result) ? $result : false);
-		}
-	}
+    /**
+     * @see Tinycar\System\Application\View\Field::getDataValue()
+     */
+    public function getDataValue($default = null)
+    {
+        $result = parent::getDataValue($default);
+        return (is_bool($result) ? $result : false);
+    }
+}

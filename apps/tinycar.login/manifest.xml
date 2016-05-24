@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-	
-	<app>
-		<name>Login</name>
-		<provider>Tinycar</provider>
-		<description>Basic login authentication</description>
-		<color>#1f91c1</color>
-	</app>
-	
-	<locale>
-		<text name="action_submit">Login</text>
-		<text name="password">Password</text>
-		<text name="username">Username</text>
-		<text name="toast_login_credentials_invalid">Invalid login. Please try again.</text>
-	</locale>
-	
-	<view>
-	
-		<heading>$system.title</heading>
-		
-		<actions>
-			<action type="submit" service="submit">
-				<link app="$url.app" view="default" />
-			</action>
-		</actions>
-		
-		<component type="TextInput">
-			<data name="username" />
-			<placeholder>$locale.username</placeholder>
-		</component>
-		
-		<component type="Password">
-			<data name="password" />
-			<placeholder>$locale.password</placeholder>
-		</component>
-		
-	</view>
-	
+
+    <app>
+        <name>Login</name>
+        <provider>Tinycar</provider>
+        <description>Basic login authentication</description>
+        <color>#1f91c1</color>
+    </app>
+
+    <locale>
+        <text name="action_submit">Login</text>
+        <text name="password">Password</text>
+        <text name="username">Username</text>
+        <text name="toast_login_credentials_invalid">Invalid login. Please try again.</text>
+    </locale>
+
+    <view>
+
+        <heading>$system.title</heading>
+
+        <actions>
+            <action type="submit" service="submit">
+                <link app="$url.app" view="default" />
+            </action>
+        </actions>
+
+        <component type="TextInput">
+            <data name="username" />
+            <placeholder>$locale.username</placeholder>
+        </component>
+
+        <component type="Password">
+            <data name="password" />
+            <placeholder>$locale.password</placeholder>
+        </component>
+
+    </view>
+
 </manifest>
