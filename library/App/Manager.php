@@ -7,8 +7,10 @@ use Tinycar\App\Locale;
 use Tinycar\App\Session;
 use Tinycar\App\Writer;
 use Tinycar\Core\Exception;
+use Tinycar\System\Application;
 use Tinycar\System\Manifest;
 use Tinycar\System\Storage;
+use Tinycar\System\Application\Model\VariableList;
 
 class Manager
 {
@@ -102,7 +104,7 @@ class Manager
      /**
       * Get application instance by id
       * @param string $id target application id
-      * @return object Tinycar\System\Application
+      * @return Application
       * @throws Tinycar\Core\Exception
       */
      public function getApplicationById($id)
@@ -316,6 +318,38 @@ class Manager
          return $this->parameters;
      }
 
+     /**
+      * Get specified date property value
+      * @param string $name target property name
+      * @return mixed|null property value or null on failure
+      */
+     public function getPropertyForDate($name)
+     {
+         switch ($name)
+         {
+             case 'time':
+                 return time();
+         }
+
+         return null;
+     }
+
+     /**
+      * Get specified system property value
+      * @param string $name target property name
+      * @return mixed|null property value or null on failure
+      */
+     public function getPropertyForSystem($name)
+     {
+         switch ($name)
+         {
+             case 'title':
+                 return Config::get('SYSTEM_TITLE');
+         }
+
+         return null;
+     }
+
 
      /**
       * Get session instance
@@ -330,6 +364,38 @@ class Manager
          // Remember
          $this->session = new Session();
         return $this->session;
+    }
+
+
+    /**
+     * Get specified string as variable list, populated with
+     * needed system level variables
+     * @param string $source target source string
+     * @return VariableList
+     */
+    public function getStringAsVariableList($source)
+    {
+        // Create list from string
+        $list = VariableList::loadByString($source);
+
+        // Update values to variables
+        foreach ($list->getVariables() as $var)
+        {
+            switch ($var->getType())
+            {
+                // Date property
+                case 'date':
+                    $var->setValue($this->getPropertyForDate($var->getProperty()));
+                    break;
+
+                // System property
+                case 'system':
+                    $var->setValue($this->getPropertyForSystem($var->getProperty()));
+                    break;
+            }
+        }
+
+        return $list;
     }
 
 

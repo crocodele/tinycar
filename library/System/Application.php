@@ -22,6 +22,7 @@ use Tinycar\System\Application\SideList;
 use Tinycar\System\Application\Storage;
 use Tinycar\System\Application\Xml\Action;
 use Tinycar\System\Application\Xml\Section;
+use Tinycar\System\Application\Model\VariableList;
 
 class Application
 {
@@ -282,34 +283,6 @@ class Application
 
 
     /**
-     * Get specified application property value
-     * @param string $name target property name
-     * @return mixed|null property value or null on failure
-     */
-    public function getAppProperty($name)
-    {
-        // Resolve properties once
-        if (!is_array($this->properties))
-        {
-            // Get application manifest instance
-            $manifest = $this->getManifest();
-
-            $this->properties = array(
-                'id'       => $this->getId(),
-                'name'     => $manifest->getName(),
-                'provider' => $manifest->getProvider(),
-            );
-        }
-
-        // Invalid property
-        if (!array_key_exists($name, $this->properties))
-            return null;
-
-        return $this->properties[$name];
-    }
-
-
-    /**
      * Get application color
      * @return string|null color or null on failure
      */
@@ -389,23 +362,6 @@ class Application
         return (array_key_exists($name, $this->data) ?
             $this->data[$name] : null
         );
-    }
-
-
-    /**
-     * Get specified date property value
-     * @param string $name target property name
-     * @return mixed|null property value or null on failure
-     */
-    public function getDateProperty($name)
-    {
-        switch ($name)
-        {
-            case 'time':
-                return time();
-        }
-
-        return null;
     }
 
 
@@ -622,6 +578,34 @@ class Application
 
 
     /**
+     * Get specified application property value
+     * @param string $name target property name
+     * @return mixed|null property value or null on failure
+     */
+    public function getPropertyForApp($name)
+    {
+        // Resolve properties once
+        if (!is_array($this->properties))
+        {
+            // Get application manifest instance
+            $manifest = $this->getManifest();
+
+            $this->properties = array(
+                'id'       => $this->getId(),
+                'name'     => $manifest->getName(),
+                'provider' => $manifest->getProvider(),
+            );
+        }
+
+        // Invalid property
+        if (!array_key_exists($name, $this->properties))
+            return null;
+
+        return $this->properties[$name];
+    }
+
+
+    /**
      * Get new query instance to search for rows
      * @return object Tinycar\System\Application\Storage\RowQuery instance
      */
@@ -775,13 +759,51 @@ class Application
 
 
     /**
-     * Get specified system property value
-     * @param string $name target property name
-     * @return mixed|null property value or null on failure
+     * Get specified string as variable list, populated with
+     * needed application level variables
+     * @param string $source target source string
+     * @return VariableList
      */
-    public function getSystemProperty($name)
+    public function getStringAsVariableList($source)
     {
-        return Config::get('SYSTEM_'.strtoupper($name));
+        // Get string as variable list instance
+        $list = $this->system->getStringAsVariableList($source);
+
+        // Update values to variables
+        foreach ($list->getVariables() as $var)
+        {
+            switch ($var->getType())
+            {
+                // Locale text
+                case 'locale':
+                    $var->setValue($this->getLocaleText($var->getProperty()));
+                    break;
+
+                // Locale format
+                case 'format':
+                    $var->setValue($this->getLocaleFormat($var->getProperty()));
+                    break;
+
+                // Model property instance
+                case 'model':
+                    $model = $this->getModel();
+                    $var->setValue($model->getPropertyByName($var->getProperty()));
+                    break;
+
+                // URL property
+                case 'url':
+                    $url = $this->getUrlParams();
+                    $var->setValue($url->get($var->getProperty()));
+                    break;
+
+                // Application property
+                case 'app':
+                    $var->setValue($this->getPropertyForApp($var->getProperty()));
+                    break;
+            }
+        }
+
+        return $list;
     }
 
 
@@ -789,66 +811,12 @@ class Application
      * Study specified string and see if we have reference
      * to an internal variable and return the referenced item
      * @param string $source target source string to study
-     * @return mixed referenced value source string on failure
+     * @return mixed referenced value or source string on failure
      */
     public function getStringValue($source)
     {
-        // Try to load variable instnace
-        $variable = Variable::loadByString($source);
-
-        // No variable found, revert to source
-        if (is_null($variable))
-            return $source;
-
-        switch ($variable->getType())
-        {
-            // Locale text
-            case '$locale':
-                return $variable->getAsValue(
-                    $this->getLocaleText($variable->getProperty())
-                );
-
-            // Locale format
-            case '$format':
-                return $variable->getAsValue(
-                    $this->getLocaleFormat($variable->getProperty())
-                );
-
-            // Model property instance
-            case '$model':
-                $model = $this->getModel();
-                return $variable->getAsValue(
-                    $model->getPropertyByName($variable->getProperty())
-                );
-
-            // URL property
-            case '$url':
-                $url = $this->getUrlParams();
-                return $variable->getAsValue(
-                    $url->get($variable->getProperty())
-                );
-
-            // Application property
-            case '$app':
-                return $variable->getAsValue(
-                    $this->getAppProperty($variable->getProperty())
-                );
-
-            // Date property
-            case '$date':
-                return $variable->getAsValue(
-                    $this->getDateProperty($variable->getProperty())
-                );
-
-            // System property
-            case '$system':
-                return $variable->getAsValue(
-                    $this->getSystemProperty($variable->getProperty())
-                );
-        }
-
-        // Revert back to source
-        return $source;
+        $list = $this->getStringAsVariableList($source);
+        return $list->getAsValue();
     }
 
 
@@ -871,7 +839,7 @@ class Application
     /**
      * Get application view by name
      * @param string $name target view name
-     * @return object Tinycar\System\Application\View instance or null on failure
+     * @return View|null
      * @throws Tinycar\Core\Exception
      */
     public function getViewByName($name)

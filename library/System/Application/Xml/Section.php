@@ -8,7 +8,7 @@ use Tinycar\Core\Xml\Data;
 use Tinycar\System\Application;
 use Tinycar\System\Application\Component;
 use Tinycar\System\Application\Model\Property;
-use Tinycar\System\Application\Model\Variable;
+use Tinycar\System\Application\Model\VariableList;
 use Tinycar\System\Application\Storage\Record;
 use Tinycar\System\Application\Xml\Action;
 
@@ -239,24 +239,45 @@ class Section
 
 
     /**
+     * Get specified string as variable list, populated with
+     * needed view level variables
+     * @param string $source target source string
+     * @return VariableList
+     */
+    public function getStringAsVariableList($source)
+    {
+        // Get string as variable list instance
+        $list = $this->app->getStringAsVariableList($source);
+
+        // Update values to variables
+        foreach ($list->getVariables() as $var)
+        {
+            switch ($var->getType())
+            {
+                // Locale text
+
+                // @note: retrieving record intance beforehand has the
+                //        possibility to cause a stack overflow error because
+                //        it uses getStringValue for resolve data record id,
+                //        which is usually $url.id
+
+                case 'data':
+                    $record = $this->getDataRecord();
+                    $var->setValue($record->get($var->getProperty()));
+                    break;
+            }
+        }
+
+        return $list;
+    }
+
+
+    /**
      * @see Tinycar\System\Application::getStringValue()
      */
     public function getStringValue($source)
     {
-        // Try to load variable instnace
-        $variable = Variable::loadByString($source);
-
-        // Data record's property value
-        if (!is_null($variable) && $variable->getType() === '$data')
-        {
-            $record = $this->getDataRecord();
-
-            return $variable->getAsValue(
-                $record->get($variable->getProperty())
-            );
-        }
-
-        // Default to application level
-        return $this->app->getStringValue($source);
+        $list = $this->getStringAsVariableList($source);
+        return $list->getAsValue();
     }
 }

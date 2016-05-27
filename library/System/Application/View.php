@@ -249,5 +249,4 @@ class View extends Section
     {
         return ($this->getName() === 'default');
     }
-
 }
