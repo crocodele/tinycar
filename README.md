@@ -21,8 +21,10 @@ Tinycar is an application to run multiple administration user interfaces that ar
 2. Complete the installation by pointing your web browser to tinycar/public/index.php  
 
 ### Development tools
+- Composer
 - Gulp
 - TypeScript
+- PHPUnit
 
 ### Included integrations
 - jQuery, MIT-license, https://jquery.com/
