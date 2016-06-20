@@ -133,9 +133,9 @@ class ActionList extends Component
         // Go through nodes
         foreach ($this->xdata->getNodes('options/option') as $node)
         {
-            $result[] = array(
+            $item = array(
                 'icon'         => $node->getString('@icon'),
-                'type'         => null,
+                'type'         => $node->getString('@type'),
                 'label'        => $this->getStringValue($node->getString('@label')),
                 'link_path'    => $node->getAttributes('link'),
                 'link_service' => $node->getString('link/service'),
@@ -144,6 +144,13 @@ class ActionList extends Component
                 'service'      => $this->getStringValue($node->getString('@service')),
                 'toast'        => null,
             );
+
+            // Use icon as default type
+            if (!is_string($item['type']))
+                $item['type'] = $item['icon'];
+
+            // Add to list
+            $result[] = $item;
         }
 
         return $result;
